@@ -1,4 +1,4 @@
-                                                                                                                                                              const AuthValidator = require("../utils/Auth.validator");
+const AuthValidator = require("../utils/Auth.validator");
 const formatResponse = require("../utils/formatResponse");
 const UserService = require("../services/User.service");
 const bcrypt = require("bcrypt");
@@ -25,23 +25,23 @@ class AuthController {
   }
 
   static async signUp(req, res) {
-    const { username, email, password } = req.body; 
+    const { username, email, password } = req.body;
 
     const { isValid, error } = AuthValidator.validateSignUp({
       email,
       username,
       password,
-    }); 
+    });
 
     if (!isValid) {
       return res
         .status(400)
         .json(formatResponse(400, "Validation error", null, error));
-    } 
+    }
 
-    const normalizedEmail = email.toLowerCase(); 
+    const normalizedEmail = email.toLowerCase();
     try {
-      const userFound = await UserService.getByEmail(normalizedEmail); 
+      const userFound = await UserService.getByEmail(normalizedEmail);
       if (userFound) {
         return res
           .status(400)
@@ -52,15 +52,15 @@ class AuthController {
               null,
               "User already exist"
             )
-          ); 
+          );
       }
-      const hashedPassword = await bcrypt.hash(password, 10); 
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = await UserService.create({
         username,
         email: normalizedEmail,
         password: hashedPassword,
-      }); 
+      });
 
       if (!newUser) {
         return res
@@ -72,14 +72,14 @@ class AuthController {
               null,
               "Failed to register user"
             )
-          ); 
+          );
       }
 
-      const plainUser = newUser.get({ plain: true }); 
+      const plainUser = newUser.get({ plain: true });
       delete plainUser.password;
       const { accessToken, refreshToken } = await generateTokens({
         user: plainUser,
-      }); 
+      });
 
       res
         .status(201)
@@ -89,7 +89,7 @@ class AuthController {
             user: plainUser,
             accessToken,
           })
-        ); 
+        );
     } catch ({ message }) {
       res
         .status(500)
