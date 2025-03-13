@@ -1,9 +1,9 @@
 import { getAllRolesThunk, getRoleByIdThunk } from "../api";
-import { RoleArrayType } from "../model";
+import { IRole, RoleArrayType } from "../model";
 import { createSlice } from "@reduxjs/toolkit";
 
 type RoleState = {
-  roles: RoleArrayType;
+  roles: IRole[];
   error: string | null;
   isLoading: boolean;
 };
@@ -33,19 +33,19 @@ const rolesSLice = createSlice({
         state.error = action.payload!.error ?? "Unknown error";
       })
 
-      .addCase(getRoleByIdThunk.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getRoleByIdThunk.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        state.roles = [action.payload.data]; // перепроверить
-      })
-      .addCase(getRoleByIdThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload!.error ?? "Unknown error";
-        state.roles = [];
-      });
+      // .addCase(getRoleByIdThunk.pending, (state) => {
+      //   state.isLoading = true;
+      // })
+      // .addCase(getRoleByIdThunk.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.error = null;
+      //   state.roles = action.payload.data; // перепроверить
+      // })
+      // .addCase(getRoleByIdThunk.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.error = action.payload!.error ?? "Unknown error";
+      //   state.roles = [];
+      // });
   },
 });
 

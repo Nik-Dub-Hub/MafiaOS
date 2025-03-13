@@ -32,6 +32,7 @@ export const getRoleByIdThunk = createAsyncThunk<
 >(ROLE_THUNK_TYPES.GET_ROLE_BY_ID, async (id, { rejectWithValue }) => {
   try {
     const { data } = await axiosInstance.get(`${ROLES_ENDPOINT}/${id}`);
+    console.log("Или ТУТ", data);
     return data;
   } catch (error) {
     const err = error as AxiosError<IServerResponse>;
