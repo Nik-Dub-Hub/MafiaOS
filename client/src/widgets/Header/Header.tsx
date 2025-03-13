@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../shared/hooks/reduxHooks';
 import { selectUser } from '../../entities/user/slice/userSlice';
 import Logo from './Logo';
