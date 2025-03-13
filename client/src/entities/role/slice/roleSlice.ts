@@ -1,5 +1,5 @@
 import { getAllRolesThunk } from "../api";
-import { IRole  } from "../model";
+import { IRole } from "../model";
 import { createSlice } from "@reduxjs/toolkit";
 
 type RoleState = {

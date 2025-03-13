@@ -1,5 +1,3 @@
-
-
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -10,6 +8,7 @@ import {
 import { schema } from "./schema";
 import { IUserSignInData, signInThunk } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import { showAlert } from "@/features/alerts";
 
 
 interface SignInFormProps {
@@ -34,29 +33,22 @@ export default function SignInForm({ onClose }: SignInFormProps) {
         const response = await dispatch(signInThunk(data))
 
         if(response.payload?.error){
-            //! Переделать на Alert
-            console.log('Ошибка при входе');
+            dispatch(showAlert({message:'Ошибка при входе',status:'error'}));
             return
         }
 
         if(response.payload?.statusCode === 200){
-            //! Переделать на Alert
-            console.log('Вы успешно вошли в систему');
+            dispatch(showAlert({ message: "Вы успешно вошли в систему",status:'success' }));
             reset()
-
             onClose();
-
         }
     } catch  {
-        //! Переделать на Alert
-        console.log('Не удалось войти');
-        
+        dispatch(showAlert({ message: "Не удалось войти", status: "error" }));        
     }
   };
 
 
-  return (
-        
+  return (     
           <form onSubmit={handleSubmit(onSubmit)}>
             
             <TextField
