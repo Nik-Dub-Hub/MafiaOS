@@ -1,12 +1,20 @@
-const { Player } = require("../db/models");
+const { Player, User, Game, Role } = require("../db/models");
 
 class PlayerService {
   static async getAll() {
-    return await Player.findAll();
+    return await Player.findAll({
+      include: [{ model: User,attributes:['id','username'] }, { model: Game }, { model: Role,attributes:['id','name'] }],
+    });
   }
 
   static async getById(id) {
-    return await Player.findByPk(id);
+    return await Player.findByPk(id, {
+      include: [
+        { model: User, attributes: ["id", "username"] },
+        { model: Game },
+        { model: Role, attributes: ["id", "name"] },
+      ],
+    });
   }
 
   static async create(data) {
@@ -22,7 +30,7 @@ class PlayerService {
     player.role_id = data.role_id;
     player.isAlive = data.isAlive;
     await player.save();
-    return player;
+    return await this.getById(player.id); 
   }
 
   static async delete(id) {
