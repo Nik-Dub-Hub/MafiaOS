@@ -1,19 +1,23 @@
 
+
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   TextField,
   Button,
+
 } from "@mui/material";
 import { schema } from "./schema";
 import { IUserSignInData, signInThunk } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+
 
 interface SignInFormProps {
   onClose: () => void;
 }
 
 export default function SignInForm({ onClose }: SignInFormProps) {
+
    const dispatch = useAppDispatch()
 
   const {
@@ -39,7 +43,9 @@ export default function SignInForm({ onClose }: SignInFormProps) {
             //! Переделать на Alert
             console.log('Вы успешно вошли в систему');
             reset()
+
             onClose();
+
         }
     } catch  {
         //! Переделать на Alert
@@ -74,6 +80,7 @@ export default function SignInForm({ onClose }: SignInFormProps) {
             />
 
             <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+
               Login
             </Button>
           </form>

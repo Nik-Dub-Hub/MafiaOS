@@ -1,9 +1,9 @@
-
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   TextField,
   Button,
+
 } from "@mui/material";
 import { schema } from "./schema";
 import { IUserSignUpData, signUpThunk } from "@/entities/user";
@@ -14,6 +14,7 @@ interface SignUpFormProps {
 }
 
 export default function SignUpForm({ onClose }: SignUpFormProps) {
+
    const dispatch = useAppDispatch()
 
   const {
@@ -39,7 +40,9 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
             //! Переделать на Alert
             console.log('Вы успешно зарегистрированы');
             reset()
+
             onClose(); 
+
         }
     } catch  {
         //! Переделать на Alert
@@ -48,8 +51,8 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
     }
   };
 
-
   return (
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               fullWidth
@@ -84,5 +87,6 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
               Register
             </Button>
           </form>
+
   );
 };
