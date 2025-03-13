@@ -1,12 +1,16 @@
-const { Game } = require("../db/models");
+const { Game , User} = require("../db/models");
 
 class GameService {
   static async getAll() {
-    return await Game.findAll();
+    return await Game.findAll({include:{model: User, 
+      attributes: ['id', 'username']
+    }});
   }
 
   static async getById(id) {
-    return await Game.findByPk(id);
+    return await Game.findByPk(id, {include:{model: User, 
+      attributes: ['id', 'username']
+    }});
   }
 
   static async create(data) {
