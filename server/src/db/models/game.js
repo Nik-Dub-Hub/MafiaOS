@@ -1,11 +1,23 @@
-static async update(id, data) {
-  const game = await this.getById(id);
-  if (!game) {
-    return null;
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Game extends Model {
+    static associate({User, Player }) {
+      Game.belongsTo(User, {foreignKey: 'owner_id'}),
+      Game.hasMany(Player, {foreignKey: 'game_id'})
+    }
   }
-  game.phase = data.phase;
-  game.isReady = data.isReady
-  game.discussionTime = data.discussionTime;
-  await game.save();
-  return game;
-}
+  Game.init({
+    owner_id: DataTypes.INTEGER,
+    phase: DataTypes.STRING,
+    key: DataTypes.STRING,
+    isReady: DataTypes.BOOLEAN,
+    discussionTime: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'Game',
+  });
+  return Game;
+};
