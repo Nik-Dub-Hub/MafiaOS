@@ -90,5 +90,5 @@ import {
     },
   });
   
-  export const gameReducer = gameSlice.reducer;
+  export const gamesReducer = gameSlice.reducer;
   
