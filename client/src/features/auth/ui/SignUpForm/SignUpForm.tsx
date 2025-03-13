@@ -10,21 +10,42 @@ import {
   Container,
 } from "@mui/material";
 import { schema } from "./schema";
-import { IUserSignUpData } from "@/entities/user";
+import { IUserSignUpData, signUpThunk } from "@/entities/user";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 
 export default function SignUpForm() {
    const [open, setOpen] = useState(false);
+   const dispatch = useAppDispatch()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<IUserSignUpData>({
     resolver: yupResolver(schema),mode:'onChange'
   });
 
   const onSubmit:SubmitHandler<IUserSignUpData> = async(data) => {
+    try {
+        const response = await dispatch(signUpThunk(data))
+
+        if(response.payload?.error){
+            //! Переделать на Alert
+            console.log('Ошибка при регистрации');
+            return
+        }
+
+        if(response.payload?.statusCode === 201){
+            //! Переделать на Alert
+            console.log('Вы успешно зарегистрированы');
+            reset()
+        }
+    } catch  {
+        //! Переделать на Alert
+        console.log('Не удалось зарегистрироваться');
         
+    }
   };
 
   const handleOpen = () => setOpen(true);
