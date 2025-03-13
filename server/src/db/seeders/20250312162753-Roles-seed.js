@@ -9,7 +9,7 @@ module.exports = {
       [
         {
           id: 1,
-          name: "Участник",
+          name: "Participant",
           description:
             "Вам выбирается роль.",
         },
