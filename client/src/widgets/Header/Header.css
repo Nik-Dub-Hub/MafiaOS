@@ -31,6 +31,7 @@
     padding: 8px 16px;
     margin: 0 5px;
     overflow: hidden;
+    font-family: Cinzel, serif;
     font-size: 14px;
     color: #ddd;
     text-align: center;
@@ -41,11 +42,6 @@
     background-color: transparent;
     border: none;
     transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-family: 'Cinzel', serif;
-    position: relative;
-    overflow: hidden;
 }
 
 .logout-button::before {
@@ -80,6 +76,7 @@
     padding: 8px 16px;
     margin: 0 5px;
     overflow: hidden;
+    font-family: Cinzel, serif;
     font-size: 14px;
     color: #ddd;
     text-align: center;
@@ -90,11 +87,6 @@
     background-color: transparent;
     border: none;
     transition: all 0.3s ease;
-    text-transform: uppercase;
-    font-family: 'Cinzel', serif;
-    letter-spacing: 0.5px;
-    position: relative;
-    overflow: hidden;
 }
 
 .auth-button::before {
@@ -201,4 +193,47 @@
 .modal-content p {
     font-size: 1.1em;
     line-height: 1.5;
+}
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Вертикальное расположение элементов */
+        padding: 10px; /* Уменьшение отступов */
+    }
+
+    .header-content {
+        flex-direction: column; /* Колонка для элементов внутри заголовка */
+        align-items: flex-start; /* Выровнять элементы по левому краю */
+        width: 100%; /* Полная ширина */
+        margin: 0; /* Убрать отступы */
+    }
+
+    .user-actions,
+    .auth-buttons {
+        width: 100%; /* Элементы занимают всю ширину */
+        justify-content: space-between; /* Пространство между кнопками */
+        margin-top: 10px; /* Отступ сверху */
+    }
+
+    .auth-button, .logout-button, .rules-button {
+        width: 100%; /* Кнопки занимают полную ширину */
+        padding: 12px; /* Увеличить отступ внутри кнопок для удобства */
+        font-size: 16px; /* Увеличить размер текста для удобства чтения */
+    }
+
+    .modal-content {
+        width: 80%; /* Ширина модального окна */
+    }
+
+    .close-button {
+        padding: 15px; /* Увеличение кнопки закрытия */
+        font-size: 32px; /* Увеличение размера текста */
+    }
+
+    .modal-content h2 {
+        font-size: 1.5em; /* Уменьшение размера заголовка */
+    }
+
+    .modal-content p {
+        font-size: 1em; /* Уменьшение размера текста параграфа */
+    }
 }
