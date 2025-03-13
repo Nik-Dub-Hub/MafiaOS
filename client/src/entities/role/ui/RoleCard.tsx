@@ -1,16 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { IRole, RoleArrayType } from "../model";
-import styles from "./RoleCard.module.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Card, CardContent, CardMedia, Button } from '@mui/material';
-import {
-  Info,
-  InfoEyebrow,
-  InfoSubtitle,
-  InfoTitle,
-} from "./mui-treasury/info-basic";
-import { getInfoN04Styles } from "./mui-treasury/info-n04";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { getAllRolesThunk } from "../api";

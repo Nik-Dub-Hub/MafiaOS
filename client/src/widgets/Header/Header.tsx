@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../shared/hooks/reduxHooks';
 import { selectUser } from '../../entities/user/slice/userSlice';
 import Logo from './Logo';
@@ -7,6 +7,7 @@ import { UserAvatar } from '../../entities/user/ui/UserAvatar/UserAvatar';
 import { signOutThunk } from "../../entities/user/api/index";
 import LoginModal from '../../features/modal/LoginModal';
 import RegisterModal from '../../features/modal/RegisterModal';
+import { showAlert } from '@/features/alerts';
 
 //interface HeaderProps {}
 
@@ -24,6 +25,7 @@ export default function Header(): JSX.Element {
 
     const handleLogout = () => {
       dispatch(signOutThunk());
+      dispatch(showAlert({ message: "Вы успешно вышли,до встречи 👋",status:'success' }));
     };
 
     const openLoginModal = () => setIsLoginModalOpen(true);

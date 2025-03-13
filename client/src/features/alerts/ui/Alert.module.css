@@ -11,8 +11,8 @@
 
 .alert {
   display: flex;
-  align-items: center;
   gap: 12px;
+  align-items: center;
   padding: 12px 16px;
   font-size: 14px;
   font-weight: 400;
@@ -20,7 +20,7 @@
   color: white;
   text-align: left;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
   opacity: 0;
   transform: translateY(-100%);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -37,12 +37,12 @@
 }
 
 .alert::before {
-  content: "";
   display: inline-block;
   width: 20px;
   height: 20px;
   font-size: 20px;
   text-align: center;
+  content: "";
 }
 
 .success {
@@ -77,6 +77,7 @@
     opacity: 0;
     transform: translateY(-100%);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -88,6 +89,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(-100%);
