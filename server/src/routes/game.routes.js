@@ -1,16 +1,16 @@
-const router = require('express').Router();
-const GameController = require('../controllers/Game.controller');
-const verifyAccessToken = require('../middleware/verifyAccessToken'); 
+const router = require("express").Router();
+const GameController = require("../controllers/Game.controller");
+const verifyAccessToken = require("../middleware/verifyAccessToken");
 
 router
-  .get('/', GameController.getAllGames)
+  .get("/", GameController.getAllGames)
 
-  .get('/:id',verifyAccessToken, GameController.getGameById)
+  .get("/:id", verifyAccessToken, GameController.getGameById)
 
-  .post('/', verifyAccessToken, GameController.createGame)
+  .post("/", verifyAccessToken, GameController.createGame)
 
-  .put('/:id', verifyAccessToken, GameController.updateGame)
+  .put("/:id", verifyAccessToken, GameController.updateGame)
 
-  .delete('/:id', verifyAccessToken, GameController.deleteGame);
+  .delete("/:id", verifyAccessToken, GameController.deleteGame);
 
 module.exports = router;

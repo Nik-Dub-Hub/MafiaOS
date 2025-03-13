@@ -38,13 +38,13 @@ class UserController {
           .status(400)
           .json(formatResponse(400, "User not found", null, "User not found"));
       }
-      res.status(200).json(formatResponse(200,'success',updateUser))
-    } catch ({message}) {
-        res
-          .status(500)
-          .json(formatResponse(500, "Internal server error", null, message));
+      res.status(200).json(formatResponse(200, "success", updateUser));
+    } catch ({ message }) {
+      res
+        .status(500)
+        .json(formatResponse(500, "Internal server error", null, message));
     }
   }
 }
 
-module.exports = UserController
+module.exports = UserController;

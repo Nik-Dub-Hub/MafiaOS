@@ -1,5 +1,5 @@
-const isValidId=(id)=>{
-    return !isNaN(id)
-}
+const isValidId = (id) => {
+  return !isNaN(id);
+};
 
-module.exports = isValidId
+module.exports = isValidId;
