@@ -18,7 +18,11 @@ module.exports = {
         },
       },
       game_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Games",
+          key: "id",
+        },
       },
       role_id: {
         type: Sequelize.INTEGER,
