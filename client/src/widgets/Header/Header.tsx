@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../shared/hooks/reduxHooks';
 import { selectUser } from '../../entities/user/slice/userSlice';
 import Logo from './Logo';
 import './Header.css';
 import { UserAvatar } from '../../entities/user/ui/UserAvatar/UserAvatar';
 import { signOutThunk } from "../../entities/user/api/index";
+import LoginModal from '../../features/modal/LoginModal';
+import RegisterModal from '../../features/modal/RegisterModal';
+
+//interface HeaderProps {}
 
 export default function Header(): JSX.Element {
     const user = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
 
     const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
     const toggleRulesModal = () => {
         setIsRulesModalOpen(!isRulesModalOpen);
@@ -20,6 +25,13 @@ export default function Header(): JSX.Element {
     const handleLogout = () => {
       dispatch(signOutThunk());
     };
+
+    const openLoginModal = () => setIsLoginModalOpen(true);
+    const closeLoginModal = () => setIsLoginModalOpen(false);
+
+    const openRegisterModal = () => setIsRegisterModalOpen(true);
+    const closeRegisterModal = () => setIsRegisterModalOpen(false);
+
 
     return (
         <header className="header">
@@ -38,12 +50,12 @@ export default function Header(): JSX.Element {
                     </div>
                 ) : (
                     <div className="auth-buttons">
-                        <Link to="/login" className="auth-button">
+                        <button className="auth-button" onClick={openLoginModal}>
                             Войти
-                        </Link>
-                        <Link to="/register" className="auth-button">
+                        </button>
+                        <button className="auth-button" onClick={openRegisterModal}>
                             Регистрация
-                        </Link>
+                        </button>
                     </div>
                 )}
             </div>
@@ -54,12 +66,15 @@ export default function Header(): JSX.Element {
                         <span className="close-button" onClick={toggleRulesModal}>
                             &times;
                         </span>
-                        <h2>Правила игры </h2>
-                        <p>Правило 1: бла бла бла...</p>
-                        <p>Правило 2: бла бла бла...</p>
+                        <h2>Правила игры</h2>
+                        <p>Количество игроков: ...</p>
+                        <p>КОличество фаз: ...</p>
                     </div>
                 </div>
             )}
+
+            <LoginModal open={isLoginModalOpen} onClose={closeLoginModal} />
+            <RegisterModal open={isRegisterModalOpen} onClose={closeRegisterModal} />
         </header>
     );
 }
