@@ -1,15 +1,15 @@
 .container {
   display: flex;
-  align-items: center;
   gap: 20px;
+  align-items: center;
   justify-content: center;
 }
 
 .circle {
   width: 25px;
   height: 25px;
-  border-radius: 50%;
   overflow: hidden;
+  border-radius: 50%;
 }
 
 .avatar {

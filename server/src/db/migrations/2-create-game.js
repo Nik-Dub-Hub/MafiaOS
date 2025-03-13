@@ -27,11 +27,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      isReady: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
       discussionTime: {
         type: Sequelize.INTEGER,
         allowNull: false,

@@ -40,14 +40,47 @@ export default function RoleCard() {
   return (
     <div className={styles.flipCardContainer}>
       <Card
-        className={`${styles.flipCard} ${isOpened ? styles.flipped : ""}`}>    
+        sx={{
+          // textAlign: "center",
+          margin: "0px 30px",
+          backgroundColor: "#222",
+          color: "white",
+          width: "300px",
+          height: "430px",
+          position: "relative",
+          borderRadius: "12px",
+          boxShadow: "0px 14px 80px rgba(34, 35, 58, 0.2)",
+        }}
+        className={`${styles.flipCard} ${isOpened ? styles.flipped : ""}`}
+      >
         {!isOpened ? (
-          <CardContent className={styles.flipCardFront}>
-            <Button color="primary" className="open_closed" onClick={handleOpen}>
-              <VisibilityOffIcon/>
+          <CardContent
+            sx={{
+              padding: "2px 16px",
+              backgroundColor: "#222",
+              borderRadius: "12px",
+              width: "90%",
+              height: "250px",
+            }}
+          >
+            <Button className="open_closed" onClick={handleOpen}>
+              <VisibilityOffIcon
+                sx={{
+                  padding: "0px",
+                  margin: "0px",
+                  backgroundColor: "#222",
+                  color: "gray",
+                }}
+              />
             </Button>
-            <CardMedia className={styles.cardImage}
-              image={"/alt_role.jpg"}/>
+            <CardMedia
+              sx={{
+                backgroundColor: "#222",
+                width: "100%",
+                height: "200px",
+              }}
+              image={"/alt_role.jpg"}
+            />
             <div className="info-content">
               <h3 className={styles.title}>Ваша карточка</h3>
               <h2 className={styles.role}>{selectedRole.name}</h2>
@@ -55,15 +88,38 @@ export default function RoleCard() {
             </div>
           </CardContent>
         ) : (
-          <CardContent className={styles.flipCardFront}>
-            <Button color="primary" className="open_closed" onClick={handleOpen}>
-              <VisibilityIcon />
+          <CardContent
+            sx={{
+              padding: "2px 16px",
+              backgroundColor: "#222",
+              borderRadius: "12px",
+              width: "90%",
+              height: "250px",
+            }}
+          >
+            <Button onClick={handleOpen}>
+              <VisibilityIcon
+                sx={{
+                  padding: "0px",
+                  margin: "0px",
+                  backgroundColor: "#222",
+                  color: "gray",
+                }}
+              />
             </Button>
             <div className={styles.closedCard}>
-              <CardMedia className={styles.closedCardMedia}
+              <CardMedia
+                sx={{
+                  backgroundColor: "#222",
+                  borderRadius: "12px",
+                  width: "auto",
+                  height: "90px",
+                  paddingBottom: "min(100%, 240px)",
+                  
+                }}
                 image={"/рубашка.png"}
               />
-              <h2 className={styles.title}>Игра идет</h2>
+              <h2 className={styles.title}>ИДЕТ ИГРА</h2>
             </div>
           </CardContent>
         )}

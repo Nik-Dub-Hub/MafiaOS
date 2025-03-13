@@ -1,6 +1,5 @@
 const PlayerService = require("../services/Player.service");
 const isValidId = require("../utils/isValidId");
-const PlayerValidator = require("../utils/Player.validator");
 const formatResponse = require("../utils/formatResponse");
 
 class PlayerController {
