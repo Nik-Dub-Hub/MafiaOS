@@ -81,7 +81,7 @@ export default function RoleCard() {
         <Button className="open_eyes" onClick={handleOpen}>
           <VisibilityIcon />
         </Button>
-        <div className="closed_card"><img src="/10157-200x365.jpg"/></div>
+        <div className="closed_card"></div>
       </CardContent>
     </Card>
   </div>
