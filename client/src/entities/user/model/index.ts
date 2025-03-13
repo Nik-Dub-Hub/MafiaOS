@@ -5,7 +5,6 @@ export interface IUserSignInData {
 
 export interface IUserSignUpData extends IUserSignInData {
   username: string;
-  img:string;
 }
 
 export interface IUserUpdateData {
