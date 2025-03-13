@@ -39,6 +39,7 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-family: 'Cinzel', serif;
     position: relative;
     overflow: hidden;
 }
@@ -82,6 +83,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
+    font-family: 'Cinzel', serif;
     letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
