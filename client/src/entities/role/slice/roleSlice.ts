@@ -31,21 +31,21 @@ const rolesSLice = createSlice({
       .addCase(getAllRolesThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload!.error ?? "Unknown error";
-      })
+      });
 
-      // .addCase(getRoleByIdThunk.pending, (state) => {
-      //   state.isLoading = true;
-      // })
-      // .addCase(getRoleByIdThunk.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = null;
-      //   state.roles = action.payload.data; // перепроверить
-      // })
-      // .addCase(getRoleByIdThunk.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = action.payload!.error ?? "Unknown error";
-      //   state.roles = [];
-      // });
+    // .addCase(getRoleByIdThunk.pending, (state) => {
+    //   state.isLoading = true;
+    // })
+    // .addCase(getRoleByIdThunk.fulfilled, (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = null;
+    //   state.roles = action.payload.data; // перепроверить
+    // })
+    // .addCase(getRoleByIdThunk.rejected, (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload!.error ?? "Unknown error";
+    //   state.roles = [];
+    // });
   },
 });
 

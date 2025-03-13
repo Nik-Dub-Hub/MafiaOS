@@ -1,4 +1,4 @@
-export { gameReducer } from "./slice/gameSlice";
+export { gamesReducer } from "./slice/gameSlice";
 
 export {
   setGameThunk,
