@@ -1,20 +1,20 @@
-import  { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  Modal,
-  Box,
-  Typography,
   TextField,
   Button,
-  Container,
+
 } from "@mui/material";
 import { schema } from "./schema";
 import { IUserSignUpData, signUpThunk } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 
-export default function SignUpForm() {
-   const [open, setOpen] = useState(false);
+interface SignUpFormProps {
+  onClose: () => void;
+}
+
+export default function SignUpForm({ onClose }: SignUpFormProps) {
+
    const dispatch = useAppDispatch()
 
   const {
@@ -40,6 +40,9 @@ export default function SignUpForm() {
             //! Переделать на Alert
             console.log('Вы успешно зарегистрированы');
             reset()
+
+            onClose(); 
+
         }
     } catch  {
         //! Переделать на Alert
@@ -48,32 +51,7 @@ export default function SignUpForm() {
     }
   };
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
-    <Container>
-      <Button variant="contained" onClick={handleOpen}>
-        Open Registration Form
-      </Button>
-
-      <Modal open={open} onClose={handleClose}>
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 2,
-          }}
-        >
-          <Typography variant="h6" component="h2" gutterBottom>
-            Registration Form
-          </Typography>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
@@ -109,9 +87,6 @@ export default function SignUpForm() {
               Register
             </Button>
           </form>
-        </Box>
-      </Modal>
-    </Container>
+
   );
 };
-

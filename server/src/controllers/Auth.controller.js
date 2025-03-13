@@ -26,42 +26,42 @@ class AuthController {
 
   static async signUp(req, res) {
     const { username, email, password } = req.body;
-
     const { isValid, error } = AuthValidator.validateSignUp({
       email,
       username,
       password,
     });
-
+    
     if (!isValid) {
       return res
-        .status(400)
-        .json(formatResponse(400, "Validation error", null, error));
+      .status(400)
+      .json(formatResponse(400, "Validation error", null, error));
     }
-
+    
     const normalizedEmail = email.toLowerCase();
     try {
       const userFound = await UserService.getByEmail(normalizedEmail);
+ 
       if (userFound) {
         return res
-          .status(400)
-          .json(
-            formatResponse(
-              400,
-              "User already exist",
-              null,
-              "User already exist"
-            )
+        .status(400)
+        .json(
+          formatResponse(
+            400,
+            "User already exist",
+            null,
+            "User already exist"
+          )
           );
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-
+console.log(hashedPassword, '=========================')
       const newUser = await UserService.create({
         username,
         email: normalizedEmail,
         password: hashedPassword,
       });
-
+      console.log(newUser, '==================================')
       if (!newUser) {
         return res
           .status(400)

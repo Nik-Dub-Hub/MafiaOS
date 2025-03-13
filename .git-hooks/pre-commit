@@ -25,6 +25,7 @@ npm run lint || {
     exit 1
 }
 
+
 # Проверка и исправление стилей CSS
 echo "🎨 Проверка CSS файлов..."
 npx stylelint "**/*.css" --ignore-path .stylelintignore --fix || {
@@ -32,6 +33,7 @@ npx stylelint "**/*.css" --ignore-path .stylelintignore --fix || {
     cd "$CURRENT_DIR"
     exit 1
 }
+
 
 # Сборка проекта
 echo "🏗️ Сборка проекта..."
