@@ -194,7 +194,8 @@
     font-size: 1.1em;
     line-height: 1.5;
 }
-@media (max-width: 768px) {
+
+@media (width <= 768px) {
     .header {
         flex-direction: column; /* Вертикальное расположение элементов */
         padding: 10px; /* Уменьшение отступов */
@@ -209,8 +210,8 @@
 
     .user-actions,
     .auth-buttons {
-        width: 100%; /* Элементы занимают всю ширину */
         justify-content: space-between; /* Пространство между кнопками */
+        width: 100%; /* Элементы занимают всю ширину */
         margin-top: 10px; /* Отступ сверху */
     }
 

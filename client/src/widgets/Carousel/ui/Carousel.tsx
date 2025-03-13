@@ -1,4 +1,3 @@
-import React from "react";
 import { useCarousel } from "../lib/useCarousel";
 import styles from "./Carousel.module.css";
 import { CarouselProps } from "../model";
@@ -8,7 +7,7 @@ export const Carousel = ({
   interval = 5000,
   className,
 }: CarouselProps) => {
-  const { activeIndex, nextSlide, prevSlide } = useCarousel(images, interval);
+  const { activeIndex} = useCarousel(images, interval);
 
   return (
     <div className={`${styles.carousel} ${className}`}>

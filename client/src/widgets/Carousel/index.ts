@@ -1,2 +1,2 @@
 export { Carousel } from "./ui/Carousel";
-export type { CarouselProps } from "./model/types";
+export type { CarouselProps } from "./model";
