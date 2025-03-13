@@ -3,6 +3,7 @@ import { rolesReducer } from "@/entities/role";
 import { userReducer } from "@/entities/user";
 import { configureStore } from "@reduxjs/toolkit";
 import { gameReducer } from "@/entities/game";
+import { alertsReducer } from "@/features/alerts";
 
 const store = configureStore({
     reducer:{
@@ -10,7 +11,7 @@ const store = configureStore({
         players: playersReducer,
         roles: rolesReducer,
         game: gameReducer,
-
+        alerts: alertsReducer,
     }
 }) 
 
