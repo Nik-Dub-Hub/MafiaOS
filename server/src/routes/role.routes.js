@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const RoleController = require("../controllers/Role.controller.js");
+const RoleController = require("../controllers/Role.controller");
 
 router
   .get("/", RoleController.getAllRoles)

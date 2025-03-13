@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+.header {
+    background-color: #222;
+    color: #e0cba8;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-family: 'Cinzel', serif;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.logout-button {
+    background-color: transparent;
+    border: none;
+    color: #ddd;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Cinzel', serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.logout-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #fdd835;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.logout-button:hover {
+    color: white;
+}
+
+.logout-button:hover::before {
+    transform: scaleX(1);
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.auth-button {
+    background-color: transparent;
+    border: none;
+    color: #ddd;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #fdd835;
+    transform: scaleX(0); 
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.auth-button:hover {
+    color: white;
+}
+
+.auth-button:hover::before {
+    transform: scaleX(1);
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-left: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.rules-button {
+    background-color: transparent;
+    border: none;
+    color: #e0cba8;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    line-height: 1.2;
+    transition: all 0.3s ease;
+}
+
+.rules-button:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #333;
+    margin: 15px;
+    padding: 20px;
+    border: 1px solid #555;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+    border-radius: 8px;
+    color: #ddd;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    color: #e0cba8;
+}
+
+.close-button:hover {
+    color: white;
+}
+
+
+.modal-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #e0cba8;
+}
+
+.modal-content p {
+    font-size: 1.1em;
+    line-height: 1.5;
+}

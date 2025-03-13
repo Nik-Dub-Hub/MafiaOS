@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../model";
 import { refreshTokensThunk, signInThunk, signOutThunk, signUpThunk, updateUserThunk } from "../api";
+import { RootState } from "../../../app/store/store";
 
 
 type UserState = {
@@ -94,3 +95,4 @@ const userSlice = createSlice({
 });
 
 export const userReducer = userSlice.reducer;
+export const selectUser = (state: RootState) => state.user.user;
