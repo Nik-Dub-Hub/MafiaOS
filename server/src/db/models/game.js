@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     owner_id: DataTypes.INTEGER,
     phase: DataTypes.STRING,
     key: DataTypes.STRING,
-    isReady: DataTypes.BOOLEAN,
     discussionTime: DataTypes.INTEGER
   }, {
     sequelize,

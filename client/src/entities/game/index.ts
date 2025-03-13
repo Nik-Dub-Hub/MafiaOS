@@ -1,0 +1,10 @@
+export { gameReducer } from "./slice/gameSlice";
+
+export {
+  setGameThunk,
+  addGameThunk,
+  updateGameThunk,
+  deleteGameThunk,
+} from "./api";
+
+export type { IGameAddData, IGame, GameArrayType, IGameUpdeteData} from "./model";

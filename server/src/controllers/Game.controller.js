@@ -48,7 +48,7 @@ class GameController {
   }
 
   static async createGame(req, res) {
-    const { phase, key, isReady, discussionTime } = req.body;
+    const { phase, key, discussionTime } = req.body;
 
     const { user } = res.locals;
 
@@ -56,7 +56,6 @@ class GameController {
       phase,
       discussionTime,
       key,
-      isReady,
     });
     if (!isValid) {
       return res
@@ -66,9 +65,8 @@ class GameController {
     try {
       const newGame = await GameService.create({
         owner_id: user.id,
-        phase,
+        phase : 'waiting',
         key,
-        isReady,
         discussionTime,
       });
 

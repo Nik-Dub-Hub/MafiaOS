@@ -1,12 +1,13 @@
 import { rolesReducer } from "@/entities/role";
 import { userReducer } from "@/entities/user";
 import { configureStore } from "@reduxjs/toolkit";
-
+import { gameReducer } from "@/entities/game";
 
 const store = configureStore({
     reducer:{
         user: userReducer,
         roles: rolesReducer,
+        game: gameReducer,
     }
 }) 
 
