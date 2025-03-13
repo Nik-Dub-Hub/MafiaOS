@@ -1,5 +1,5 @@
-const reformatId=(id)=>{
-    return Number(id)
-}
+const reformatId = (id) => {
+  return Number(id);
+};
 
-module.exports = reformatId
+module.exports = reformatId;

@@ -13,18 +13,17 @@ class PlayerService {
     const player = await Player.create(data);
     return await this.getById(player.id);
   }
-game
-static async update(id, data) {
-  const player = await this.getById(id);
-  if (!player) {
-    return null;
-  }
-  player.role_id = data.role_id;
-  player.isAlive = data.isAlive;
-  await player.save();
-  return player;
-}
 
+  static async update(id, data) {
+    const player = await this.getById(id);
+    if (!player) {
+      return null;
+    }
+    player.role_id = data.role_id;
+    player.isAlive = data.isAlive;
+    await player.save();
+    return player;
+  }
 
   static async delete(id) {
     const player = await this.getById(id);
