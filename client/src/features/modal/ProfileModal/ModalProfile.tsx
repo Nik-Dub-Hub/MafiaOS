@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/reduxHooks';
 import { updateUserThunk } from '@/entities/user';
 import { selectUser} from '@/entities/user/slice/userSlice';
 import styles from './ModalProfile.module.css';
-import { Alert } from '../../shared/ui/Alert/Alert';
-import { reformatId } from '../../shared/lib/reformatId'; 
+import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
+import { reformatId } from '@/shared/lib/reformatId';
+import { showAlert } from '@/features/alerts';
 
 interface ModalProfileProps {
     isOpen: boolean;
@@ -17,7 +17,7 @@ const ModalProfile: React.FC<ModalProfileProps> = ({ isOpen, onClose }) => {
     const [isEditNameVisible, setIsEditNameVisible] = useState(false);
     const [newUsername, setNewUsername] = useState('');
     const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
-    const [alert, setAlert] = useState<{message:string,type:'success'|'error'|'warning'} | null>(null);
+
 
 
     const handleEditNameClick = () => {
@@ -31,23 +31,43 @@ const ModalProfile: React.FC<ModalProfileProps> = ({ isOpen, onClose }) => {
 
     const handleSaveName = async () => {
         if (!user?.id) {
-            setAlert({message: 'User ID not found', type: 'error'});
+            dispatch(showAlert({message: 'User ID not found', status: 'error'}));
             return;
         }
-
+        
         if(newUsername.trim() === ''){
-            setAlert({message: 'Username can not be empty', type:'error'});
+            dispatch(
+                showAlert({
+                    message: "Username can not be empty",
+                    status: "error",
+                })
+            );
             return;
         }
-
+        
         const userId = reformatId(user.id);
         console.log("Dispatching update with:", { id: userId, updateData: { username: newUsername } });
         try {
             await dispatch(updateUserThunk({ id: userId, updateData: { username: newUsername } })).unwrap();
             setIsEditNameVisible(false);
+<<<<<<< HEAD
             setAlert({message: 'Username updated successfully', type: 'success'});
         } catch  {
           setAlert({message: 'Failed to update username', type: 'error'});
+=======
+            dispatch(
+              showAlert({
+                message: "Username updated successfully",
+                status: "success",
+              })
+            );
+        } catch  {
+            dispatch(
+              showAlert({
+                message: 'Failed to update username',
+                status: "error",
+              }))
+>>>>>>> dev
         }
     };
 
@@ -90,7 +110,6 @@ const ModalProfile: React.FC<ModalProfileProps> = ({ isOpen, onClose }) => {
                     &times;
                 </span>
                 <h2>Профиль</h2>
-                {alert && <Alert type={alert.type} message={alert.message} />}
                 <button className={styles.profileButton} onClick={handleEditNameClick}>
                     Изменить имя
                 </button>
