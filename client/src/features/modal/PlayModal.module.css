@@ -4,26 +4,26 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    font-family: 'Cinzel', serif;
+    font-family: Cinzel, serif;
+    background-color: rgb(0 0 0 / 80%);
 }
 
 .modalContent {
-    background-color: #333;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.9);
+    position: relative;
     width: 80%;
     max-width: 500px;
-    position: relative;
+    padding: 30px;
     color: #ddd;
     text-align: center;
+    background-color: #333;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgb(0 0 0 / 90%);
 }
 
 .closeButton {
@@ -31,8 +31,8 @@
     top: 15px;
     right: 15px;
     font-size: 30px;
-    cursor: pointer;
     color: #bbb;
+    cursor: pointer;
     transition: color 0.2s;
 }
 
@@ -45,13 +45,13 @@
     width: 100%;
     padding: 15px;
     margin-bottom: 20px;
+    font-size: 18px;
+    color: #eee;
+    text-align: center;
+    cursor: pointer;
+    background-color: #555;
     border: none;
     border-radius: 8px;
-    background-color: #555;
-    color: #eee;
-    cursor: pointer;
-    text-align: center;
-    font-size: 18px;
     transition: background-color 0.3s;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .playButton:disabled {
-    background-color: #444;
     color: #888;
     cursor: not-allowed;
+    background-color: #444;
 }
