@@ -5,12 +5,14 @@ import { schema } from "./schema";
 import { IUserSignUpData, signUpThunk } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { showAlert } from "@/features/alerts";
+import { useEffect } from "react";
 
 interface SignUpFormProps {
   onClose: () => void;
+  openLoginModal: () => void
 }
 
-export default function SignUpForm({ onClose }: SignUpFormProps) {
+export default function SignUpForm({ onClose, openLoginModal }: SignUpFormProps) {
   const dispatch = useAppDispatch();
 
   const {
@@ -18,10 +20,23 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
     handleSubmit,
     formState: { errors },
     reset,
+    trigger,
+    watch
   } = useForm<IUserSignUpData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+
+  const username = watch("username");
+  const email = watch("email");
+  const password = watch("password");
+
+   useEffect(() => {
+     const debounceTimeout = setTimeout(() => {
+       trigger(["username", "email", "password"]); 
+     }, 2000); 
+     return () => clearTimeout(debounceTimeout); 
+   }, [username, email, password, trigger]);
 
   const onSubmit: SubmitHandler<IUserSignUpData> = async (data) => {
     try {
@@ -63,6 +78,25 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
         error={!!errors.username}
         helperText={errors.username?.message}
         margin="normal"
+        sx={{
+          background: "gray",
+          borderRadius: "12px",
+          color: "",
+          "& .MuiInputLabel-root": {
+            color: "white",
+          },
+          "&:hover fieldset": {
+            borderColor: "green",
+            borderWidth: "2px",
+            borderRadius: "12px",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderRadius: "8px",
+              borderWidth: "2px",
+            },
+          },
+        }}
       />
 
       <TextField
@@ -73,6 +107,25 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
         error={!!errors.email}
         helperText={errors.email?.message}
         margin="normal"
+        sx={{
+          background: "gray",
+          borderRadius: "12px",
+          color: "yellow",
+          "& .MuiInputLabel-root": {
+            color: "white",
+          },
+          "&:hover fieldset": {
+            borderColor: "green",
+            borderWidth: "2px",
+            borderRadius: "12px",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderRadius: "8px",
+              borderWidth: "2px",
+            },
+          },
+        }}
       />
 
       <TextField
@@ -83,9 +136,34 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
         error={!!errors.password}
         helperText={errors.password?.message}
         margin="normal"
+        sx={{
+          background: "gray",
+          borderRadius: "12px",
+          "& .MuiInputLabel-root": {
+            color: "white",
+          },
+          "&:hover fieldset": {
+            borderColor: "green",
+            borderWidth: "2px",
+            borderRadius: "12px",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderRadius: "8px",
+              borderWidth: "2px",
+            },
+          },
+        }}
       />
-
-      <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+      <div>
+        <span>Есть учетная запись?</span>{" "}
+        <span onClick={()=>{onClose();openLoginModal()}} style={{ color: "gold" }}>Войти</span>
+      </div>
+      <Button
+        type="submit"
+        variant="contained"
+        sx={{ mt: 2, width: "100%", background: "#E1CC4F", color: "#343E40" }}
+      >
         Register
       </Button>
     </form>

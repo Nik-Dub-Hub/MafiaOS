@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './PlayModal.module.css';
+import { useNavigate } from 'react-router';
+import { CLIENT_ROUTES } from '@/shared/enums/clientRoutes';
 
 interface PlayModalProps {
     isOpen: boolean;
@@ -7,6 +9,7 @@ interface PlayModalProps {
 }
 
 const PlayModal: React.FC<PlayModalProps> = ({ isOpen, onClose }) => {
+    const navigate = useNavigate()
     if (!isOpen) {
         return null;
     }
@@ -20,7 +23,7 @@ const PlayModal: React.FC<PlayModalProps> = ({ isOpen, onClose }) => {
                 <button className={styles.playButton}>
                     Создать игру
                 </button>
-                <button className={styles.playButton}>
+                <button className={styles.playButton} onClick={()=> navigate(CLIENT_ROUTES.CHOICE_PAGE)}>
                     Присоединиться к игре
                 </button>
             </div>

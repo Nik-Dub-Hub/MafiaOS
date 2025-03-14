@@ -19,6 +19,7 @@ const ModalProfile: React.FC<ModalProfileProps> = ({ isOpen, onClose }) => {
     const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
     const [alert, setAlert] = useState<{message:string,type:'success'|'error'|'warning'} | null>(null);
 
+
     const handleEditNameClick = () => {
         setIsEditNameVisible(true);
         setNewUsername(user?.username || '');
@@ -45,8 +46,8 @@ const ModalProfile: React.FC<ModalProfileProps> = ({ isOpen, onClose }) => {
             await dispatch(updateUserThunk({ id: userId, updateData: { username: newUsername } })).unwrap();
             setIsEditNameVisible(false);
             setAlert({message: 'Username updated successfully', type: 'success'});
-        } catch {
-          setAlert({message:'Failed to update username', type: 'error'});
+        } catch  {
+          setAlert({message: 'Failed to update username', type: 'error'});
         }
     };
 

@@ -11,7 +11,6 @@ export function UserAvatar({ user }: Props) {
       <div className={styles.circle}>
         <img className={styles.avatar} src="/user.jpg" alt={user.username} />
       </div>
-      <span>{user.username}</span>
     </div>
   );
 }
