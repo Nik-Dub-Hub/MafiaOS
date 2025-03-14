@@ -8,9 +8,10 @@ import { showAlert } from "@/features/alerts";
 
 interface SignUpFormProps {
   onClose: () => void;
+  openLoginModal: () => void
 }
 
-export default function SignUpForm({ onClose }: SignUpFormProps) {
+export default function SignUpForm({ onClose, openLoginModal }: SignUpFormProps) {
   const dispatch = useAppDispatch();
 
   const {
@@ -63,6 +64,25 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
         error={!!errors.username}
         helperText={errors.username?.message}
         margin="normal"
+        sx={{
+          background: "gray",
+          borderRadius: "12px",
+          color: "",
+          "& .MuiInputLabel-root": {
+            color: "white",
+          },
+          "&:hover fieldset": {
+            borderColor: "green",
+            borderWidth: "2px",
+            borderRadius: "12px",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderRadius: "8px",
+              borderWidth: "2px",
+            },
+          },
+        }}
       />
 
       <TextField
@@ -73,6 +93,25 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
         error={!!errors.email}
         helperText={errors.email?.message}
         margin="normal"
+        sx={{
+          background: "gray",
+          borderRadius: "12px",
+          color: "yellow",
+          "& .MuiInputLabel-root": {
+            color: "white",
+          },
+          "&:hover fieldset": {
+            borderColor: "green",
+            borderWidth: "2px",
+            borderRadius: "12px",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderRadius: "8px",
+              borderWidth: "2px",
+            },
+          },
+        }}
       />
 
       <TextField
@@ -83,9 +122,34 @@ export default function SignUpForm({ onClose }: SignUpFormProps) {
         error={!!errors.password}
         helperText={errors.password?.message}
         margin="normal"
+        sx={{
+          background: "gray",
+          borderRadius: "12px",
+          "& .MuiInputLabel-root": {
+            color: "white",
+          },
+          "&:hover fieldset": {
+            borderColor: "green",
+            borderWidth: "2px",
+            borderRadius: "12px",
+          },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderRadius: "8px",
+              borderWidth: "2px",
+            },
+          },
+        }}
       />
-
-      <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+      <div>
+        <span>Есть учетная запись?</span>{" "}
+        <span onClick={()=>{onClose();openLoginModal()}} style={{ color: "gold" }}>Войти</span>
+      </div>
+      <Button
+        type="submit"
+        variant="contained"
+        sx={{ mt: 2, width: "100%", background: "#E1CC4F", color: "#343E40" }}
+      >
         Register
       </Button>
     </form>
