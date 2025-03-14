@@ -12,6 +12,8 @@ export function MainPage() {
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch()
   
+
+
   const handlePlayClick = () => {
     setIsPlayModalOpen(true);
   };
@@ -28,6 +30,7 @@ export function MainPage() {
   ];
 
   return (
+    
     <div className={style.container}>
       <h4>Инновационное веб-приложение для захватывающей игры с друзьями</h4>
       <div className={style.buttonContainer}>
