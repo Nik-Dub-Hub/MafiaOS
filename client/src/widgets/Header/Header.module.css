@@ -11,7 +11,9 @@
     box-shadow: 0 2px 5px rgb(0 0 0 / 30%);
 }
 
-.header-content {
+
+
+.headerContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,31 +22,16 @@
     margin: 0 auto;
 }
 
-.user-actions {
+.userActions {
     display: flex;
     align-items: center;
 }
 
-.logout-button {
-    position: relative;
-    display: inline-block;
-    padding: 8px 16px;
-    margin: 0 5px;
-    overflow: hidden;
-    font-family: Cinzel, serif;
-    font-size: 14px;
-    color: #ddd;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    text-decoration: none;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    transition: all 0.3s ease;
+.logoutButton {
+    height: 90%;
 }
 
-.logout-button::before {
+.logoutButton::before {
     position: absolute;
     top: 0;
     left: 0;
@@ -57,39 +44,24 @@
     transition: transform 0.3s ease;
 }
 
-.logout-button:hover {
+.logoutButton:hover {
     color: white;
 }
 
-.logout-button:hover::before {
+.logoutButton:hover::before {
     transform: scaleX(1);
 }
 
-.auth-buttons {
+.authButtons {
     display: flex;
     align-items: center;
 }
 
-.auth-button {
-    position: relative;
-    display: inline-block;
-    padding: 8px 16px;
-    margin: 0 5px;
-    overflow: hidden;
-    font-family: Cinzel, serif;
-    font-size: 14px;
-    color: #ddd;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    text-decoration: none;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    transition: all 0.3s ease;
+.authButton {
+    height: 120%;
 }
 
-.auth-button::before {
+.authButton::before {
     position: absolute;
     top: 0;
     left: 0;
@@ -102,11 +74,11 @@
     transition: transform 0.3s ease;
 }
 
-.auth-button:hover {
+.authButton:hover {
     color: white;
 }
 
-.auth-button:hover::before {
+.authButton:hover::before {
     transform: scaleX(1);
 }
 
@@ -119,25 +91,13 @@
     border-radius: 50%;
 }
 
-.rules-button {
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    padding: 6px 10px;
-    margin-right: 10px;
-    font-size: 16px;
-    line-height: 1.2;
-    color: #e0cba8;
-    text-align: center;
-    text-decoration: none;
+.rulesButton {
+    height: 90%;
     cursor: pointer;
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
     transition: all 0.3s ease;
 }
 
-.rules-button:hover {
+.rulesButton:hover {
     color: white;
     background-color: rgb(255 255 255 / 10%);
 }
@@ -156,7 +116,7 @@
     background-color: rgb(0 0 0 / 70%);
 }
 
-.modal-content {
+.modalContent {
     position: relative;
     width: 80%;
     max-width: 800px;
@@ -168,7 +128,7 @@
     border-radius: 8px;
 }
 
-.close-button {
+.closeButton {
     position: absolute;
     top: 0;
     right: 0;
@@ -179,62 +139,63 @@
     cursor: pointer;
 }
 
-.close-button:hover {
+.closeButton:hover {
     color: white;
 }
 
 
-.modal-content h2 {
+.modalContent h2 {
     margin-bottom: 15px;
     font-size: 1.8em;
     color: #e0cba8;
 }
 
-.modal-content p {
+.modalContent p {
     font-size: 1.1em;
     line-height: 1.5;
 }
 
 @media (width <= 768px) {
     .header {
-        flex-direction: column; /* Вертикальное расположение элементов */
+        flex-direction: column; /*Вертикальное расположение элементов*/
         padding: 10px; /* Уменьшение отступов */
     }
 
-    .header-content {
-        flex-direction: column; /* Колонка для элементов внутри заголовка */
+    .headerContent {
+        /* flex-direction: column; Колонка для элементов внутри заголовка */
         align-items: flex-start; /* Выровнять элементы по левому краю */
         width: 100%; /* Полная ширина */
         margin: 0; /* Убрать отступы */
     }
 
-    .user-actions,
-    .auth-buttons {
+    .userActions,
+    .authButtons {
         justify-content: space-between; /* Пространство между кнопками */
-        width: 100%; /* Элементы занимают всю ширину */
+        width: 50%; /* Элементы занимают всю ширину */
         margin-top: 10px; /* Отступ сверху */
+        height: 30px;
     }
 
-    .auth-button, .logout-button, .rules-button {
+    .authButton, .logoutButton, .rulesButton {
         width: 100%; /* Кнопки занимают полную ширину */
-        padding: 12px; /* Увеличить отступ внутри кнопок для удобства */
+        padding: 12px; /*Увеличить отступ внутри кнопок для удобства*/
         font-size: 16px; /* Увеличить размер текста для удобства чтения */
     }
 
-    .modal-content {
+    .modalContent {
         width: 80%; /* Ширина модального окна */
     }
 
-    .close-button {
+    .closeButton {
         padding: 15px; /* Увеличение кнопки закрытия */
         font-size: 32px; /* Увеличение размера текста */
     }
 
-    .modal-content h2 {
+    .modalContent h2 {
         font-size: 1.5em; /* Уменьшение размера заголовка */
     }
 
-    .modal-content p {
+    .modalContent p {
         font-size: 1em; /* Уменьшение размера текста параграфа */
     }
 }
