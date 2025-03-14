@@ -24,14 +24,27 @@ class UserController {
           );
       }
 
-      const updateUser = await UserService.update(reformatId(id), {
-        username,
-        img,
-        civilianCount,
-        mafiaCount,
-        doctorCount,
-        ladyCount,
-      });
+      const updateData = {};
+      if (username !== undefined) {
+        updateData.username = username;
+      }
+      if (img !== undefined) {
+        updateData.img = img;
+      }
+      if (civilianCount !== undefined) {
+        updateData.civilianCount = civilianCount;
+      }
+      if (mafiaCount !== undefined) {
+        updateData.mafiaCount = mafiaCount;
+      }
+      if (doctorCount !== undefined) {
+        updateData.doctorCount = doctorCount;
+      }
+      if (ladyCount !== undefined) {
+        updateData.ladyCount = ladyCount;
+      }
+
+      const updateUser = await UserService.update(reformatId(id), updateData);
 
       if (!updateUser) {
         return res
