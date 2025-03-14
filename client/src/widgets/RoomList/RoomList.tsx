@@ -11,9 +11,7 @@ import Typography from "@mui/material/Typography";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import TextField from "@mui/material/TextField";
 import Groups2Icon from "@mui/icons-material/Groups2";
-import { RootState } from "@/app/store/store";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useState, useEffect } from "react";
 import { setGameThunk } from "@/entities/game";
 import { useNavigate } from "react-router";
@@ -26,7 +24,7 @@ export default function RoomList() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [input, setInput] = useState({keys: ""});
-  const games = useSelector((state: RootState) => state.games.games);
+  const games = useAppSelector((state) => state.games.games);
 
   useEffect(() => {
     dispatch(setGameThunk());
@@ -38,7 +36,7 @@ export default function RoomList() {
 
   const handleNavigate = (id: number) => {
     //дописать путь
-    navigate(`/game/:${id}`);
+    navigate(`/game/${id}`);
   };
 
   return (

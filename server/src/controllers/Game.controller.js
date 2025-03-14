@@ -48,20 +48,10 @@ class GameController {
   }
 
   static async createGame(req, res) {
-    const { phase, key, discussionTime } = req.body;
+    const {key, discussionTime } = req.body;
 
     const { user } = res.locals;
 
-    const { isValid, error } = GameValidator.validate({
-      phase,
-      discussionTime,
-      key,
-    });
-    if (!isValid) {
-      return res
-        .status(400)
-        .json(formatResponse(400, "Validation error", null, error));
-    }
     try {
       const newGame = await GameService.create({
         owner_id: user.id,

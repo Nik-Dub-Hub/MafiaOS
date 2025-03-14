@@ -7,12 +7,11 @@ import { useEffect } from "react";
 import { Outlet } from "react-router";
 
 export default function Layout() {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-   dispatch(refreshTokensThunk());
- }, [dispatch]);
-
+    dispatch(refreshTokensThunk());
+  }, [dispatch]);
   return (
     <>
       <Header/>
