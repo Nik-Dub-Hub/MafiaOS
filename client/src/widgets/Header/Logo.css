@@ -2,9 +2,11 @@
 
 .mafia-logo {
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.3em 0.5em;
+    display: flex; /* Используем flex для растягивания на всю ширину */
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    align-items: center; /* Центрируем содержимое по вертикали */
+    width: 100%; /* Логотип занимает всю ширину */
+    padding: 0.3em 0.5em; /* Отступы внутри логотипа */
     overflow: hidden;
     font-family: Cinzel, serif;
     font-size: 1.6em;
@@ -48,7 +50,6 @@
     font-weight: 700;
     color: #fdd835;
 }
-
 
 .mafia-logo .hat-icon {
     position: relative;
