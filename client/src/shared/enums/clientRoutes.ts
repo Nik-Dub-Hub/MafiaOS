@@ -5,4 +5,5 @@ export enum CLIENT_ROUTES {
   NOT_FOUND = "*",
   ROLE_CARD = '/role',
   CHOICE_PAGE = '/config',
+  TOOWIDE_PAGE = '/tooWide',
 }
