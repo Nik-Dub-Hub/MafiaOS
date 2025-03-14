@@ -197,44 +197,44 @@
 
 @media (width <= 768px) {
     .header {
-        flex-direction: column; /* Вертикальное расположение элементов */
-        padding: 10px; /* Уменьшение отступов */
+        flex-direction: column;
+        padding: 10px;
     }
 
     .header-content {
-        flex-direction: column; /* Колонка для элементов внутри заголовка */
-        align-items: flex-start; /* Выровнять элементы по левому краю */
-        width: 100%; /* Полная ширина */
-        margin: 0; /* Убрать отступы */
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin: 0;
     }
 
     .user-actions,
     .auth-buttons {
-        justify-content: space-between; /* Пространство между кнопками */
-        width: 100%; /* Элементы занимают всю ширину */
-        margin-top: 10px; /* Отступ сверху */
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
     }
 
     .auth-button, .logout-button, .rules-button {
-        width: 100%; /* Кнопки занимают полную ширину */
-        padding: 12px; /* Увеличить отступ внутри кнопок для удобства */
-        font-size: 16px; /* Увеличить размер текста для удобства чтения */
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
     }
 
     .modal-content {
-        width: 80%; /* Ширина модального окна */
+        width: 80%;
     }
 
     .close-button {
-        padding: 15px; /* Увеличение кнопки закрытия */
-        font-size: 32px; /* Увеличение размера текста */
+        padding: 15px;
+        font-size: 32px;
     }
 
     .modal-content h2 {
-        font-size: 1.5em; /* Уменьшение размера заголовка */
+        font-size: 1.5em;
     }
 
     .modal-content p {
-        font-size: 1em; /* Уменьшение размера текста параграфа */
+        font-size: 1em;
     }
 }

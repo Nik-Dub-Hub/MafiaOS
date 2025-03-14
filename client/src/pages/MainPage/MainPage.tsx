@@ -1,9 +1,20 @@
+import { useState } from 'react';
 import { Carousel } from "@/widgets/Carousel";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import style from "./MainPage.module.css"
+import PlayModal from '@/features/modal/PlayModal';
+import style from "./MainPage.module.css";
 
 export function MainPage() {
+  const [isPlayModalOpen, setIsPlayModalOpen] = useState(false);
+
+  const handlePlayClick = () => {
+    setIsPlayModalOpen(true);
+  };
+
+  const handleClosePlayModal = () => {
+    setIsPlayModalOpen(false);
+  };
 
   const images = [
     "/cards/Врач.jpg",
@@ -16,7 +27,7 @@ export function MainPage() {
     <div className={style.container}>
       <h4>Инновационное веб-приложение для захватывающей игры с друзьями</h4>
       <div className={style.buttonContainer}>
-        <button className={style.button}>Поиграем ?</button>
+        <button className={style.button} onClick={handlePlayClick}>Поиграем ?</button>
       </div>
       <div className={style.carouselContainer}>
         <Carousel 
@@ -25,6 +36,7 @@ export function MainPage() {
           className={style.customCarousel}
         />
       </div>
+      <PlayModal isOpen={isPlayModalOpen} onClose={handleClosePlayModal} />
     </div>
   );
 }
