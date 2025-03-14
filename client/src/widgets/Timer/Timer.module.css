@@ -1,0 +1,21 @@
+.timer {
+  position: relative;
+  width: 200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.timerText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: white;
+  text-align: center;
+  border-bottom: 2px solid yellow;
+  transform: translate(-50%, -50%);
+}
