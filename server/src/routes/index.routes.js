@@ -4,11 +4,13 @@ const authRoutes = require("./auth.routes");
 const gameRoutes = require("./game.routes");
 const playerRoutes = require("./player.routes");
 const roleRoutes = require("./role.routes");
+const userRoutes = require("./user.routes");
 
 router.use("/auth", authRoutes);
 router.use("/game", gameRoutes);
 router.use("/player", playerRoutes);
 router.use("/role", roleRoutes);
+router.use("/user", userRoutes);
 
 router.use("*", (req, res) => {
   res.status(404).json(formatResponse(404, "Not found"));

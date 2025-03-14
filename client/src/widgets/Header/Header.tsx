@@ -7,6 +7,7 @@ import { UserAvatar } from '../../entities/user/ui/UserAvatar/UserAvatar';
 import { signOutThunk } from "../../entities/user/api/index";
 import LoginModal from '../../features/modal/LoginModal';
 import RegisterModal from '../../features/modal/RegisterModal';
+import ModalProfile from '../../features/modal/ModalProfile';
 
 //interface HeaderProps {}
 
@@ -17,13 +18,14 @@ export default function Header(): JSX.Element {
     const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
     const toggleRulesModal = () => {
         setIsRulesModalOpen(!isRulesModalOpen);
     };
 
     const handleLogout = () => {
-      dispatch(signOutThunk());
+        dispatch(signOutThunk());
     };
 
     const openLoginModal = () => setIsLoginModalOpen(true);
@@ -31,6 +33,14 @@ export default function Header(): JSX.Element {
 
     const openRegisterModal = () => setIsRegisterModalOpen(true);
     const closeRegisterModal = () => setIsRegisterModalOpen(false);
+
+    const handleAvatarClick = () => {
+        setIsProfileModalOpen(true);
+    };
+
+    const closeProfileModal = () => {
+        setIsProfileModalOpen(false);
+    };
 
 
     return (
@@ -43,7 +53,9 @@ export default function Header(): JSX.Element {
                         <button className="rules-button" onClick={toggleRulesModal}>
                             ?
                         </button>
-                        <UserAvatar user={user} />
+                        <div onClick={handleAvatarClick} style={{ cursor: 'pointer' }}>
+                            <UserAvatar user={user} />
+                        </div>
                         <button className="logout-button" onClick={handleLogout}>
                             Выйти
                         </button>
@@ -68,13 +80,14 @@ export default function Header(): JSX.Element {
                         </span>
                         <h2>Правила игры</h2>
                         <p>Количество игроков: ...</p>
-                        <p>КОличество фаз: ...</p>
+                        <p>Количество фаз: ...</p>
                     </div>
                 </div>
             )}
 
             <LoginModal open={isLoginModalOpen} onClose={closeLoginModal} />
             <RegisterModal open={isRegisterModalOpen} onClose={closeRegisterModal} />
+            <ModalProfile isOpen={isProfileModalOpen} onClose={closeProfileModal} />
         </header>
     );
 }

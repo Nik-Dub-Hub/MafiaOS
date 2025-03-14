@@ -6,19 +6,31 @@ class UserService {
   }
 
   static async create(userData) {
-    // console.log(userData, '================================')
     return await User.create(userData);
   }
 
   static async update(id, newUserData) {
     const user = await User.findByPk(id);
     if (user) {
-      user.username = newUserData.username;
-      user.img = newUserData.img;
-      user.civilianCount = newUserData.civilianCount;
-      user.mafiaCount = newUserData.mafiaCount;
-      user.doctorCount = newUserData.doctorCount;
-      user.ladyCount = newUserData.ladyCount;
+
+      if (newUserData.username !== undefined) {
+        user.username = newUserData.username;
+      }
+      if (newUserData.img !== undefined) {
+        user.img = newUserData.img;
+      }
+      if (newUserData.civilianCount !== undefined) {
+        user.civilianCount = newUserData.civilianCount;
+      }
+      if (newUserData.mafiaCount !== undefined) {
+        user.mafiaCount = newUserData.mafiaCount;
+      }
+      if (newUserData.doctorCount !== undefined) {
+        user.doctorCount = newUserData.doctorCount;
+      }
+      if (newUserData.ladyCount !== undefined) {
+        user.ladyCount = newUserData.ladyCount;
+      }
       await user.save();
     }
     return user;
