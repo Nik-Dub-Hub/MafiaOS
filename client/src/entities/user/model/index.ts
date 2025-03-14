@@ -8,12 +8,12 @@ export interface IUserSignUpData extends IUserSignInData {
 }
 
 export interface IUserUpdateData {
-  username: string;
-  img:string;
-  civilianCount: number;
-  ladyCount: number;
-  mafiaCount: number;
-  doctorCount: number;
+  username?: string;
+  img?:string;
+  civilianCount?: number;
+  ladyCount?: number;
+  mafiaCount?: number;
+  doctorCount?: number;
 }
 
 export interface IUser {

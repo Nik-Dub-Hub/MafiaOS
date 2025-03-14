@@ -5,6 +5,7 @@ import { schema } from "./schema";
 import { IUserSignInData, signInThunk } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { showAlert } from "@/features/alerts";
+import { useEffect } from "react";
 
 interface SignInFormProps {
   onClose: () => void;
@@ -19,10 +20,23 @@ export default function SignInForm({ onClose,onOpenRegisterModal }: SignInFormPr
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
+    trigger,
   } = useForm<IUserSignInData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+
+  const email = watch("email");
+  const password = watch("password");
+
+
+  useEffect(() => {
+       const debounceTimeout = setTimeout(() => {
+         trigger([ "email", "password"]); 
+       }, 2000); 
+       return () => clearTimeout(debounceTimeout); 
+     }, [email, password, trigger]);
 
   const onSubmit: SubmitHandler<IUserSignInData> = async (data) => {
     try {
