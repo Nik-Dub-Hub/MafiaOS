@@ -1,120 +1,66 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  startGame,
-  addPlayer,
-  assignRoles,
-  startNightPhase,
-  submitNightVote,
-  startDayVoting,
-  submitDayVote,
-  checkEndConditions,
-} from "@/features/gameLogic/slice";
-import { RootState } from "@/app/store/store";
+import { setGameThunk } from "@/entities/game";
+import { createPlayerThunk } from "@/entities/player";
+import { showAlert } from "@/features/alerts";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import WaitingGameWidget from "@/widgets/WaitingGameWidget/WaitingGameWidget";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const GamePage: React.FC = () => {
-  const dispatch = useDispatch();
-  const gameState = useSelector((state: RootState) => state.gameLogic);
-  const [timer, setTimer] = useState<number | null>(null);
+export default function GamePage() {
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
+  const game = useAppSelector((state) =>
+    state.games.games.find((g) => g.id === +(id || 0))
+  );
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Получаем игроков текущей игры
+  const currentPlayers = useAppSelector((state) =>
+    state.players.players)
+  
+  console.log(currentPlayers);
+  
   useEffect(() => {
-    if (timer && timer > 0) {
-      const interval = setInterval(() => {
-        setTimer((prevTimer) => (prevTimer ? prevTimer - 1 : null));
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [timer]);
-
-  useEffect(() => {
-    if (timer === 0) {
-      switch (gameState.phase) {
-        case "inProgressBeginning":
-          dispatch(assignRoles());
-          dispatch(startNightPhase());
-          setTimer(30); // Устанавливаем время до конца ночной фазы
-          break;
-        case "inProgressNight":
-          dispatch(startDayVoting());
-          setTimer(30); // Устанавливаем время для дневного голосования
-          break;
-        case "inProgressDayVoting":
-          dispatch(startNightPhase());
-          setTimer(30); // Устанавливаем время до ночи
-          break;
-        default:
-          break;
+    const initializeGame = async () => {
+      try {
+        if (!game) {
+          await dispatch(setGameThunk());
+        }
+        if (game && user) {
+          // Создаем игрока при входе на страницу
+          await dispatch(
+            createPlayerThunk({
+              game_id: game.id,
+              user_id: user.id, // Убедитесь, что user_id передается правильно
+            })
+          ).unwrap();
+        }
+      } catch {
+        dispatch(showAlert({ message: "Ошибка подключения", status: "error" }));
+      } finally {
+        setIsLoading(false);
       }
-    }
-  }, [timer, gameState.phase, dispatch]);
+    };
 
-  const handleStartGame = () => {
-    dispatch(startGame());
-    setTimer(60); // Время до начала распределения ролей
-  };
+    initializeGame();
+  }, [dispatch, game, user, id]);
 
-  const handleJoinGame = () => {
-    dispatch(addPlayer({ id: Date.now(), username: `Player${Date.now()}` }));
-  };
+  if (isLoading) return <div>Загрузка...</div>;
+  if (!game) return <div>Игра не найдена</div>;
 
-  const handleNightVote = (playerId: number) => {
-    dispatch(submitNightVote(playerId));
-    dispatch(checkEndConditions());
-  };
-
-  const handleDayVote = (playerId: number) => {
-    dispatch(submitDayVote(playerId));
-    dispatch(checkEndConditions());
-  };
+  const isOwner = game.owner_id === user?.id;
 
   return (
     <div>
-      <h1>Фаза игры: {gameState.phase}</h1>
-      <p>Таймер: {timer}</p>
-      {gameState.phase === "waiting" && (
-        <>
-          <button onClick={handleStartGame}>Начать игру</button>
-          <button onClick={handleJoinGame}>Присоединиться к игре</button>
-          <p>Игроков: {gameState.players.length}/5</p>
-        </>
-      )}
-      {gameState.phase === "inProgressNight" && (
-        <div>
-          <h2>Ночная фаза</h2>
-          <p>Выберите жертву:</p>
-          {gameState.players
-            .filter((player) => player.isAlive)
-            .map((player) => (
-              <button
-                key={player.id}
-                onClick={() => handleNightVote(player.id)}
-              >
-                {player.username}
-              </button>
-            ))}
-        </div>
-      )}
-      {gameState.phase === "inProgressDayVoting" && (
-        <div>
-          <h2>Дневное голосование</h2>
-          <p>Проголосуйте за игрока:</p>
-          {gameState.players
-            .filter((player) => player.isAlive)
-            .map((player) => (
-              <button key={player.id} onClick={() => handleDayVote(player.id)}>
-                {player.username}
-              </button>
-            ))}
-        </div>
-      )}
-      {gameState.phase === "inEnd" && (
-        <div>
-          <h2>Игра окончена</h2>
-          <p>Победитель: {gameState.winner}</p>
-        </div>
+      {game.phase === "waiting" && (
+        <WaitingGameWidget
+          isOwner={isOwner}
+          gameId={game.id}
+          players={currentPlayers}
+          discussionTime={game.discussionTime}
+        />
       )}
     </div>
   );
-};
-
-export default GamePage;
+}
