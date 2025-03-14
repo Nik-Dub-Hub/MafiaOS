@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Timer.module.css";
 
-const Timer: React.FC = () => {
+
+export default function Timer ()  {
   const totalTime = 10;
   const [time, setTime] = useState(totalTime);
   const statusText = "Стадия";
@@ -42,4 +43,4 @@ const Timer: React.FC = () => {
   );
 };
 
-export default Timer;
+
