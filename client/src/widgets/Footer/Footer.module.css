@@ -4,29 +4,29 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
-  background-color: #343e40; /* Темный фон */
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
-  align-items: center; /* Центрирование по вертикали */
-  box-shadow: 0 -2px 10px rgba(233, 210, 81, 0.1);
   z-index: 1000;
-  font-family: 'Poppins', sans-serif; /* Применяем шрифт */
+  display: flex;
+  align-items: center; /* Центрирование по вертикали */
+  justify-content: center; /* Центрирование по горизонтали */
+  width: 100%;
+  padding: 10px 20px;
+  font-family: Poppins, sans-serif; /* Применяем шрифт */
+  background-color: #343e40; /* Темный фон */
+  box-shadow: 0 -2px 10px rgb(233 210 81 / 10%);
 }
 
 .userActions,
 .authButtons {
   display: flex;
-  align-items: center;
   gap: 80px; /* Расстояние между элементами */
+  align-items: center;
 }
 
 .iconContainer {
   display: flex;
   flex-direction: column; /* Иконка и текст в колонку */
-  align-items: center; /* Центрирование по горизонтали */
   gap: 4px; /* Расстояние между иконкой и текстом */
+  align-items: center; /* Центрирование по горизонтали */
 }
 
 .rulesButton,
@@ -41,8 +41,8 @@
 .rulesButton:hover,
 .logoutButton:hover,
 .authButton:hover {
-  transform: scale(1.1); /* Увеличение при наведении */
   opacity: 0.8;
+  transform: scale(1.1); /* Увеличение при наведении */
 }
 
 .iconText {
@@ -56,25 +56,25 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   background-color: rgb(0 0 0 / 70%); /* Полупрозрачный фон */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1001;
 }
 
 .modalContent {
-  background-color: #333; /* Темный фон модального окна */
-  color: #ddd; /* Светлый текст */
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: relative;
-  font-family: 'Poppins', sans-serif; /* Применяем шрифт */
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  font-family: Poppins, sans-serif; /* Применяем шрифт */
+  color: #ddd; /* Светлый текст */
+  background-color: #333; /* Темный фон модального окна */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
 }
 
 .closeButton {
@@ -82,8 +82,8 @@
   top: 10px;
   right: 10px;
   font-size: 24px;
-  cursor: pointer;
   color: #e0cba8; /* Цвет кнопки закрытия */
+  cursor: pointer;
 }
 
 .closeButton:hover {

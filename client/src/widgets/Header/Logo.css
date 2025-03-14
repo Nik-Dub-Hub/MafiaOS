@@ -3,8 +3,8 @@
 .mafia-logo {
     position: relative;
     display: flex; /* Используем flex для растягивания на всю ширину */
-    justify-content: center; /* Центрируем содержимое по горизонтали */
     align-items: center; /* Центрируем содержимое по вертикали */
+    justify-content: center; /* Центрируем содержимое по горизонтали */
     width: 100%; /* Логотип занимает всю ширину */
     padding: 0.3em 0.5em; /* Отступы внутри логотипа */
     overflow: hidden;
