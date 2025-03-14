@@ -4,24 +4,21 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/store/store";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useEffect, useState } from "react";
 import { UserAvatar } from "@/entities/user";
-import { getAllPlayerThunk, PlayerArrayType } from "@/entities/player";
+import { PlayerArrayType } from "@/entities/player";
 
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   flexGrow: 1,
 }));
 
-const YellowSlider = styled(Slider)(({ theme }) => ({
+const YellowSlider = styled(Slider)(() => ({
   color: "#bdb141",
   height: 8,
   "& .MuiSlider-thumb": {
@@ -50,7 +47,7 @@ type Props = {
   players:PlayerArrayType;
 };
 
-export default function WaitingGameWidget({ gameId, players }: Props) {
+export default function WaitingGameWidget({players }: Props) {
   const dispatch = useAppDispatch();
   const [timeLimit, setTimeLimit] = useState<number>(30);
 
@@ -60,6 +57,7 @@ export default function WaitingGameWidget({ gameId, players }: Props) {
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setTimeLimit(newValue as number);
+    console.log(event);
   };
 
   const startGame = () => {
@@ -121,7 +119,7 @@ export default function WaitingGameWidget({ gameId, players }: Props) {
                 {players.map((player, index) => (
                   <ListItem key={index}>
                     <ListItemAvatar>
-                      <UserAvatar user={user} />
+                      <UserAvatar user={user!} />
                     </ListItemAvatar>
                     <ListItemText primary={player.User.username} />
                   </ListItem>

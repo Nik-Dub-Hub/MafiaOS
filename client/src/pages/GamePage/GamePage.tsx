@@ -32,7 +32,6 @@ export default function GamePage() {
           await dispatch(
             createPlayerThunk({
               game_id: game.id,
-              user_id: user.id, // Убедитесь, что user_id передается правильно
             })
           ).unwrap();
         }
@@ -49,16 +48,14 @@ export default function GamePage() {
   if (isLoading) return <div>Загрузка...</div>;
   if (!game) return <div>Игра не найдена</div>;
 
-  const isOwner = game.owner_id === user?.id;
+
 
   return (
     <div>
       {game.phase === "waiting" && (
         <WaitingGameWidget
-          isOwner={isOwner}
           gameId={game.id}
           players={currentPlayers}
-          discussionTime={game.discussionTime}
         />
       )}
     </div>

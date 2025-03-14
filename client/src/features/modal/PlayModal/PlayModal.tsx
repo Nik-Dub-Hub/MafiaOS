@@ -2,10 +2,10 @@ import React, { useId } from 'react';
 import styles from './PlayModal.module.css';
 import { useNavigate } from 'react-router';
 import { CLIENT_ROUTES } from '@/shared/enums/clientRoutes';
-import { addGameThunk, setGameThunk } from '@/entities/game';
+import { addGameThunk} from '@/entities/game';
 import { useAppDispatch } from '@/shared/hooks/reduxHooks';
 import { showAlert } from '@/features/alerts';
-import { error } from 'console';
+
 
 interface PlayModalProps {
     isOpen: boolean;
