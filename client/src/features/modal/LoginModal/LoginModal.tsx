@@ -1,10 +1,10 @@
 
+import SignInForm from "@/features/auth/ui/SignInForm/SignInForm";
 import {
   Modal,
   Box,
   Typography,
 } from "@mui/material";
-import SignInForm from "../auth/ui/SignInForm/SignInForm";
 
 
 interface LoginModalProps {
