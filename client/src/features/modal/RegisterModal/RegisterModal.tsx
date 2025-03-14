@@ -1,10 +1,10 @@
 
+import SignUpForm from "@/features/auth/ui/SignUpForm/SignUpForm";
 import {
   Modal,
   Box,
   Typography,
 } from "@mui/material";
-import SignUpForm from "../auth/ui/SignUpForm/SignUpForm";
 
 interface RegisterModalProps {
   open: boolean;

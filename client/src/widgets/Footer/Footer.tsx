@@ -3,8 +3,8 @@ import { showAlert } from "@/features/alerts";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useState } from "react";
 import styles from "./Footer.module.css"; 
-import LoginModal from "@/features/modal/LoginModal";
-import RegisterModal from "@/features/modal/RegisterModal";
+import LoginModal from "@/features/modal/LoginModal/LoginModal";
+import RegisterModal from "@/features/modal/RegisterModal/RegisterModal";
 
 export default function Footer() {
   const user = useAppSelector((state) => state.user.user);
