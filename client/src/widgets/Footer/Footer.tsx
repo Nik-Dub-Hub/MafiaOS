@@ -52,7 +52,7 @@ export default function Footer() {
             <span className={styles.iconText}>rules</span>
           </div>
           <div className={styles.iconContainer}>
-            <UserAvatar user={user} />
+            <UserAvatar  />
             <span className={styles.iconText}>profile</span>
           </div>
           <div className={styles.iconContainer}>
