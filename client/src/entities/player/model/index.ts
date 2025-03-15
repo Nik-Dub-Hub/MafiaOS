@@ -1,4 +1,3 @@
-import { IRole } from "@/entities/role";
 
 export interface IPlayer {
   id: number;
@@ -27,8 +26,8 @@ export interface IPlayer {
 }
 
 export interface IPlayerForUpdate {
-  role: IRole["name"];
-  isAlive:boolean;
+  role_id?: number
+  isAlive?:boolean;
 }
 
 export type PlayerArrayType = IPlayer[]
