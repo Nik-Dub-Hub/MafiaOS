@@ -1,6 +1,6 @@
 export interface IRole {
   id: number;
-  name: "Participant" | "Civilian" | "Mafia" | "Doctor" | "Lady";
+  name: "Участник" | "Мирный" | "Мафия" | "Доктор" | "Любовница";
   description: string;
   createdAt: Date;
   updatedAt: Date;

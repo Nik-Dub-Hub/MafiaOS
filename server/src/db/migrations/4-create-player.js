@@ -25,6 +25,7 @@ module.exports = {
           key: "id",
         },
         allowNull:false,
+        onDelete:'cascade',
       },
       role_id: {
         type: Sequelize.INTEGER,

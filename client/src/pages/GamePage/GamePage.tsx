@@ -1,8 +1,10 @@
 import { setGameThunk } from "@/entities/game";
 import { createPlayerThunk, getAllPlayerThunk } from "@/entities/player";
+import { getAllRolesThunk } from "@/entities/role";
 import { showAlert } from "@/features/alerts";
 import { CLIENT_ROUTES } from "@/shared/enums/clientRoutes";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import StartGameWidget from "@/widgets/StartGameWidget/StartGameWidget";
 import WaitingGameWidget from "@/widgets/WaitingGameWidget/WaitingGameWidget";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,13 +18,15 @@ export default function GamePage() {
     state.games.games.find((g) => g.id === +(id || 0))
   );
   const [isLoading, setIsLoading] = useState(true);
-
   const currentPlayers = useAppSelector((state) =>
-    state.players.players.filter(p => p.game_id === Number(id))
+    state.players.players.filter((p) => p.game_id === Number(id))
   );
 
+ 
+  
   useEffect(() => {
-    dispatch(getAllPlayerThunk())
+    dispatch(getAllPlayerThunk());
+    dispatch(getAllRolesThunk());
     const initializeGame = async () => {
       try {
         if (!id) {
@@ -73,13 +77,23 @@ export default function GamePage() {
     initializeGame();
   }, [id, game, user]);
 
+  
+
   if (isLoading) return <div>Загрузка...</div>;
   if (!game) return <div>Игра не найдена</div>;
 
   return (
     <div>
       {game.phase === "waiting" && (
-        <WaitingGameWidget owner_id={game.owner_id} players={currentPlayers} />
+        <WaitingGameWidget
+          owner_id={game.owner_id}
+          players={currentPlayers}
+          game_id={game.id}
+          gameKey={game.key}
+        />
+      )}
+      {game.phase === "inProgressBeginning" && (
+        <StartGameWidget discussionTime={game.discussionTime!} />
       )}
     </div>
   );

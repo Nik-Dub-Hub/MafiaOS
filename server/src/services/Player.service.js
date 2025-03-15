@@ -32,8 +32,12 @@ class PlayerService {
     if (!player) {
       return null;
     }
-    player.role_id = data.role_id;
-    player.isAlive = data.isAlive;
+    if(data.role_id !== undefined){
+      player.role_id = data.role_id;
+    }
+    if(data.isAlive !== undefined){
+      player.isAlive = data.isAlive;
+    }
     await player.save();
     return await this.getById(player.id); 
   }

@@ -48,14 +48,13 @@ class GameController {
   }
 
   static async createGame(req, res) {
-    const {key, discussionTime } = req.body;
-
+    const { key, discussionTime } = req.body;
     const { user } = res.locals;
 
     try {
       const newGame = await GameService.create({
         owner_id: user.id,
-        phase : 'waiting',
+        phase: "waiting",
         key,
         discussionTime,
       });
@@ -77,22 +76,11 @@ class GameController {
 
   static async updateGame(req, res) {
     const { id } = req.params;
-    const { phase, isReady, discussionTime } = req.body;
+    const { phase, discussionTime } = req.body;
     const { user } = res.locals;
 
     if (!isValidId(id)) {
       return res.status(400).json(formatResponse(400, "Invalid game ID"));
-    }
-
-    const { isValid, error } = GameValidator.validate({
-      phase,
-      discussionTime,
-      isReady,
-    });
-    if (!isValid) {
-      return res
-        .status(400)
-        .json(formatResponse(400, "Validation error", null, error));
     }
 
     try {
@@ -112,7 +100,6 @@ class GameController {
 
       const updatedGame = await GameService.update(+id, {
         phase,
-        isReady,
         discussionTime,
       });
       res.status(200).json(formatResponse(200, "success", updatedGame));

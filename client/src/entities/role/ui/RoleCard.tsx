@@ -7,8 +7,14 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { getAllRolesThunk } from "../api";
 import { RootState } from "@/app/store/store";
 import { useSelector } from "react-redux";
+import { IRole } from "../model";
 
-export default function RoleCard() {
+
+type Props ={
+  role:IRole
+}
+
+export default function RoleCard({role}:Props) {
   const [isOpened, setIsOpened] = useState(false);
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -83,8 +89,8 @@ export default function RoleCard() {
             />
             <div className="info-content">
               <h3 className={styles.title}>Ваша карточка</h3>
-              <h2 className={styles.role}>{selectedRole.name}</h2>
-              <p className={styles.description}>{selectedRole.description}</p>
+              <h2 className={styles.role}>{role.name}</h2>
+              <p className={styles.description}>{role.description}</p>
             </div>
           </CardContent>
         ) : (

@@ -57,7 +57,7 @@ class PlayerController {
         game_id,
         user_id: Number(user.id),
       });
-      
+
       if (existingPlayer) {
         return res
           .status(400)
@@ -95,7 +95,7 @@ class PlayerController {
 
   static async updatePlayer(req, res) {
     const { id } = req.params;
-    const { role_id, isAlive } = req.body;
+    const { role_id, isAlive } = req.body.updateData;
     const { user } = res.locals;
 
     if (!isValidId(id)) {
@@ -108,7 +108,7 @@ class PlayerController {
         return res.status(404).json(formatResponse(404, "Player not found"));
       }
 
-      if (existingPlayer.user.id !== user.id) {
+      if (existingPlayer.user_id !== user.id) {
         return res
           .status(400)
           .json(

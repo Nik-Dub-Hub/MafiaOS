@@ -1,6 +1,6 @@
 import { IServerResponse } from "@/shared/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IGameAddData, IGame, GameArrayType, IGameUpdeteData} from "../model";
+import { IGameAddData, IGame, GameArrayType, IGameUpdateData} from "../model";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { AxiosError } from "axios";
 
@@ -48,23 +48,20 @@ export const addGameThunk = createAsyncThunk<
 );
 export const updateGameThunk = createAsyncThunk<
   IServerResponse<IGame>,
-  IGameUpdeteData,
+  { id: number; updateData: IGameUpdateData },
   { rejectValue: IServerResponse }
->(
-  GAME_THUNK_TYPES.UPDATE_GAME,
-  async (IGameUpdeteData, { rejectWithValue }) => {
-    try {
-      const { data } = await axiosInstance.post(
-        GAME_ENDPOINT_PATH,
-        IGameUpdeteData
-      );
-      return data;
-    } catch (error) {
-      const err = error as AxiosError<IServerResponse>;
-      return rejectWithValue(err.response!.data);
-    }
+>(GAME_THUNK_TYPES.UPDATE_GAME, async ({id,updateData}, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.put(
+      `${GAME_ENDPOINT_PATH}/${id}`,
+      updateData
+    );
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IServerResponse>;
+    return rejectWithValue(err.response!.data);
   }
-);
+});
 export const deleteGameThunk = createAsyncThunk<
   IServerResponse<IGame>,
   number,
