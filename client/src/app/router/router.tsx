@@ -16,9 +16,9 @@ export default function router() {
           <Route path={CLIENT_ROUTES.MAIN} element={<MainPage />} />
           <Route path={CLIENT_ROUTES.ROLE_CARD} element={<RoleCard />} />
           <Route path={CLIENT_ROUTES.CHOICE_PAGE} element={<ChoicePage />} />
-          <Route path={CLIENT_ROUTES.TOOWIDE_PAGE} element={<TooWidePage />} />
           <Route path={CLIENT_ROUTES.GAME} element={<GamePage />} />
         </Route>
+          <Route path={CLIENT_ROUTES.TOOWIDE_PAGE} element={<TooWidePage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -11,7 +11,7 @@ import { IRole } from "../model";
 
 
 type Props ={
-  role:IRole
+  role?:IRole
 }
 
 export default function RoleCard({role}:Props) {
@@ -89,8 +89,8 @@ export default function RoleCard({role}:Props) {
             />
             <div className="info-content">
               <h3 className={styles.title}>Ваша карточка</h3>
-              <h2 className={styles.role}>{role.name}</h2>
-              <p className={styles.description}>{role.description}</p>
+              <h2 className={styles.role}>{role?.name}</h2>
+              <p className={styles.description}>{role?.description}</p>
             </div>
           </CardContent>
         ) : (

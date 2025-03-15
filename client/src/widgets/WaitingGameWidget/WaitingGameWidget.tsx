@@ -77,6 +77,8 @@ export default function WaitingGameWidget({
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setTimeLimit(newValue as number);
+    console.log(event);
+    
   };
 
   const updateGame = () => {

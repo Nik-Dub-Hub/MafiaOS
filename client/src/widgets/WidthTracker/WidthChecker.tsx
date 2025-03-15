@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-const MAX_ALLOWED_WIDTH = 768; 
+const MAX_ALLOWED_WIDTH = 768;
 
 export default function WidthChecker() {
   const navigate = useNavigate();
@@ -13,7 +13,11 @@ export default function WidthChecker() {
         navigate("/tooWide");
         setIsRedirected(true);
       } else if (window.innerWidth <= MAX_ALLOWED_WIDTH && isRedirected) {
-        navigate(-1);
+        if (window.history.length > 1) {
+          navigate(-1);
+        } else {
+          navigate("/");
+        }
         setIsRedirected(false);
       }
     };
