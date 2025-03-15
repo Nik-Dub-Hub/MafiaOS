@@ -1,13 +1,3 @@
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import TextField from "@mui/material/TextField";
 import Groups2Icon from "@mui/icons-material/Groups2";
@@ -15,15 +5,12 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useState, useEffect } from "react";
 import { setGameThunk } from "@/entities/game";
 import { useNavigate } from "react-router";
-
-const Demo = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-}));
+import styles from "./RoomList.module.css";
 
 export default function RoomList() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [input, setInput] = useState({keys: ""});
+  const [input, setInput] = useState({ keys: "" });
   const games = useAppSelector((state) => state.games.games);
 
   useEffect(() => {
@@ -40,17 +27,8 @@ export default function RoomList() {
   };
 
   return (
-    <div className="choicePage">
-      <Box
-        sx={{
-          mt: 3,
-          mb: 3,
-          maxWidth: "100%",
-          backgroundColor: "gray",
-          borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-        }}
-      >
+    <div className={styles.wrapper}>
+      <div className={styles.box}>
         <TextField
           fullWidth
           label="Ключ комнаты"
@@ -61,62 +39,35 @@ export default function RoomList() {
           value={input.keys}
           onChange={onChangeHandler}
         />
-      </Box>
-      <div className="roomList">
-        <Box
-          sx={{
-            flexGrow: 1,
-            width: "100%",
-            backgroundColor: "gray",
-            borderRadius: "8px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            textAlign: "center",
-          }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={8}>
-              <Typography
-                sx={{ m: 1, fontWeight: "bold" }}
-                variant="h6"
-                component="div"
-              >
-                Список доступных комнат
-              </Typography>
-              <Demo>
-                <List
-                  sx={{
-                    backgroundColor: "#f5f5f5",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                    margin: "16px 0",
-                    color: "gray",
-                  }}
-                >
-                  {games.map((game, id) => (
-                    <ListItem
-                      key={id}
-                      sx={{
-                        borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                      }}
+      </div>
+      <div className={styles.container}>
+        <div className={styles.grid}>
+          <div className={styles.gridItem}>
+            <h6 className={styles.header}>Список доступных комнат</h6>
+            <div className={styles.demo}>
+              <ul className={styles.list}>
+                {games.map((game, id) => (
+                  <li className={styles.listItem} key={id}>
+                    <div className={styles.listItemAvatar}>
+                      <div className={styles.avatar}>
+                        <Groups2Icon className={styles.icon} />
+                      </div>
+                    </div>
+                    <span className={styles.listItemText}>
+                      Комната номер {game.id}
+                    </span>
+                    <button
+                      className={styles.iconButton}
+                      onClick={() => handleNavigate(game.id)}
                     >
-                      <ListItemAvatar>
-                        <Avatar sx={{ border: "1px solid yellow" }}>
-                          <Groups2Icon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={`Комната номер ${game.id}`} />
-                      <IconButton
-                        edge="end"
-                        onClick={() => handleNavigate(game.id)}
-                      >
-                        <ArrowCircleRightIcon />
-                      </IconButton>
-                    </ListItem>
-                  ))}
-                </List>
-              </Demo>
-            </Grid>
-          </Grid>
-        </Box>
+                      <ArrowCircleRightIcon />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
