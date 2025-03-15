@@ -50,9 +50,27 @@ class PlayerController {
 
   static async createPlayer(req, res) {
     const { game_id } = req.body;
-
     const { user } = res.locals;
+
     try {
+      const existingPlayer = await PlayerService.findPlayerByGameAndUserId({
+        game_id,
+        user_id: Number(user.id),
+      });
+      
+      if (existingPlayer) {
+        return res
+          .status(400)
+          .json(
+            formatResponse(
+              400,
+              "Player already exist for this user and game",
+              null,
+              "Player already exist for this user and game"
+            )
+          );
+      }
+
       const newPlayer = await PlayerService.create({
         user_id: user.id,
         game_id,

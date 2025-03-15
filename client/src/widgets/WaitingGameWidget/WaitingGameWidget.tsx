@@ -12,6 +12,8 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useEffect, useState } from "react";
 import { UserAvatar } from "@/entities/user";
 import { PlayerArrayType } from "@/entities/player";
+import { showAlert } from "@/features/alerts";
+import { CircularProgress } from "@mui/material";
 
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -43,11 +45,11 @@ const YellowSlider = styled(Slider)(() => ({
   },
 }));
 type Props = {
-  gameId: number;
-  players:PlayerArrayType;
+  players: PlayerArrayType;
+  owner_id: number;
 };
 
-export default function WaitingGameWidget({players }: Props) {
+export default function WaitingGameWidget({ players, owner_id }: Props) {
   const dispatch = useAppDispatch();
   const [timeLimit, setTimeLimit] = useState<number>(30);
 
@@ -61,7 +63,12 @@ export default function WaitingGameWidget({players }: Props) {
   };
 
   const startGame = () => {
-    console.log("Игра начата с временем:", timeLimit);
+    dispatch(
+      showAlert({
+        message: `Игра начата с временем: ${timeLimit}`,
+        status: "message",
+      })
+    );
   };
 
   return (
@@ -129,31 +136,45 @@ export default function WaitingGameWidget({players }: Props) {
           </Grid>
         </Grid>
 
-        <Box textAlign="center" mt={2}>
-          <Typography variant="subtitle1" textAlign="center">
-            Установите время:
-          </Typography>
-          <YellowSlider
-            value={timeLimit}
-            onChange={handleSliderChange}
-            aria-labelledby="time-limit-slider"
-            min={5}
-            max={60}
-            valueLabelDisplay="auto"
-            sx={{ my: 3 }}
-          />
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#bdb141",
-              color: "black",
-              "&:hover": { backgroundColor: "#7a732e" },
-            }}
-            onClick={startGame}
-          >
-            Начать играть
-          </Button>
-        </Box>
+        {user?.id === owner_id && (
+          <>
+            <Box textAlign="center" mt={2}>
+              <Typography variant="subtitle1" textAlign="center">
+                Установите время:
+              </Typography>
+              <YellowSlider
+                value={timeLimit}
+                onChange={handleSliderChange}
+                aria-labelledby="time-limit-slider"
+                min={5}
+                max={60}
+                valueLabelDisplay="auto"
+                sx={{ my: 3 }}
+              />
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#bdb141",
+                  color: "black",
+                  "&:hover": { backgroundColor: "#7a732e" },
+                }}
+                onClick={startGame}
+              >
+                Начать играть
+              </Button>
+            </Box>
+          </>
+        )}
+        {user?.id !== owner_id && (
+          <Box textAlign="center" mt={6}>
+            <Typography>Ожидаем старта игры...</Typography>
+            <CircularProgress
+              sx={{
+                color: "gold",
+              }}
+            />
+          </Box>
+        )}
       </Box>
     </div>
   );

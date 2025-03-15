@@ -16,6 +16,7 @@ module.exports = {
           model: "Users",
           key: "id",
         },
+        allowNull:false,
       },
       game_id: {
         type: Sequelize.INTEGER,
@@ -23,6 +24,7 @@ module.exports = {
           model: "Games",
           key: "id",
         },
+        allowNull:false,
       },
       role_id: {
         type: Sequelize.INTEGER,

@@ -7,6 +7,11 @@ class PlayerService {
     });
   }
 
+  static async findPlayerByGameAndUserId({game_id,user_id}){
+    
+    return await Player.findOne({where:{user_id,game_id}})
+  }
+
   static async getById(id) {
     return await Player.findByPk(id, {
       include: [
