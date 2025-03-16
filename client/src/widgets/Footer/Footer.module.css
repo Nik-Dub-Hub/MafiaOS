@@ -146,6 +146,7 @@ ul li::before {
   color: #ff4c4c;
   content: "•";
 }
+
 .modalContent h2 {
   margin-bottom: 15px;
   font-size: 1.8em;
