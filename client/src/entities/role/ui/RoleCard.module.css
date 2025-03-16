@@ -4,16 +4,19 @@
   display: flex;
   width: 100%;
   height: auto;
-  margin: 70px 30px;
+  margin: 100px 30px;
   margin-bottom: 100px;
   text-align: right;
+  position: relative;
 }
 
 .infoContent {
   margin-right: 30px;
 }
 
-.role, .title, .description {
+.role,
+.title,
+.description {
   text-align: center;
 }
 
@@ -61,7 +64,9 @@
     margin: 20px 5px;
   }
 
-  .title, .role, .description {
+  .title,
+  .role,
+  .description {
     font-size: 0.8125rem;
   }
 }
