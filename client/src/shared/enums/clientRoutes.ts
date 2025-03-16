@@ -6,6 +6,6 @@ export enum CLIENT_ROUTES {
   ROLE_CARD = "/role",
   CHOICE_PAGE = "/config",
   TOOWIDE_PAGE = "/tooWide",
-    GAME = "/game/:id",
+  GAME = "/game/:id",
   GAME_ONE = "/game",
 }

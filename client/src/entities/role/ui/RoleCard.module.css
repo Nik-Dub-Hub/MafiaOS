@@ -1,34 +1,67 @@
 .flipCardContainer {
-  justify-content: center;
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
   width: 100%;
-  margin: 0;
-  background-color: black;
+  height: auto;
+  margin: 70px 30px;
+  margin-bottom: 100px;
+  text-align: right;
 }
 
-.role {
-  position: relative;
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 2;
+.infoContent {
+  margin-right: 30px;
+}
+
+.role, .title, .description {
   text-align: center;
 }
 
+.role {
+  margin: 5px;
+  font-size: 1.25rem;
+  line-height: 2;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+}
+
 .title {
-  margin-top: 7px;
-  font-size: 15px;
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.description {
+  margin: 15px;
+  font-size: 0.875rem;
+  font-weight: 300;
+}
+
+.titleClosed {
+  margin-right: 20px;
+  font-size: 40px;
   font-weight: 300;
   text-align: center;
   letter-spacing: 1px;
 }
 
-.description {
-  font-size: 14px;
-  font-weight: 300;
-  text-align: justify;
+@media screen and (width <= 768px) {
+  .role {
+    font-size: 1.125rem;
+  }
+
+  .title {
+    font-size: 0.875rem;
+  }
 }
 
-.open-closed {
-  outline: none;
-  border: white;
+@media screen and (width <= 480px) {
+  .flipCardContainer {
+    margin: 20px 5px;
+  }
+
+  .title, .role, .description {
+    font-size: 0.8125rem;
+  }
 }

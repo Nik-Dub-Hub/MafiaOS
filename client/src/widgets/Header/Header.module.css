@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
 
 .header {
+    position: absolute;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    min-width: 430px;
+    max-width: 765px;
     padding: 15px 20px;
     font-family: Cinzel, serif;
     color: #e0cba8;
