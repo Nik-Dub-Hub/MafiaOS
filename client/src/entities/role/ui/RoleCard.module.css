@@ -1,5 +1,6 @@
 .flipCardContainer {
   position: absolute;
+  position: relative;
   box-sizing: border-box;
   display: flex;
   width: 100%;
@@ -7,7 +8,6 @@
   margin: 100px 30px;
   margin-bottom: 100px;
   text-align: right;
-  position: relative;
 }
 
 .infoContent {
