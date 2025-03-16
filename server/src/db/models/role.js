@@ -8,12 +8,16 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(Player, { foreignKey: 'role_id', as: 'player', })
     }
   }
-  Role.init({
-    name: DataTypes.STRING,
-    description: DataTypes.TEXT,
-  }, {
-    sequelize,
-    modelName: 'Role',
-  });
+  Role.init(
+    {
+      name: DataTypes.STRING,
+      description: DataTypes.TEXT,
+      image: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Role",
+    }
+  );
   return Role;
 };

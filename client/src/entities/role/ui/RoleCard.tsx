@@ -36,38 +36,43 @@ export default function RoleCard() {
   if (!selectedRole) {
     return <div>Загружаем роли</div>;
   }
-
+  console.log(selectedRole);
   return (
     <div className={styles.flipCardContainer}>
       <Card
         sx={{
-          // textAlign: "center",
           margin: "0px 30px",
           backgroundColor: "#222",
           color: "white",
-          width: "300px",
-          height: "430px",
+          width: "100%",
+          maxWidth: "500px",
+          minWidth: "300px",
+          height: "auto",
           position: "relative",
+          border: "1px white solid",
           borderRadius: "12px",
           boxShadow: "0px 14px 80px rgba(34, 35, 58, 0.2)",
         }}
-        className={`${styles.flipCard} ${isOpened ? styles.flipped : ""}`}
       >
         {!isOpened ? (
           <CardContent
             sx={{
-              padding: "2px 16px",
+              padding: "20px",
               backgroundColor: "#222",
               borderRadius: "12px",
-              width: "90%",
-              height: "250px",
+              width: "100%",
+              height: "auto",
             }}
           >
-            <Button className="open_closed" onClick={handleOpen}>
+            <Button
+              className="open_closed"
+              onClick={handleOpen}
+              sx={{ marginRight: "50px" }}
+            >
               <VisibilityOffIcon
                 sx={{
                   padding: "0px",
-                  margin: "0px",
+
                   backgroundColor: "#222",
                   color: "gray",
                 }}
@@ -76,12 +81,14 @@ export default function RoleCard() {
             <CardMedia
               sx={{
                 backgroundColor: "#222",
-                width: "100%",
-                height: "200px",
+                width: "90%",
+                height: "760px",
+                aspectRatio: "1 / 1",
+                margin: "5px",
               }}
-              image={"/alt_role.jpg"}
+              image={`/cards/${selectedRole.image}`}
             />
-            <div className="info-content">
+            <div className={styles.infoContent}>
               <h3 className={styles.title}>Ваша карточка</h3>
               <h2 className={styles.role}>{selectedRole.name}</h2>
               <p className={styles.description}>{selectedRole.description}</p>
@@ -90,36 +97,33 @@ export default function RoleCard() {
         ) : (
           <CardContent
             sx={{
-              padding: "2px 16px",
+              padding: "20px",
               backgroundColor: "#222",
               borderRadius: "12px",
-              width: "90%",
-              height: "250px",
+              width: "100%",
+              height: "auto",
             }}
           >
-            <Button onClick={handleOpen}>
+            <Button onClick={handleOpen} sx={{ marginRight: "50px" }}>
               <VisibilityIcon
                 sx={{
-                  padding: "0px",
-                  margin: "0px",
                   backgroundColor: "#222",
                   color: "gray",
                 }}
               />
             </Button>
-            <div className={styles.closedCard}>
+            <div className="closedCard">
               <CardMedia
                 sx={{
                   backgroundColor: "#222",
-                  borderRadius: "12px",
-                  width: "auto",
-                  height: "90px",
-                  paddingBottom: "min(100%, 240px)",
-                  
+                  width: "90%",
+                  height: "760px",
+                  aspectRatio: "1 / 1",
+                  margin: "5px",
                 }}
                 image={"/рубашка.png"}
               />
-              <h2 className={styles.title}>ИДЕТ ИГРА</h2>
+              <h2 className={styles.titleClosed}>ИДЕТ ИГРА</h2>
             </div>
           </CardContent>
         )}
