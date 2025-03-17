@@ -20,11 +20,11 @@ export interface IUser {
   id: number;
   email: string;
   username: string;
-  img:string;
-  civilianCount:number;
-  ladyCount:number;
-  mafiaCount:number;
-  doctorCount:number;
+  img: string;
+  civilianCount: number;
+  ladyCount: number;
+  mafiaCount: number;
+  doctorCount: number;
   createdAt: Date;
   updatedAt: Date;
 }
