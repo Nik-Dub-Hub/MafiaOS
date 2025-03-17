@@ -60,16 +60,15 @@ import {
         .addCase(updateGameThunk.fulfilled, (state, action) => {
           state.isLoading = false;
           state.error = null;
-          state.games = state.games.map((games) =>
-            games.id === action.payload.data.id
+          state.games = state.games.map((game) =>
+            game.id === action.payload.data.id
               ? action.payload.data
-              : games
+              : game
           );
         })
         .addCase(updateGameThunk.rejected, (state, action) => {
           state.isLoading = false;
           state.error = action.payload!.error ?? "Unknown error";
-          state.games = [];
         })
   
         .addCase(deleteGameThunk.pending, (state) => {

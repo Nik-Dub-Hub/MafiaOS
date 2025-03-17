@@ -6,10 +6,13 @@ import styles from "./Footer.module.css";
 import LoginModal from "@/features/modal/LoginModal/LoginModal";
 import RegisterModal from "@/features/modal/RegisterModal/RegisterModal";
 import Rules from "./Rules/Rules";
+import { useNavigate } from "react-router";
+import { CLIENT_ROUTES } from "@/shared/enums/clientRoutes";
 
 export default function Footer() {
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -26,7 +29,8 @@ export default function Footer() {
         message: "Вы успешно вышли, до встречи👋",
         status: "success",
       })
-    );
+    )
+    navigate(CLIENT_ROUTES.MAIN)
   };
 
   const openLoginModal = () => setIsLoginModalOpen(true);
@@ -49,7 +53,7 @@ export default function Footer() {
             <span className={styles.iconText}>rules</span>
           </div>
           <div className={styles.iconContainer}>
-            <UserAvatar user={user} />
+            <UserAvatar  />
             <span className={styles.iconText}>profile</span>
           </div>
           <div className={styles.iconContainer}>

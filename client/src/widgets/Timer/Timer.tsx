@@ -2,12 +2,19 @@ import  { useState, useEffect } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Timer.module.css";
+import { useAppSelector } from "@/shared/hooks/reduxHooks";
+import { useParams } from "react-router";
 
+type Props = {
+  discussionTime: number;
+};
 
-export default function Timer ()  {
-  const totalTime = 10;
-  const [time, setTime] = useState(totalTime);
-  const statusText = "Стадия";
+export default function Timer({ discussionTime }:Props) {
+  const [time, setTime] = useState(discussionTime);
+  // const statusText = useAppSelector(state=> state.gameLogic.phase)
+  const {id} = useParams()
+  const game  = useAppSelector(state => state.games.games.find(g => g.id === Number(id)))
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,15 +22,15 @@ export default function Timer ()  {
         if (prev > 0) {
           return prev - 1;
         } else {
-          return totalTime;
+          return discussionTime;
         }
       });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [totalTime]);
+  }, [discussionTime]);
 
-  const progress = (time / totalTime) * 100;
+  const progress = (time / discussionTime) * 100;
 
   return (
     <div className={styles.timer}>
@@ -38,7 +45,7 @@ export default function Timer ()  {
           },
         }}
       />
-      <div className={styles.timerText}>{statusText}</div>
+      <div className={styles.timerText}>{game?.phase}</div>
     </div>
   );
 };

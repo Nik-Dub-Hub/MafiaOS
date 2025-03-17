@@ -1,15 +1,12 @@
-import { IUser } from "../../model";
 import styles from "./UserAvatar.module.css";
 
-type Props = {
-  user: IUser;
-};
 
-export function UserAvatar({ user }: Props) {
+
+export function UserAvatar() {
   return (
     <div className={styles.container}>
       <div className={styles.circle}>
-        <img className={styles.avatar} src="/user.jpg" alt={user.username} />
+        <img className={styles.avatar} src="/user.jpg" alt='avatar' />
       </div>
     </div>
   );

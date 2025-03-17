@@ -5,10 +5,14 @@ import { Card, CardContent, CardMedia, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { getAllRolesThunk } from "../api";
-import { RootState } from "@/app/store/store";
-import { useSelector } from "react-redux";
+import { IRole } from "../model";
 
-export default function RoleCard() {
+
+type Props ={
+  role?:IRole
+}
+
+export default function RoleCard({role}:Props) {
   const [isOpened, setIsOpened] = useState(false);
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,25 +22,12 @@ export default function RoleCard() {
 
   const dispatch = useAppDispatch();
 
-  const roles = useSelector((state: RootState) => state.roles.roles);
 
   useEffect(() => {
     dispatch(getAllRolesThunk());
   }, [dispatch]);
 
-  const randomRole = () => {
-    if (roles && roles.length > 0) {
-      const randomIndex = Math.floor(Math.random() * roles.length);
-      return roles[randomIndex];
-    }
-    return null;
-  };
-  const selectedRole = randomRole();
 
-  if (!selectedRole) {
-    return <div>Загружаем роли</div>;
-  }
-  console.log(selectedRole);
   return (
     <div className={styles.flipCardContainer}>
       <Card
@@ -86,12 +77,12 @@ export default function RoleCard() {
                 aspectRatio: "1 / 1",
                 margin: "5px",
               }}
-              image={`/cards/${selectedRole.image}`}
+              image={`/cards/${role?.image}`}
             />
             <div className={styles.infoContent}>
               <h3 className={styles.title}>Ваша карточка</h3>
-              <h2 className={styles.role}>{selectedRole.name}</h2>
-              <p className={styles.description}>{selectedRole.description}</p>
+              <h2 className={styles.role}>{role?.name}</h2>
+              <p className={styles.description}>{role?.description}</p>
             </div>
           </CardContent>
         ) : (

@@ -26,7 +26,7 @@ export const getAllPlayerThunk = createAsyncThunk<IServerResponse<PlayerArrayTyp
 
 export const createPlayerThunk = createAsyncThunk<IServerResponse<IPlayer>,{game_id:number},{rejectValue:IServerResponse}>(PLAYER_THUNK_TYPES.CREATE,async({game_id},{rejectWithValue})=>{
     try {
-        const {data} = await axiosInstance.post(PLAYER_ENDPOINT_PATH,game_id)
+        const {data} = await axiosInstance.post(PLAYER_ENDPOINT_PATH,{game_id})
         return data
     } catch (error) {
         const err = error as AxiosError<IServerResponse>;
@@ -36,7 +36,7 @@ export const createPlayerThunk = createAsyncThunk<IServerResponse<IPlayer>,{game
 
 export const updatePlayerThunk = createAsyncThunk<IServerResponse<IPlayer>,{id:number,updateData:IPlayerForUpdate},{rejectValue:IServerResponse}>(PLAYER_THUNK_TYPES.UPDATE,async({id,updateData},{rejectWithValue})=>{
     try {
-        const {data} = await axiosInstance.put(`${PLAYER_ENDPOINT_PATH}/${id}`,updateData)
+        const {data} = await axiosInstance.put(`${PLAYER_ENDPOINT_PATH}/${id}`,{updateData})
         return data
     } catch (error) {
         const err = error as AxiosError<IServerResponse>;

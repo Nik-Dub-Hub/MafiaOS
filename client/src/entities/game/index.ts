@@ -7,4 +7,4 @@ export {
   deleteGameThunk,
 } from "./api";
 
-export type { IGameAddData, IGame, GameArrayType, IGameUpdeteData} from "./model";
+export type { IGameAddData, IGame, GameArrayType, IGameUpdateData} from "./model";

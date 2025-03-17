@@ -11,7 +11,12 @@ import Button from "@mui/material/Button";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useEffect, useState } from "react";
 import { UserAvatar } from "@/entities/user";
-import { PlayerArrayType } from "@/entities/player";
+import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
+import { showAlert } from "@/features/alerts";
+import { CircularProgress } from "@mui/material";
+import { updateGameThunk } from "@/entities/game";
+import { addPlayer, assignRoles, startGame } from "@/features/gameLogic/slice";
+import { useParams } from "react-router";
 
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -43,25 +48,116 @@ const YellowSlider = styled(Slider)(() => ({
   },
 }));
 type Props = {
-  gameId: number;
-  players:PlayerArrayType;
+  players: PlayerArrayType;
+  owner_id: number;
+  game_id: number;
+  gameKey: string;
 };
 
-export default function WaitingGameWidget({players }: Props) {
+export default function WaitingGameWidget({
+  players,
+  owner_id,
+  game_id,
+  gameKey,
+}: Props) {
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   const [timeLimit, setTimeLimit] = useState<number>(30);
-
   const user = useAppSelector((state) => state.user.user);
+  const roles = useAppSelector((state) => state.roles.roles);
+  const updatePlayers = useAppSelector((state) => state.gameLogic.players.filter(p=> p.game_id === Number(id)))
+  
+  console.log(updatePlayers, ">>>>>>>>>>>>>>");
 
-  useEffect(() => {}, [dispatch]);
+  useEffect(() => {
+    if(updatePlayers.length>0){
+      updateRolePlayersInServer()
+    }
+  }, [dispatch,updatePlayers]);
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setTimeLimit(newValue as number);
     console.log(event);
+    
   };
 
-  const startGame = () => {
-    console.log("Игра начата с временем:", timeLimit);
+  const updateGame = () => {
+    dispatch(
+      updateGameThunk({
+        id: game_id,
+        updateData: {
+          phase: "inProgressBeginning",
+          discussionTime: timeLimit,
+        },
+      })
+    )
+      .unwrap()
+      .catch((error) =>
+        dispatch(
+          showAlert({
+            message: `Ошибка при старте игры: ${error.message}`,
+            status: "error",
+          })
+        )
+      );
+  };
+
+  const updateRolePlayersInServer = async () => {
+    try {
+      await Promise.all(
+        updatePlayers.map((player) =>
+          dispatch(
+            updatePlayerThunk({
+              id: player.id,
+              updateData: { role_id: player.role },
+            })
+          ).unwrap()
+        )
+      );
+    } catch {
+      dispatch(
+        showAlert({
+          message: `Ошибка при старте игры: `,
+          status: "error",
+        })
+      );
+    }
+  };
+
+  const updateStateGame = async () => {
+    // if (players.length < 5) {
+    //   dispatch(
+    //     showAlert({
+    //       message: `Для игры нужно больше 4 игроков`,
+    //       status: "error",
+    //     })
+    //   );
+    //   return;
+    // }
+    //! Закомментировал,что бы отключить проверку
+
+    players.map((p) =>
+      dispatch(
+        addPlayer({
+          id: p.id,
+          username: p.User.username,
+          user_id: user!.id,
+          game_id: Number(id),
+        })
+      )
+    );
+    dispatch(assignRoles(roles));
+    // await updateRolePlayersInServer();
+    await updateGame();
+    dispatch(startGame(gameKey));
+
+    dispatch(
+      showAlert({
+        message: `Игра начата с временем: ${timeLimit}`,
+        status: "message",
+      })
+    );
+    return;
   };
 
   return (
@@ -119,7 +215,7 @@ export default function WaitingGameWidget({players }: Props) {
                 {players.map((player, index) => (
                   <ListItem key={index}>
                     <ListItemAvatar>
-                      <UserAvatar user={user!} />
+                      <UserAvatar />
                     </ListItemAvatar>
                     <ListItemText primary={player.User.username} />
                   </ListItem>
@@ -129,31 +225,45 @@ export default function WaitingGameWidget({players }: Props) {
           </Grid>
         </Grid>
 
-        <Box textAlign="center" mt={2}>
-          <Typography variant="subtitle1" textAlign="center">
-            Установите время:
-          </Typography>
-          <YellowSlider
-            value={timeLimit}
-            onChange={handleSliderChange}
-            aria-labelledby="time-limit-slider"
-            min={5}
-            max={60}
-            valueLabelDisplay="auto"
-            sx={{ my: 3 }}
-          />
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#bdb141",
-              color: "black",
-              "&:hover": { backgroundColor: "#7a732e" },
-            }}
-            onClick={startGame}
-          >
-            Начать играть
-          </Button>
-        </Box>
+        {user?.id === owner_id && (
+          <>
+            <Box textAlign="center" mt={2}>
+              <Typography variant="subtitle1" textAlign="center">
+                Установите время:
+              </Typography>
+              <YellowSlider
+                value={timeLimit}
+                onChange={handleSliderChange}
+                aria-labelledby="time-limit-slider"
+                min={5}
+                max={60}
+                valueLabelDisplay="auto"
+                sx={{ my: 3 }}
+              />
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#bdb141",
+                  color: "black",
+                  "&:hover": { backgroundColor: "#7a732e" },
+                }}
+                onClick={updateStateGame}
+              >
+                Начать играть
+              </Button>
+            </Box>
+          </>
+        )}
+        {user?.id !== owner_id && (
+          <Box textAlign="center" mt={6}>
+            <Typography>Ожидаем старта игры...</Typography>
+            <CircularProgress
+              sx={{
+                color: "gold",
+              }}
+            />
+          </Box>
+        )}
       </Box>
     </div>
   );
