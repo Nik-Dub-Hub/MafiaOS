@@ -50,7 +50,11 @@ const ModalProfile: React.FC<ModalProfileProps> = ({ isOpen, onClose }) => {
     });
     try {
       await dispatch(
-        updateUserThunk({ id: userId, updateData: { username: newUsername } })
+        updateUserThunk({ id: userId, updateData: {
+          username: newUsername,
+          email: "",
+          password: ""
+        } })
       ).unwrap();
       setIsEditNameVisible(false);
       dispatch(

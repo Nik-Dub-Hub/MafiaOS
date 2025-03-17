@@ -1,8 +1,8 @@
 const { User } = require("../db/models");
 
 class UserService {
-  static async getByEmail(email) {
-    return await User.findOne({ where: { email } });
+  static async getById(id) {
+    return await User.findOne({ where: { id } });
   }
 
   static async create(userData) {
@@ -16,20 +16,8 @@ class UserService {
       if (newUserData.username !== undefined) {
         user.username = newUserData.username;
       }
-      if (newUserData.img !== undefined) {
-        user.img = newUserData.img;
-      }
-      if (newUserData.civilianCount !== undefined) {
-        user.civilianCount = newUserData.civilianCount;
-      }
-      if (newUserData.mafiaCount !== undefined) {
-        user.mafiaCount = newUserData.mafiaCount;
-      }
-      if (newUserData.doctorCount !== undefined) {
-        user.doctorCount = newUserData.doctorCount;
-      }
-      if (newUserData.ladyCount !== undefined) {
-        user.ladyCount = newUserData.ladyCount;
+      if (newUserData.email !== undefined) {
+        user.email = newUserData.email;
       }
       await user.save();
     }

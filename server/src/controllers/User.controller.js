@@ -1,15 +1,14 @@
 const formatResponse = require("../utils/formatResponse");
 const UserService = require("../services/User.service");
-const reformatId = require("../utils/reformatId");
+// const reformatId = require("../utils/reformatId");
 
 class UserController {
   static async updateUser(req, res) {
-    const { email, id } = res.locals.user;
-    const { username, img, civilianCount, mafiaCount, doctorCount, ladyCount } =
-      req.body;
+    const { id } = res.locals.user;
+    const { username, email} = req.body;
 
     try {
-      const foundUser = await UserService.getByEmail(email);
+      const foundUser = await UserService.getById(id);
 
       if (!foundUser) {
         return res
@@ -28,23 +27,10 @@ class UserController {
       if (username !== undefined) {
         updateData.username = username;
       }
-      if (img !== undefined) {
-        updateData.img = img;
+      if (email !== undefined) {
+        updateData.email = email;
       }
-      if (civilianCount !== undefined) {
-        updateData.civilianCount = civilianCount;
-      }
-      if (mafiaCount !== undefined) {
-        updateData.mafiaCount = mafiaCount;
-      }
-      if (doctorCount !== undefined) {
-        updateData.doctorCount = doctorCount;
-      }
-      if (ladyCount !== undefined) {
-        updateData.ladyCount = ladyCount;
-      }
-
-      const updateUser = await UserService.update(reformatId(id), updateData);
+      const updateUser = await UserService.update(updateData);
 
       if (!updateUser) {
         return res

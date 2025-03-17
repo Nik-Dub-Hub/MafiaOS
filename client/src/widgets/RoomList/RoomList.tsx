@@ -22,7 +22,6 @@ export default function RoomList() {
   };
 
   const handleNavigate = (id: number) => {
-    //дописать путь
     navigate(`/game/${id}`);
   };
 
