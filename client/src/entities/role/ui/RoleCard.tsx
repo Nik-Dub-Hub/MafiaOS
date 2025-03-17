@@ -5,8 +5,6 @@ import { Card, CardContent, CardMedia, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { getAllRolesThunk } from "../api";
-import { RootState } from "@/app/store/store";
-import { useSelector } from "react-redux";
 import { IRole } from "../model";
 
 
@@ -24,25 +22,12 @@ export default function RoleCard({role}:Props) {
 
   const dispatch = useAppDispatch();
 
-  const roles = useSelector((state: RootState) => state.roles.roles);
 
   useEffect(() => {
     dispatch(getAllRolesThunk());
   }, [dispatch]);
 
-  const randomRole = () => {
-    if (roles && roles.length > 0) {
-      const randomIndex = Math.floor(Math.random() * roles.length);
-      return roles[randomIndex];
-    }
-    return null;
-  };
-  const selectedRole = randomRole();
 
-  if (!selectedRole) {
-    return <div>Загружаем роли</div>;
-  }
-  console.log(selectedRole);
   return (
     <div className={styles.flipCardContainer}>
       <Card
@@ -92,7 +77,7 @@ export default function RoleCard({role}:Props) {
                 aspectRatio: "1 / 1",
                 margin: "5px",
               }}
-              image={`/cards/${selectedRole.image}`}
+              image={`/cards/${role?.image}`}
             />
             <div className={styles.infoContent}>
               <h3 className={styles.title}>Ваша карточка</h3>
