@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 .footer {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   z-index: 1000;
@@ -52,7 +52,7 @@
   letter-spacing: 0.5px; /* Расстояние между буквами */
 }
 
-.modal {
+/* .modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -63,97 +63,41 @@
   width: 100%;
   height: 100%;
   background-color: rgb(0 0 0 / 70%);
-}
+} */
 
-.modalContent {
+/* .modalContent {
   position: relative;
   width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  font-family: Poppins, sans-serif; /* Применяем шрифт */
-  color: #ddd; /* Светлый текст */
-  background-color: #333; /* Темный фон модального окна */
+  height: auto;
+  padding: 10px;
+  font-family: Poppins, sans-serif;
+  color: #ddd;
+  background-color: #333;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
+  overflow-y: auto;
 }
 
 .closeButton {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 15px;
   font-size: 24px;
-  color: #e0cba8; /* Цвет кнопки закрытия */
+  color: #e0cba8;
   cursor: pointer;
 }
 
 .closeButton:hover {
-  color: #e1cc4f; /* Цвет при наведении */
-}
-
-
-
-h2, h3, h4 {
-  padding-bottom: 8px;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #ff4c4c;
-  border-bottom: 2px solid #ff4c4c;
-}
-
-h3 {
-  margin-top: 20px;
-}
-
-ul {
-  padding-left: 0;
-  margin-left: 20px;
-}
-
-ul.participants li {
-  padding: 10px;
-  margin-bottom: 15px;
-  background-color: #383838;
-  border-radius: 5px;
-}
-
-strong {
-  color: #ffad33;
-}
-
-p {
-  margin-bottom: 20px;
-}
-
-p.intro {
-  margin-top: 15px;
-  font-size: 1.2em;
-  font-style: italic;
-  color: #ccc;
-  text-align: center;
-}
-
-p.final-note {
-  margin-top: 40px;
-  font-size: 1.2em;
-  font-style: italic;
-  color: #ffd700;
-  text-align: center;
-}
-
-ul li::before {
-  padding-right: 10px;
-  font-size: 1.2em;
-  color: #ff4c4c;
-  content: "•";
+  color: #e1cc4f;
 }
 
 .modalContent h2 {
   margin-bottom: 15px;
   font-size: 1.8em;
-  color: #e0cba8; /* Цвет заголовка */
+  color: #e0cba8; 
 }
 
 .modalContent p {
   margin: 10px 0;
-  color: #abb4b6; /* Цвет текста */
-}
+  color: #abb4b6;
+} */
