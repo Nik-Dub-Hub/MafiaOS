@@ -45,7 +45,7 @@ export default function RoleCard() {
           backgroundColor: "#222",
           color: "white",
           width: "100%",
-          maxWidth: "500px",
+          maxWidth: "400px",
           minWidth: "300px",
           height: "auto",
           position: "relative",
@@ -82,7 +82,7 @@ export default function RoleCard() {
               sx={{
                 backgroundColor: "#222",
                 width: "90%",
-                height: "760px",
+                height: "100%",
                 aspectRatio: "1 / 1",
                 margin: "5px",
               }}
@@ -117,7 +117,7 @@ export default function RoleCard() {
                 sx={{
                   backgroundColor: "#222",
                   width: "90%",
-                  height: "760px",
+                  height: "480px",
                   aspectRatio: "1 / 1",
                   margin: "5px",
                 }}
