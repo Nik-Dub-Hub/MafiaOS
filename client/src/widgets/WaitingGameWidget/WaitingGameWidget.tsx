@@ -67,7 +67,6 @@ export default function WaitingGameWidget({
   const roles = useAppSelector((state) => state.roles.roles);
   const updatePlayers = useAppSelector((state) => state.gameLogic.players.filter(p=> p.game_id === Number(id)))
   
-  console.log(updatePlayers, ">>>>>>>>>>>>>>");
 
   useEffect(() => {
     if(updatePlayers.length>0){
@@ -86,7 +85,7 @@ export default function WaitingGameWidget({
       updateGameThunk({
         id: game_id,
         updateData: {
-          phase: "inProgressBeginning",
+          phase: "Знакомство",
           discussionTime: timeLimit,
         },
       })
@@ -147,7 +146,6 @@ export default function WaitingGameWidget({
       )
     );
     dispatch(assignRoles(roles));
-    // await updateRolePlayersInServer();
     await updateGame();
     dispatch(startGame(gameKey));
 

@@ -68,7 +68,7 @@ const gameLogicSlice = createSlice({
          
     },
     startNightPhase(state) {
-      state.phase = "inProgressNight"; // Переход в ночную фазу
+      state.phase = "Знакомство"; // Переход в фазу знакомство
     },
     submitNightVote(state, action: PayloadAction<number>) {
       const victim = state.players.find(

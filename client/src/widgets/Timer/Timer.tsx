@@ -4,31 +4,37 @@ import "react-circular-progressbar/dist/styles.css";
 import styles from "./Timer.module.css";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useParams } from "react-router";
+import { PlayerArrayType } from "@/entities/player";
 
 type Props = {
   discussionTime: number;
+  gamePlayers?: PlayerArrayType
 };
 
-export default function Timer({ discussionTime }:Props) {
+export default function Timer({ discussionTime, gamePlayers }: Props) {
   const [time, setTime] = useState(discussionTime);
-  // const statusText = useAppSelector(state=> state.gameLogic.phase)
-  const {id} = useParams()
-  const game  = useAppSelector(state => state.games.games.find(g => g.id === Number(id)))
-
+  const [isRunning, setIsRunning] = useState(true);
+  const { id } = useParams();
+  const game = useAppSelector((state) =>
+    state.games.games.find((g) => g.id === Number(id))
+  );
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime((prev) => {
-        if (prev > 0) {
-          return prev - 1;
-        } else {
-          return discussionTime;
-        }
-      });
-    }, 1000);
+    let interval: NodeJS.Timeout
+    if(isRunning){
+      interval = setInterval(() => {
+        setTime((prev) => {
+          if (prev > 0) {
+            return prev - 1;
+          } else {
+            return discussionTime;
+          }
+        });
+      }, 1000);
+    }
 
     return () => clearInterval(interval);
-  }, [discussionTime]);
+  }, [discussionTime,isRunning]);
 
   const progress = (time / discussionTime) * 100;
 
@@ -46,6 +52,14 @@ export default function Timer({ discussionTime }:Props) {
         }}
       />
       <div className={styles.timerText}>{game?.phase}</div>
+      <div className={styles.controls}>
+        <button onClick={() => setIsRunning(true)} disabled={isRunning}>
+          Продолжить
+        </button>
+        <button onClick={() => setIsRunning(false)} disabled={!isRunning}>
+          Остановить
+        </button>
+      </div>
     </div>
   );
 };

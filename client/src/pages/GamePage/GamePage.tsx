@@ -84,7 +84,7 @@ export default function GamePage() {
 
   return (
     <div>
-      {game.phase === "waiting" && (
+      {game.phase === "Ожидание" && (
         <WaitingGameWidget
           owner_id={game.owner_id}
           players={currentPlayers}
@@ -92,7 +92,7 @@ export default function GamePage() {
           gameKey={game.key}
         />
       )}
-      {game.phase === "inProgressBeginning" && (
+      {game.phase === "Знакомство" && (
         <StartGameWidget discussionTime={game.discussionTime!} />
       )}
     </div>
