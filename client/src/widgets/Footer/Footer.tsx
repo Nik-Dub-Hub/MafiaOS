@@ -5,22 +5,27 @@ import { useState } from "react";
 import styles from "./Footer.module.css";
 import LoginModal from "@/features/modal/LoginModal/LoginModal";
 import RegisterModal from "@/features/modal/RegisterModal/RegisterModal";
-import Rules from "./Rules/Rules";
 import { useNavigate } from "react-router";
 import { CLIENT_ROUTES } from "@/shared/enums/clientRoutes";
+import Statistics from "../../features/modal/StatisticsModal/Statistics";
+import RulesGame from "@/features/modal/RulesModal/Rules";
 
 export default function Footer() {
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
 
   const toggleRulesModal = () => {
-    setIsRulesModalOpen(!isRulesModalOpen);
+    setIsRulesModalOpen((prev) => !prev);
   };
+  const toggleStatsModal = () => setIsStatsModalOpen((prev) => !prev);
+  const toggleLoginModal = () => setIsLoginModalOpen((prev) => !prev);
+  const toggleRegisterModal = () => setIsRegisterModalOpen((prev) => !prev);
 
   const handleLogout = () => {
     dispatch(signOutThunk());
@@ -29,36 +34,33 @@ export default function Footer() {
         message: "Вы успешно вышли, до встречи👋",
         status: "success",
       })
-    )
-    navigate(CLIENT_ROUTES.MAIN)
+    );
+    navigate(CLIENT_ROUTES.MAIN);
   };
-
-  const openLoginModal = () => setIsLoginModalOpen(true);
-  const closeLoginModal = () => setIsLoginModalOpen(false);
-
-  const openRegisterModal = () => setIsRegisterModalOpen(true);
-  const closeRegisterModal = () => setIsRegisterModalOpen(false);
 
   return (
     <footer className={styles.footer}>
       {user ? (
         <div className={styles.userActions}>
-          <div className={styles.iconContainer}>
+          <div className={styles.iconContainer}onClick={() => setIsRulesModalOpen(true)}>
             <img
-              src="/public/question.svg"
+              src="/question.svg"
               alt="question"
               className={styles.rulesButton}
-              onClick={toggleRulesModal}
+              
             />
             <span className={styles.iconText}>rules</span>
           </div>
-          <div className={styles.iconContainer}>
-            <UserAvatar  />
-            <span className={styles.iconText}>profile</span>
+          <div
+            className={styles.iconContainer}
+            onClick={() => setIsStatsModalOpen(true)}
+          >
+            <UserAvatar />
+            <span className={styles.iconText}>{user.username}</span>
           </div>
           <div className={styles.iconContainer}>
             <img
-              src="/public/logout.svg"
+              src="/logout.svg"
               alt="logout"
               className={styles.logoutButton}
               onClick={handleLogout}
@@ -70,36 +72,34 @@ export default function Footer() {
         <div className={styles.authButtons}>
           <div className={styles.iconContainer}>
             <img
-              src="/public/login.svg"
+              src="/login.svg"
               alt="login"
               className={styles.authButton}
-              onClick={openLoginModal}
+              onClick={toggleLoginModal}
             />
             <span className={styles.iconText}>sign in</span>
           </div>
         </div>
       )}
-
-      {isRulesModalOpen && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <span className={styles.closeButton} onClick={toggleRulesModal}>
-              &times;
-            </span>
-            <Rules/>
-          </div>
-        </div>
-      )}
-
+      <RulesGame
+        open={isRulesModalOpen}
+        onClose={toggleRulesModal}
+        onOpenStatisticsModal={toggleRulesModal}
+      />
+      <Statistics
+        open={isStatsModalOpen}
+        onClose={toggleStatsModal}
+        onOpenStatisticsModal={toggleStatsModal}
+      />
       <LoginModal
         open={isLoginModalOpen}
-        onClose={closeLoginModal}
-        onOpenRegisterModal={openRegisterModal}
+        onClose={toggleLoginModal}
+        onOpenRegisterModal={toggleRegisterModal}
       />
       <RegisterModal
         open={isRegisterModalOpen}
-        onClose={closeRegisterModal}
-        openLoginModal={openLoginModal}
+        onClose={toggleRegisterModal}
+        openLoginModal={toggleLoginModal}
       />
     </footer>
   );

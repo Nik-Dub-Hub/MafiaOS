@@ -1,18 +1,13 @@
-import SignInForm from "@/features/auth/ui/SignInForm/SignInForm";
-import {
-  Modal,
-  Box,
-  Typography,
-} from "@mui/material";
+import { Modal, Box, Typography } from "@mui/material";
+import FormStat from "./FormStat";
 
-
-interface LoginModalProps {
+interface StatisticsModalProps {
   open: boolean;
   onClose: () => void;
-  onOpenRegisterModal: () => void;
+  onOpenStatisticsModal: () => void;
 }
 
-export default function LoginModal({ open, onClose, onOpenRegisterModal }: LoginModalProps) {
+export default function Statistics({ open, onClose }: StatisticsModalProps) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box
@@ -34,12 +29,9 @@ export default function LoginModal({ open, onClose, onOpenRegisterModal }: Login
           gutterBottom
           sx={{ color: "#E1CC4F" }}
         >
-          Login
+          Ваша статистика
         </Typography>
-        <SignInForm
-          onClose={onClose}
-          onOpenRegisterModal={onOpenRegisterModal}
-        />
+        <FormStat />
       </Box>
     </Modal>
   );
