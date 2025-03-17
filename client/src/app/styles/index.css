@@ -19,11 +19,15 @@ a {
 }
 a:hover {
 }
-
-body {
+*{
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  /* margin: 0; */
+  /* display: flex; */
+  /* place-items: center; */
   background-color: #1a1a1a;
   color: #ddd;
 }
