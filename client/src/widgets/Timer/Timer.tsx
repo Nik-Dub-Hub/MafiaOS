@@ -1,40 +1,53 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Timer.module.css";
-import { useAppSelector } from "@/shared/hooks/reduxHooks";
-import { useParams } from "react-router";
 import { PlayerArrayType } from "@/entities/player";
+import { IGame } from "@/entities/game";
+import { IUser } from "@/entities/user";
 
 type Props = {
   discussionTime: number;
-  gamePlayers?: PlayerArrayType
+  gamePlayers?: PlayerArrayType;
+  game?: IGame;
+  user: IUser;
 };
 
-export default function Timer({ discussionTime, gamePlayers }: Props) {
+export default function Timer({
+  discussionTime,
+  gamePlayers: initialGamePlayers,
+  game,
+  user,
+}: Props) {
   const [time, setTime] = useState(discussionTime);
   const [isRunning, setIsRunning] = useState(true);
-  const { id } = useParams();
-  const game = useAppSelector((state) =>
-    state.games.games.find((g) => g.id === Number(id))
+  const [players, setPlayers] = useState<PlayerArrayType>(
+    initialGamePlayers || []
   );
 
   useEffect(() => {
-    let interval: NodeJS.Timeout
-    if(isRunning){
+    let interval: NodeJS.Timeout;
+
+    if (isRunning) {
       interval = setInterval(() => {
         setTime((prev) => {
           if (prev > 0) {
             return prev - 1;
           } else {
-            return discussionTime;
+            // Когда таймер доходит до 0
+            if (players.length > 0) {
+              // Удаляем игрока с индексом 0
+              const updatedPlayers = players.slice(1);
+              setPlayers(updatedPlayers);
+            }
+            return discussionTime; // Сбрасываем таймер
           }
         });
       }, 1000);
     }
 
     return () => clearInterval(interval);
-  }, [discussionTime,isRunning]);
+  }, [discussionTime, isRunning, players]);
 
   const progress = (time / discussionTime) * 100;
 
@@ -51,17 +64,24 @@ export default function Timer({ discussionTime, gamePlayers }: Props) {
           },
         }}
       />
-      <div className={styles.timerText}>{game?.phase}</div>
-      <div className={styles.controls}>
-        <button onClick={() => setIsRunning(true)} disabled={isRunning}>
-          Продолжить
-        </button>
-        <button onClick={() => setIsRunning(false)} disabled={!isRunning}>
-          Остановить
-        </button>
+      <div className={styles.timerText}>
+        {game?.phase}
+        <br />
+        {players.length > 0 && `Время для ${players[0].User.username}`}
       </div>
+      {user && user.id === game?.owner_id && (
+        <div className={styles.controls}>
+          <button
+            onClick={() => setIsRunning(true)}
+            disabled={isRunning}
+          >
+            Продолжить
+          </button>
+          <button onClick={() => setIsRunning(false)} disabled={!isRunning}>
+            Остановить
+          </button>
+        </div>
+      )}
     </div>
   );
-};
-
-
+}

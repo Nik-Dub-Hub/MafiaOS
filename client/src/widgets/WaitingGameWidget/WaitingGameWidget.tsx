@@ -1,13 +1,15 @@
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Slider from "@mui/material/Slider";
-import Button from "@mui/material/Button";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Grid,
+  Typography,
+  Slider,
+  Button,
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useEffect, useState } from "react";
 import { UserAvatar } from "@/entities/user";
@@ -146,8 +148,8 @@ export default function WaitingGameWidget({
       )
     );
     dispatch(assignRoles(roles));
-    await updateGame();
     dispatch(startGame(gameKey));
+    await updateGame();
 
     dispatch(
       showAlert({

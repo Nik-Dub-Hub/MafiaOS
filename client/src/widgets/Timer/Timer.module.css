@@ -1,5 +1,6 @@
 .timer {
   position: relative;
+  z-index: 10;
   width: 200px;
   height: 200px; /* Добавлено для корректного отображения CircularProgressbar */
   margin: 0 auto;
@@ -7,40 +8,42 @@
 }
 
 .timerText {
-  box-sizing: border-box; /* Добавлено */
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%; /* Увеличиваем ширину для корректного центрирования */
+  box-sizing: border-box;
+  display: inline-block; /* Граница будет занимать только ширину текста */
+  padding-bottom: 5px; /* Отступ между текстом и границей */
   font-family: Arial, sans-serif;
   font-size: 14px;
   font-weight: bold;
   line-height: 1.5;
   color: white;
   text-align: center;
+  white-space: nowrap; /* Предотвращаем перенос текста на новую строку */
+  pointer-events: none; /* Чтобы текст не мешал взаимодействию с таймером */
   border-bottom: 2px solid yellow;
   transform: translate(-50%, -50%);
-  pointer-events: none; /* Чтобы текст не мешал взаимодействию с таймером */
 }
 
 .controls {
-  margin-top: 10px;
   display: flex;
   gap: 10px;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .controls button {
   padding: 5px 10px;
   font-size: 14px;
+  color: white;
   cursor: pointer;
+  background-color: gold;
   border: none;
   border-radius: 5px;
-  background-color: gold;
-  color: white;
 }
 
 .controls button:disabled {
-  background-color: #ccc;
   cursor: not-allowed;
+  background-color: #ccc;
 }
