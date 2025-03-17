@@ -1,6 +1,5 @@
 const GameService = require("../services/Game.service");
 const isValidId = require("../utils/isValidId");
-const GameValidator = require("../utils/Game.validator");
 const formatResponse = require("../utils/formatResponse");
 
 class GameController {
@@ -54,7 +53,7 @@ class GameController {
     try {
       const newGame = await GameService.create({
         owner_id: user.id,
-        phase: "waiting",
+        phase: "Ожидание",
         key,
         discussionTime,
       });

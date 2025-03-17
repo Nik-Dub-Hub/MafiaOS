@@ -1,13 +1,15 @@
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import Slider from "@mui/material/Slider";
-import Button from "@mui/material/Button";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Grid,
+  Typography,
+  Slider,
+  Button,
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useEffect, useState } from "react";
 import { UserAvatar } from "@/entities/user";
@@ -67,7 +69,6 @@ export default function WaitingGameWidget({
   const roles = useAppSelector((state) => state.roles.roles);
   const updatePlayers = useAppSelector((state) => state.gameLogic.players.filter(p=> p.game_id === Number(id)))
   
-  console.log(updatePlayers, ">>>>>>>>>>>>>>");
 
   useEffect(() => {
     if(updatePlayers.length>0){
@@ -86,7 +87,7 @@ export default function WaitingGameWidget({
       updateGameThunk({
         id: game_id,
         updateData: {
-          phase: "inProgressBeginning",
+          phase: "Знакомство",
           discussionTime: timeLimit,
         },
       })
@@ -147,9 +148,8 @@ export default function WaitingGameWidget({
       )
     );
     dispatch(assignRoles(roles));
-    // await updateRolePlayersInServer();
-    await updateGame();
     dispatch(startGame(gameKey));
+    await updateGame();
 
     dispatch(
       showAlert({

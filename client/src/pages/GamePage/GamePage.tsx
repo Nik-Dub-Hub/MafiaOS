@@ -22,8 +22,6 @@ export default function GamePage() {
     state.players.players.filter((p) => p.game_id === Number(id))
   );
 
- 
-  
   useEffect(() => {
     dispatch(getAllPlayerThunk());
     dispatch(getAllRolesThunk());
@@ -76,15 +74,30 @@ export default function GamePage() {
 
     initializeGame();
   }, [id, game, user]);
+// console.log(game?.phase);
 
-  
+  // useEffect(() => {
+  //   let interval: NodeJS.Timeout;
+  //   const fetchPlayers = async()=> {
+  //     try {
+  //       await dispatch(getAllPlayerThunk());
+  //     } catch  {
+  //       console.error("Ошибка при загрузке игроков:");
+  //     }
+  //   }
+
+  //   if (game?.phase === "Ожидание") {
+  //     interval = setInterval(fetchPlayers, 3000);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [dispatch,]);
 
   if (isLoading) return <div>Загрузка...</div>;
   if (!game) return <div>Игра не найдена</div>;
 
   return (
     <div>
-      {game.phase === "waiting" && (
+      {game.phase === "Ожидание" && (
         <WaitingGameWidget
           owner_id={game.owner_id}
           players={currentPlayers}
@@ -92,7 +105,7 @@ export default function GamePage() {
           gameKey={game.key}
         />
       )}
-      {game.phase === "inProgressBeginning" && (
+      {game.phase === "Знакомство" && (
         <StartGameWidget discussionTime={game.discussionTime!} />
       )}
     </div>
