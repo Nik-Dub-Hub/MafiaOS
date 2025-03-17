@@ -26,6 +26,8 @@ export default function RoomList() {
     navigate(`/game/${id}`);
   };
 
+  const waitingGames = games.filter((game) => game.phase === "waiting");
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.box}>
@@ -46,7 +48,7 @@ export default function RoomList() {
             <h6 className={styles.header}>Список доступных комнат</h6>
             <div className={styles.demo}>
               <ul className={styles.list}>
-                {games.map((game, id) => (
+                {waitingGames.map((game, id) => (
                   <li className={styles.listItem} key={id}>
                     <div className={styles.listItemAvatar}>
                       <div className={styles.avatar}>
