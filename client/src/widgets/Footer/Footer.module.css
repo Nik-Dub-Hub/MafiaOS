@@ -90,70 +90,13 @@
   color: #e1cc4f; /* Цвет при наведении */
 }
 
-
-
-h2, h3, h4 {
-  padding-bottom: 8px;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #ff4c4c;
-  border-bottom: 2px solid #ff4c4c;
-}
-
-h3 {
-  margin-top: 20px;
-}
-
-ul {
-  padding-left: 0;
-  margin-left: 20px;
-}
-
-ul.participants li {
-  padding: 10px;
-  margin-bottom: 15px;
-  background-color: #383838;
-  border-radius: 5px;
-}
-
-strong {
-  color: #ffad33;
-}
-
-p {
-  margin-bottom: 20px;
-}
-
-p.intro {
-  margin-top: 15px;
-  font-size: 1.2em;
-  font-style: italic;
-  color: #ccc;
-  text-align: center;
-}
-
-p.final-note {
-  margin-top: 40px;
-  font-size: 1.2em;
-  font-style: italic;
-  color: #ffd700;
-  text-align: center;
-}
-
-ul li::before {
-  padding-right: 10px;
-  font-size: 1.2em;
-  color: #ff4c4c;
-  content: "•";
-}
-
 .modalContent h2 {
   margin-bottom: 15px;
   font-size: 1.8em;
-  color: #e0cba8; /* Цвет заголовка */
+  color: #e0cba8; 
 }
 
 .modalContent p {
   margin: 10px 0;
-  color: #abb4b6; /* Цвет текста */
+  color: #abb4b6;
 }

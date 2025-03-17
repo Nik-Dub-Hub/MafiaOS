@@ -1,11 +1,12 @@
 .flipCardContainer {
   position: absolute;
+  position: relative;
   box-sizing: border-box;
   display: flex;
   width: 100%;
   height: auto;
-  margin: 70px 30px;
-  margin-bottom: 100px;
+  margin: 100px 30px;
+  margin-bottom: 30px;
   text-align: right;
 }
 
@@ -13,7 +14,9 @@
   margin-right: 30px;
 }
 
-.role, .title, .description {
+.role,
+.title,
+.description {
   text-align: center;
 }
 
@@ -61,7 +64,9 @@
     margin: 20px 5px;
   }
 
-  .title, .role, .description {
+  .title,
+  .role,
+  .description {
     font-size: 0.8125rem;
   }
 }

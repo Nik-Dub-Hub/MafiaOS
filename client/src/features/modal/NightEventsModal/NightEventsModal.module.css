@@ -1,61 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
 
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    font-family: Cinzel, serif;
-    background-color: rgb(0 0 0 / 80%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: Cinzel, serif;
+  background-color: rgb(0 0 0 / 80%);
 }
 
 .modalContent {
-    position: relative;
-    width: 80%;
-    max-width: 500px;
-    min-height: 250px;
-    padding: 30px;
-    color: #ddd;
-    text-align: left;
-    background-color: rgb(68 68 68 / 70%);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgb(0 0 0 / 90%);
+  position: relative;
+  width: 80%;
+  max-width: 500px;
+  min-height: 250px;
+  padding: 30px;
+  color: #ddd;
+  text-align: left;
+  background-color: rgb(68 68 68 / 70%);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 90%);
 }
 
 .closeButton {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 30px;
-    color: #bbb;
-    cursor: pointer;
-    transition: color 0.2s;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 30px;
+  color: #bbb;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .closeButton:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .modalTitle {
-    margin-bottom: 20px;
-    font-size: 2.2em;
-    color: #eee;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgb(0 0 0 / 50%);
+  margin-bottom:20px ;
+  font-size: 2.2em;
+  color: #eee;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgb(0 0 0 / 50%);
 }
 
 .eventList {
-    padding-left: 20px;
-    margin-bottom: 30px;
-    list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 30px;
+  list-style-type: disc;
 }
 
 .eventList li {
-    margin-bottom: 10px;
-    font-size: 1.2em;
+  margin-bottom: 10px;
+  font-size: 1.2em;
 }
