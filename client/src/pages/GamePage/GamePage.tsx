@@ -115,7 +115,7 @@ export default function GamePage() {
           players={currentPlayers}
           currentUser={user!}
           game_id={game.id}
-          phase={game.phase}
+   
         />
       )}
       {game.phase === "Дневное голосование" && (
@@ -123,7 +123,7 @@ export default function GamePage() {
           players={currentPlayers}
           currentUser={user!}
           game_id={game.id}
-          phase={game.phase}
+        
         />
       )}
     </div>

@@ -9,10 +9,10 @@ type Props = {
   players: PlayerArrayType;
   currentUser: IUser;
   game_id: number;
-  phase: string;
+  
 };
 
-export default function DailyVotingWidget({ players, currentUser, game_id, phase }: Props) {
+export default function DailyVotingWidget({ players, currentUser, game_id }: Props) {
   const dispatch = useAppDispatch();
   const game = useAppSelector((state) =>
     state.games.games.find((g) => g.id === game_id)
