@@ -5,10 +5,13 @@ export interface IGameAddData {
   export interface IGameUpdateData {
     phase?: string;
     discussionTime?:number
+    isRunning?:boolean
+    currentTime?:number
+    key?:string
   }
+  
   export interface IGame extends IGameUpdateData {
     id: number;
-    key:string
     owner_id: number;
     createdAt: Date;
     updatedAt: Date;

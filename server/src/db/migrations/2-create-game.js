@@ -27,6 +27,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      isRunning:{
+        type:Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+      currentTime:{
+        type: Sequelize.INTEGER,
+        defaultValue:0,
+      },
       discussionTime: {
         type: Sequelize.INTEGER,
         allowNull: false,
