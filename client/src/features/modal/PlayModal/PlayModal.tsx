@@ -29,8 +29,7 @@ const PlayModal: React.FC<PlayModalProps> = ({ isOpen, onClose }) => {
       }
 
       if (response.payload?.statusCode === 201) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        `${CLIENT_ROUTES.GAME_ONE}/${response.payload.data?.id}`;
+        navigate(`${CLIENT_ROUTES.GAME_ONE}/${response.payload.data?.id}`);
       }
     } catch {
       dispatch(
