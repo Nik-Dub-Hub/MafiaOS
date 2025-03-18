@@ -74,7 +74,7 @@ export default function GamePage() {
     };
 
     initializeGame();
-  }, [id, game, user, currentPlayers, dispatch, navigate]);
+  }, [id, game, user, dispatch]);
 // console.log(game?.phase);
 
   // useEffect(() => {
@@ -107,11 +107,15 @@ export default function GamePage() {
           gameKey={game.key}
         />
       )}
-      {game.phase === "Знакомство" && (
+      {/* {game.phase === "Знакомство" && (
         <StartGameWidget discussionTime={game.discussionTime!} />
-      )}
-      {game.phase === "inProgressBeginning" && (
-        <DailyVotingWidget players={currentPlayers} currentUser={user!} />
+      )} */}
+      {game.phase === "Знакомство" && (
+        <DailyVotingWidget
+          players={currentPlayers}
+          currentUser={user!}
+          game_id={game.id}
+        />
       )}
     </div>
   );

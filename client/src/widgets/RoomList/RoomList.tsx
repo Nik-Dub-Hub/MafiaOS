@@ -25,7 +25,7 @@ export default function RoomList() {
     navigate(`/game/${id}`);
   };
 
-  const waitingGames = games.filter((game) => game.phase === "waiting");
+  const waitingGames = games.filter((game) => game.phase === "Ожидание");
 
   return (
     <div className={styles.wrapper}>

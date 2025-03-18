@@ -11,6 +11,10 @@ router
 
   .put("/:id", verifyAccessToken, GameController.updateGame)
 
-  .delete("/:id", verifyAccessToken, GameController.deleteGame);
+  .delete("/:id", verifyAccessToken, GameController.deleteGame)
 
+  .post("/:id/vote", verifyAccessToken, GameController.addVote)
+
+  .delete("/:id/vote", verifyAccessToken, GameController.clearVoting);
+  
 module.exports = router;
