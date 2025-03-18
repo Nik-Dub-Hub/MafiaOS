@@ -6,6 +6,7 @@ import PlayModal from "@/features/modal/PlayModal/PlayModal";
 import style from "./MainPage.module.css";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { showAlert } from "@/features/alerts";
+import { Counter } from "@/widgets/Counter/Counter";
 
 export function MainPage() {
   const [isPlayModalOpen, setIsPlayModalOpen] = useState(false);
@@ -34,6 +35,7 @@ export function MainPage() {
     <div className={style.container}>
       <h4>Инновационное веб-приложение для захватывающей игры с друзьями</h4>
       <div className={style.buttonContainer}>
+        <Counter/>
         {user && (
           <button className={style.button} onClick={handlePlayClick}>
             Поиграем ?
