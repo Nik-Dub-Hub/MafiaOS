@@ -4,10 +4,11 @@ import { getAllRolesThunk } from "@/entities/role";
 import { showAlert } from "@/features/alerts";
 import { CLIENT_ROUTES } from "@/shared/enums/clientRoutes";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
-import StartGameWidget from "@/widgets/StartGameWidget/StartGameWidget";
+import DailyVotingWidget from "@/widgets/DailyVotingWidget/DailyVotingWidget";
 import WaitingGameWidget from "@/widgets/WaitingGameWidget/WaitingGameWidget";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import StartGameWidget from "@/widgets/StartGameWidget/StartGameWidget";
 
 export default function GamePage() {
   const { id } = useParams();
@@ -73,7 +74,7 @@ export default function GamePage() {
     };
 
     initializeGame();
-  }, [id, game, user]);
+  }, [id, game, user, currentPlayers, dispatch, navigate]);
 // console.log(game?.phase);
 
   // useEffect(() => {
@@ -91,6 +92,7 @@ export default function GamePage() {
   //   }
   //   return () => clearInterval(interval);
   // }, [dispatch,]);
+  
 
   if (isLoading) return <div>Загрузка...</div>;
   if (!game) return <div>Игра не найдена</div>;
@@ -107,6 +109,9 @@ export default function GamePage() {
       )}
       {game.phase === "Знакомство" && (
         <StartGameWidget discussionTime={game.discussionTime!} />
+      )}
+      {game.phase === "inProgressBeginning" && (
+        <DailyVotingWidget players={currentPlayers} currentUser={user!} />
       )}
     </div>
   );
