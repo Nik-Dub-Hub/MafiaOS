@@ -107,14 +107,23 @@ export default function GamePage() {
           gameKey={game.key}
         />
       )}
-      {/* {game.phase === "Знакомство" && (
-        <StartGameWidget discussionTime={game.discussionTime!} />
-      )} */}
       {game.phase === "Знакомство" && (
+        <StartGameWidget discussionTime={game.discussionTime!} />
+      )}
+      {game.phase === "Ночное голосование " && (
         <DailyVotingWidget
           players={currentPlayers}
           currentUser={user!}
           game_id={game.id}
+          phase={game.phase}
+        />
+      )}
+      {game.phase === "Дневное голосование" && (
+        <DailyVotingWidget
+          players={currentPlayers}
+          currentUser={user!}
+          game_id={game.id}
+          phase={game.phase}
         />
       )}
     </div>
