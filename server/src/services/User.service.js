@@ -5,6 +5,10 @@ class UserService {
     return await User.findOne({ where: { id } });
   }
 
+  static async getByEmail(email) {
+    return await User.findOne({ where: { email } });
+  }
+  
   static async create(userData) {
     return await User.create(userData);
   }
@@ -12,7 +16,6 @@ class UserService {
   static async update(id, newUserData) {
     const user = await User.findByPk(id);
     if (user) {
-
       if (newUserData.username !== undefined) {
         user.username = newUserData.username;
       }

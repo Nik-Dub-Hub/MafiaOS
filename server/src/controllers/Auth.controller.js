@@ -25,6 +25,7 @@ class AuthController {
   }
 
   static async signUp(req, res) {
+    
     const { username, email, password } = req.body;
     const { isValid, error } = AuthValidator.validateSignUp({
       email,
@@ -41,7 +42,8 @@ class AuthController {
     const normalizedEmail = email.toLowerCase();
     try {
       const userFound = await UserService.getByEmail(normalizedEmail);
- 
+      console.log(userFound);
+      
       if (userFound) {
         return res
         .status(400)
