@@ -1,6 +1,6 @@
-import { getAllPlayerThunk, IPlayer, IPlayerForUpdate, PlayerArrayType, updatePlayerThunk } from '@/entities/player';
+import { getAllPlayerThunk, IPlayer, PlayerArrayType, updatePlayerThunk } from '@/entities/player';
 import { IUser, UserAvatar } from '@/entities/user';
-import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
+import { useAppDispatch} from '@/shared/hooks/reduxHooks';
 import { ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import { useState } from 'react';
 
