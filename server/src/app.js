@@ -1,18 +1,31 @@
-const path = require("path"); //* Импорт библиотеки path
-require("dotenv").config({ path: path.resolve(__dirname, "..", ".env") }); //* Подключение переменных окружения
-const express = require("express"); //* Импорт библиотеки express
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "..", ".env") });
+const express = require("express");
+const http = require("http");
+const setupWebSocket = require("./websocket");
 const serverConfig = require("./config/serverConfig");
 const indexRouter = require("./routes/index.routes");
 
-const app = express(); //* Заводим экземпляр приложения
+// Создаем экземпляр Express-приложения
+const app = express();
 
-serverConfig(app); //* Прогоняем экземпляр приложения через функцию обучения
+// Создаем HTTP-сервер на основе Express
+const server = http.createServer(app);
 
-const { PORT } = process.env; //* указываем порт, который будет слушать сервер
+// Настраиваем WebSocket
+setupWebSocket(server);
 
-app.use("/api", indexRouter); //* подключаем весь пакет маршрутов на /api
+// Применяем конфигурацию сервера (middleware, статические файлы и т.д.)
+serverConfig(app);
 
-//* Старт сервера - прослушивание определенного порта
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+// Подключаем маршруты
+app.use("/api", indexRouter);
+
+// Получаем порт из .env
+const { PORT } = process.env;
+
+// Запускаем сервер
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  console.log(`WebSocket is running on path ${process.env.WS_PATH}`);
 });
