@@ -3,6 +3,9 @@ import FormStat from "./FormStat";
 import Profile from "@/widgets/Profile/ProfileForm";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useState } from "react";
+import { updateUserThunk } from "../../../entities/user/api/index";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import { ChangeEvent } from "react";
 
 interface StatisticsModalProps {
   open: boolean;
@@ -13,7 +16,8 @@ interface StatisticsModalProps {
 export default function Statistics({ open, onClose }: StatisticsModalProps) {
   const [isEditing, setIsEditing] = useState(false);
   const user = useAppSelector((state) => state.user.user);
-  console.log(user);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null); // Явно указываем тип File | null
+  const dispatch = useAppDispatch();
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -21,6 +25,46 @@ export default function Statistics({ open, onClose }: StatisticsModalProps) {
 
   const handleProfileClose = () => {
     setIsEditing(false);
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setSelectedFile(file || null);
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile || !user) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", selectedFile);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/user/${user.id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const updatedUserResponse = await response.json();
+        const updatedUser = updatedUserResponse.data;
+
+        dispatch(updateUserThunk({ id: user.id, updateData: updatedUser }));
+
+        onClose();
+      } else {
+        console.error("Upload failed:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+    }
   };
 
   return (
@@ -74,6 +118,20 @@ export default function Statistics({ open, onClose }: StatisticsModalProps) {
               >
                 Электронная почта: {user?.email}
               </Typography>
+              <input type="file" accept="image/*" onChange={handleFileChange} />
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  mt: 2,
+                  width: "100%",
+                  background: "#E1CC4F",
+                  color: "#343E40",
+                }}
+                onClick={handleUpload}
+              >
+                Загрузить аватар
+              </Button>
               <Button
                 type="submit"
                 variant="contained"
@@ -90,8 +148,7 @@ export default function Statistics({ open, onClose }: StatisticsModalProps) {
             </Box>
           </>
         ) : (
-          <Profile onClose={handleProfileClose} userId={0}          
-          />
+          <Profile onClose={handleProfileClose} userId={0} />
         )}
       </Box>
     </Modal>

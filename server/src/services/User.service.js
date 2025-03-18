@@ -8,7 +8,7 @@ class UserService {
   static async getByEmail(email) {
     return await User.findOne({ where: { email } });
   }
-  
+
   static async create(userData) {
     return await User.create(userData);
   }
@@ -24,6 +24,21 @@ class UserService {
       }
       await user.save();
     }
+    return user;
+  }
+
+  static async updateAvatar(id, avatarUrl) {
+    const user = await User.findByPk(id);
+
+    
+    if (!user) {
+      return null;
+    }
+    user.img = avatarUrl;
+    await user.save();
+    console.log(avatarUrl);
+    
+        console.log(user);
     return user;
   }
 }

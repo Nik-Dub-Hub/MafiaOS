@@ -50,7 +50,7 @@ export const updatePlayerThunk = createAsyncThunk<
 >(
   PLAYER_THUNK_TYPES.UPDATE,
   async ({ id, updateData }, { rejectWithValue }) => {
-    try {
+    try {      
       const { data } = await axiosInstance.put(
         `${PLAYER_ENDPOINT_PATH}/${id}`,
         { updateData }
