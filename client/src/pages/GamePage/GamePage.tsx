@@ -4,6 +4,7 @@ import { getAllRolesThunk } from "@/entities/role";
 import { showAlert } from "@/features/alerts";
 import { CLIENT_ROUTES } from "@/shared/enums/clientRoutes";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import DailyVotingWidget from "@/widgets/DailyVotingWidget/DailyVotingWidget";
 import StartGameWidget from "@/widgets/StartGameWidget/StartGameWidget";
 import WaitingGameWidget from "@/widgets/WaitingGameWidget/WaitingGameWidget";
 import { useEffect, useState } from "react";
@@ -92,8 +93,11 @@ export default function GamePage() {
           gameKey={game.key}
         />
       )}
-      {game.phase === "inProgressBeginning" && (
+      {/* {game.phase === "inProgressBeginning" && (
         <StartGameWidget discussionTime={game.discussionTime!} />
+      )} */}
+      {game.phase === "inProgressBeginning" && (
+        <DailyVotingWidget players={currentPlayers} currentUser={user!} />
       )}
     </div>
   );

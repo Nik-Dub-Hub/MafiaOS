@@ -108,17 +108,6 @@ class PlayerController {
         return res.status(404).json(formatResponse(404, "Player not found"));
       }
 
-      if (existingPlayer.user_id !== user.id) {
-        return res
-          .status(400)
-          .json(
-            formatResponse(
-              400,
-              "You don't have permission to update this player"
-            )
-          );
-      }
-
       const updatedPlayer = await PlayerService.update(+id, {
         role_id,
         isAlive,
