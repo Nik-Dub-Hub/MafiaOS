@@ -195,7 +195,7 @@ export default function WaitingGameWidget({
               <List
                 sx={{
                   backgroundColor: "#f5f5f5",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                  boxShadow: "0 4px 8px rgba(250, 163, 1, 0.57)",
                   margin: "16px 0",
                   flexGrow: 1, // Позволяет списку занимать доступное пространство
                   minHeight: "50%", // Устанавливает минимальную высоту на 50%
@@ -208,7 +208,7 @@ export default function WaitingGameWidget({
                     <ListItemAvatar>
                       <UserAvatar />
                     </ListItemAvatar>
-                    <ListItemText primary={player.User.username} />
+                    <ListItemText primary={player.User.username} sx={{color:"black",}}/>
                   </ListItem>
                 ))}
               </List>
