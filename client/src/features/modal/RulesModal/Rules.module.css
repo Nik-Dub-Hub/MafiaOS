@@ -1,5 +1,9 @@
 .rules {
-    width: auto;
+  box-sizing: border-box;
+  width: auto;
+  height: 400px;
+  padding: 0;
+  margin: 0;
 }
 
 .red {
@@ -10,13 +14,12 @@
   border-bottom: 2px solid #ff4c4c;
 }
 
-h3 {
+h3, h4 {
   margin-top: 10px;
 }
 
 ul {
   padding-left: 0;
-  margin-left: 20px;
 }
 
 ul.participants li {
@@ -34,8 +37,8 @@ p {
   margin-bottom: 20px;
 }
 
-p.intro {
-  margin-top: 15px;
+h5.intro {
+  margin: 15px;
   font-size: 1.2em;
   font-style: italic;
   color: #ccc;
@@ -48,4 +51,3 @@ ul li::before {
   color: #ff4c4c;
   content: "•";
 }
-

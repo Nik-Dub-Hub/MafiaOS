@@ -8,6 +8,7 @@ import DailyVotingWidget from "@/widgets/DailyVotingWidget/DailyVotingWidget";
 import WaitingGameWidget from "@/widgets/WaitingGameWidget/WaitingGameWidget";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import StartGameWidget from "@/widgets/StartGameWidget/StartGameWidget";
 
 export default function GamePage() {
   const { id } = useParams();
@@ -22,8 +23,6 @@ export default function GamePage() {
     state.players.players.filter((p) => p.game_id === Number(id))
   );
 
- 
-  
   useEffect(() => {
     dispatch(getAllPlayerThunk());
     dispatch(getAllRolesThunk());
@@ -76,7 +75,23 @@ export default function GamePage() {
 
     initializeGame();
   }, [id, game, user, currentPlayers, dispatch, navigate]);
+// console.log(game?.phase);
 
+  // useEffect(() => {
+  //   let interval: NodeJS.Timeout;
+  //   const fetchPlayers = async()=> {
+  //     try {
+  //       await dispatch(getAllPlayerThunk());
+  //     } catch  {
+  //       console.error("Ошибка при загрузке игроков:");
+  //     }
+  //   }
+
+  //   if (game?.phase === "Ожидание") {
+  //     interval = setInterval(fetchPlayers, 3000);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [dispatch,]);
   
 
   if (isLoading) return <div>Загрузка...</div>;
@@ -84,7 +99,7 @@ export default function GamePage() {
 
   return (
     <div>
-      {game.phase === "waiting" && (
+      {game.phase === "Ожидание" && (
         <WaitingGameWidget
           owner_id={game.owner_id}
           players={currentPlayers}
@@ -92,9 +107,9 @@ export default function GamePage() {
           gameKey={game.key}
         />
       )}
-      {/* {game.phase === "inProgressBeginning" && (
+      {game.phase === "Знакомство" && (
         <StartGameWidget discussionTime={game.discussionTime!} />
-      )} */}
+      )}
       {game.phase === "inProgressBeginning" && (
         <DailyVotingWidget players={currentPlayers} currentUser={user!} />
       )}

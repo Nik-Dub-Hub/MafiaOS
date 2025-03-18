@@ -96,7 +96,7 @@ class PlayerController {
   static async updatePlayer(req, res) {
     const { id } = req.params;
     const { role_id, isAlive } = req.body.updateData;
-    const { user } = res.locals;
+    // const { user } = res.locals;
 
     if (!isValidId(id)) {
       return res.status(400).json(formatResponse(400, "Invalid player ID"));
@@ -107,6 +107,17 @@ class PlayerController {
       if (!existingPlayer) {
         return res.status(404).json(formatResponse(404, "Player not found"));
       }
+
+      // if (existingPlayer.user_id !== user.id) {
+      //   return res
+      //     .status(400)
+      //     .json(
+      //       formatResponse(
+      //         400,
+      //         "You don't have permission to update this player"
+      //       )
+      //     );
+      // }
 
       const updatedPlayer = await PlayerService.update(+id, {
         role_id,

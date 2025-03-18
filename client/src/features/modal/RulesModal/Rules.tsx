@@ -1,18 +1,13 @@
-import SignInForm from "@/features/auth/ui/SignInForm/SignInForm";
-import {
-  Modal,
-  Box,
-  Typography,
-} from "@mui/material";
+import { Modal, Box, Typography } from "@mui/material";
+import RulesModal from "./RulesModal";
 
-
-interface LoginModalProps {
+interface RulesModalProps {
   open: boolean;
   onClose: () => void;
-  onOpenRegisterModal: () => void;
+  onOpenStatisticsModal: () => void;
 }
 
-export default function LoginModal({ open, onClose, onOpenRegisterModal }: LoginModalProps) {
+export default function RulesGame({ open, onClose }: RulesModalProps) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box
@@ -21,11 +16,12 @@ export default function LoginModal({ open, onClose, onOpenRegisterModal }: Login
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: "70%",
+          width: "80%",
           bgcolor: "#343E40",
           boxShadow: 34,
           p: 3,
           borderRadius: 8,
+          overflowX: 'auto',
         }}
       >
         <Typography
@@ -34,12 +30,9 @@ export default function LoginModal({ open, onClose, onOpenRegisterModal }: Login
           gutterBottom
           sx={{ color: "#E1CC4F" }}
         >
-          Login
+          Правила игры Мафия
         </Typography>
-        <SignInForm
-          onClose={onClose}
-          onOpenRegisterModal={onOpenRegisterModal}
-        />
+        <RulesModal />
       </Box>
     </Modal>
   );
