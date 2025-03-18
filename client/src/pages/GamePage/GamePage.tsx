@@ -102,7 +102,6 @@ export default function GamePage() {
           owner_id={game.owner_id}
           players={currentPlayers}
           game_id={game.id}
-          gameKey={game.key}
         />
       )}
       {game.phase === "Знакомство" && (

@@ -11,14 +11,12 @@ import {
   Button,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UserAvatar } from "@/entities/user";
 import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
 import { showAlert } from "@/features/alerts";
 import { CircularProgress } from "@mui/material";
 import { updateGameThunk } from "@/entities/game";
-import { addPlayer, assignRoles, startGame } from "@/features/gameLogic/slice";
-import { useParams } from "react-router";
 import { IRole } from "@/entities/role";
 
 const Demo = styled("div")(({ theme }) => ({
@@ -54,24 +52,18 @@ type Props = {
   players: PlayerArrayType;
   owner_id: number;
   game_id: number;
-  gameKey: string;
 };
 
 export default function WaitingGameWidget({
   players,
   owner_id,
   game_id,
-  gameKey,
 }: Props) {
-  // const { id } = useParams();
   const dispatch = useAppDispatch();
   const [timeLimit, setTimeLimit] = useState<number>(30);
   const user = useAppSelector((state) => state.user.user);
   const roles = useAppSelector((state) => state.roles.roles);
-  // const updatePlayers = useAppSelector((state) =>
-  //   state.gameLogic.players.filter((p) => p.game_id === Number(id))
-  // );
-  // console.log(updatePlayers, "========================");
+
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setTimeLimit(newValue as number);
@@ -86,7 +78,6 @@ export default function WaitingGameWidget({
           phase: "Знакомство",
           discussionTime: timeLimit,
           currentTime: timeLimit,
-          key: gameKey,
         },
       })
     )
