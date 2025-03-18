@@ -13,7 +13,6 @@ interface StatisticsModalProps {
 export default function Statistics({ open, onClose }: StatisticsModalProps) {
   const [isEditing, setIsEditing] = useState(false);
   const user = useAppSelector((state) => state.user.user);
-  console.log(user);
 
   const handleEditClick = () => {
     setIsEditing(true);

@@ -1,16 +1,16 @@
-const { Game , User} = require("../db/models");
+const { Game, User } = require("../db/models");
 
 class GameService {
   static async getAll() {
-    return await Game.findAll({include:{model: User, 
-      attributes: ['id', 'username']
-    }});
+    return await Game.findAll({
+      include: { model: User, attributes: ["id", "username"] },
+    });
   }
 
   static async getById(id) {
-    return await Game.findByPk(id, {include:{model: User, 
-      attributes: ['id', 'username']
-    }});
+    return await Game.findByPk(id, {
+      include: { model: User, attributes: ["id", "username"] },
+    });
   }
 
   static async create(data) {
@@ -26,8 +26,14 @@ class GameService {
     if (data.phase !== undefined) {
       game.phase = data.phase;
     }
-    if (data.isReady !== undefined) {
-      game.isReady = data.isReady;
+    if(data.key !== undefined){
+      game.key = data.key
+    }
+    if (data.isRunning !== undefined) {
+      game.isRunning = data.isRunning;
+    }
+    if (data.currentTime !== undefined) {
+      game.currentTime = data.currentTime;
     }
     if (data.discussionTime !== undefined) {
       game.discussionTime = data.discussionTime;

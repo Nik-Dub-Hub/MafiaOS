@@ -37,6 +37,7 @@ module.exports = {
       isAlive: {
         type: Sequelize.BOOLEAN
       },
+      
       createdAt: {
         defaultValue: new Date(),
         type: Sequelize.DATE,
