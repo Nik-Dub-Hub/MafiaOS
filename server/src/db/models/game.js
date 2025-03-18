@@ -1,12 +1,10 @@
-'use strict';
-const {
-  Model,
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Game extends Model {
-    static associate({User, Player }) {
-      Game.belongsTo(User, {foreignKey: 'owner_id'}),
-      Game.hasMany(Player, {foreignKey: 'game_id'})
+    static associate({ User, Player }) {
+      Game.belongsTo(User, { foreignKey: "owner_id" }),
+        Game.hasMany(Player, { foreignKey: "game_id" });
     }
   }
   Game.init(
@@ -53,6 +51,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
+      },
+      voting: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: [],
       },
     },
     {

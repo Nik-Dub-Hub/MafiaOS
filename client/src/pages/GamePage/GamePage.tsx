@@ -24,7 +24,7 @@ export default function GamePage() {
   );
 
   useEffect(() => {
-     dispatch(getAllRolesThunk());
+    dispatch(getAllRolesThunk());
     const initializeGame = async () => {
       try {
         if (!id) {
@@ -74,6 +74,7 @@ export default function GamePage() {
 
     initializeGame();
   }, [id, game, user, dispatch]);
+// console.log(game?.phase);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -107,8 +108,21 @@ export default function GamePage() {
       {game.phase === "Знакомство" && (
         <StartGameWidget game={game} />
       )}
-      {game.phase === "inProgressBeginning" && (
-        <DailyVotingWidget players={currentPlayers} currentUser={user!} />
+      {game.phase === "Ночное голосование " && (
+        <DailyVotingWidget
+          players={currentPlayers}
+          currentUser={user!}
+          game_id={game.id}
+   
+        />
+      )}
+      {game.phase === "Дневное голосование" && (
+        <DailyVotingWidget
+          players={currentPlayers}
+          currentUser={user!}
+          game_id={game.id}
+        
+        />
       )}
     </div>
   );

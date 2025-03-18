@@ -1,6 +1,12 @@
 import { IServerResponse } from "@/shared/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IGameAddData, IGame, GameArrayType, IGameUpdateData} from "../model";
+import {
+  IGameAddData,
+  IGame,
+  GameArrayType,
+  IGameUpdateData,
+  IVoteData,
+} from "../model";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { AxiosError } from "axios";
 
@@ -11,6 +17,8 @@ enum GAME_THUNK_TYPES {
   ADD_GAME = "game/add",
   DELETE_GAME = "game/delete",
   UPDATE_GAME = "game/update",
+  ADD_VOTE = "game/addVote",
+  CLEAR_VOTING = "game/clearVoting",
 }
 
 export const setGameThunk = createAsyncThunk<
@@ -31,13 +39,27 @@ export const addGameThunk = createAsyncThunk<
   IServerResponse<IGame>,
   IGameAddData,
   { rejectValue: IServerResponse }
+>(GAME_THUNK_TYPES.ADD_GAME, async (IGameAddData, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.post(GAME_ENDPOINT_PATH, IGameAddData);
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IServerResponse>;
+    return rejectWithValue(err.response!.data);
+  }
+});
+
+export const updateGameThunk = createAsyncThunk<
+  IServerResponse<IGame>,
+  { id: number; updateData: IGameUpdateData },
+  { rejectValue: IServerResponse }
 >(
-  GAME_THUNK_TYPES.ADD_GAME,
-  async (IGameAddData, { rejectWithValue }) => {
+  GAME_THUNK_TYPES.UPDATE_GAME,
+  async ({ id, updateData }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.post(
-        GAME_ENDPOINT_PATH,
-        IGameAddData
+      const { data } = await axiosInstance.put(
+        `${GAME_ENDPOINT_PATH}/${id}`,
+        updateData
       );
       return data;
     } catch (error) {
@@ -46,30 +68,30 @@ export const addGameThunk = createAsyncThunk<
     }
   }
 );
-export const updateGameThunk = createAsyncThunk<
-  IServerResponse<IGame>,
-  { id: number; updateData: IGameUpdateData },
-  { rejectValue: IServerResponse }
->(GAME_THUNK_TYPES.UPDATE_GAME, async ({id,updateData}, { rejectWithValue }) => {
-  try {
-    const { data } = await axiosInstance.put(
-      `${GAME_ENDPOINT_PATH}/${id}`,
-      updateData
-    );
-    return data;
-  } catch (error) {
-    const err = error as AxiosError<IServerResponse>;
-    return rejectWithValue(err.response!.data);
-  }
-});
+
 export const deleteGameThunk = createAsyncThunk<
   IServerResponse<IGame>,
   number,
   { rejectValue: IServerResponse }
 >(GAME_THUNK_TYPES.DELETE_GAME, async (id, { rejectWithValue }) => {
   try {
-    const { data } = await axiosInstance.delete(
-      `${GAME_ENDPOINT_PATH}/${id}`
+    const { data } = await axiosInstance.delete(`${GAME_ENDPOINT_PATH}/${id}`);
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IServerResponse>;
+    return rejectWithValue(err.response!.data);
+  }
+});
+
+export const addVoteThunk = createAsyncThunk<
+  IServerResponse<IGame>,
+  { id: number; voteData: IVoteData },
+  { rejectValue: IServerResponse }
+>(GAME_THUNK_TYPES.ADD_VOTE, async ({ id, voteData }, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.post(
+      `${GAME_ENDPOINT_PATH}/${id}/vote`,
+      voteData
     );
     return data;
   } catch (error) {
@@ -78,3 +100,18 @@ export const deleteGameThunk = createAsyncThunk<
   }
 });
 
+export const clearVotingThunk = createAsyncThunk<
+  IServerResponse<IGame>,
+  number,
+  { rejectValue: IServerResponse }
+>(GAME_THUNK_TYPES.CLEAR_VOTING, async (id, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.delete(
+      `${GAME_ENDPOINT_PATH}/${id}/vote`
+    );
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IServerResponse>;
+    return rejectWithValue(err.response!.data);
+  }
+});

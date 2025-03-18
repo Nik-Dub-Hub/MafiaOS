@@ -50,6 +50,25 @@ class GameService {
     await game.destroy();
     return game;
   }
+  static async addVote(id, vote) {
+    const game = await this.getById(id);
+    if (!game) {
+      return null;
+    }
+    game.voting = [...game.voting, vote];
+    await game.save();
+    return game;
+  }
+
+  static async clearVoting(id) {
+    const game = await this.getById(id);
+    if (!game) {
+      return null;
+    }
+    game.voting = [];
+    await game.save();
+    return game;
+  }
 }
 
 module.exports = GameService;
