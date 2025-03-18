@@ -24,7 +24,6 @@ export default function GamePage() {
   );
 
   useEffect(() => {
-    dispatch(getAllPlayerThunk());
     dispatch(getAllRolesThunk());
     const initializeGame = async () => {
       try {
@@ -77,22 +76,22 @@ export default function GamePage() {
   }, [id, game, user, dispatch]);
 // console.log(game?.phase);
 
-  // useEffect(() => {
-  //   let interval: NodeJS.Timeout;
-  //   const fetchPlayers = async()=> {
-  //     try {
-  //       await dispatch(getAllPlayerThunk());
-  //     } catch  {
-  //       console.error("Ошибка при загрузке игроков:");
-  //     }
-  //   }
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    const fetchPlayers = async () => {
+      try {
+        await dispatch(getAllPlayerThunk());
+        await dispatch(setGameThunk());
+      } catch {
+        console.error("Ошибка при загрузке игроков:");
+      }
+    };
 
-  //   if (game?.phase === "Ожидание") {
-  //     interval = setInterval(fetchPlayers, 3000);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [dispatch,]);
-  
+    if (game?.phase === "Ожидание") {
+      interval = setInterval(fetchPlayers, 1000);
+    }
+    return () => clearInterval(interval);
+  }, []);
 
   if (isLoading) return <div>Загрузка...</div>;
   if (!game) return <div>Игра не найдена</div>;
@@ -104,11 +103,10 @@ export default function GamePage() {
           owner_id={game.owner_id}
           players={currentPlayers}
           game_id={game.id}
-          gameKey={game.key}
         />
       )}
       {game.phase === "Знакомство" && (
-        <StartGameWidget discussionTime={game.discussionTime!} />
+        <StartGameWidget game={game} />
       )}
       {game.phase === "Ночное голосование " && (
         <DailyVotingWidget

@@ -3,54 +3,75 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Timer.module.css";
 import { PlayerArrayType } from "@/entities/player";
-import { IGame } from "@/entities/game";
+import { IGame, updateGameThunk } from "@/entities/game";
 import { IUser } from "@/entities/user";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 
 type Props = {
-  discussionTime: number;
   gamePlayers?: PlayerArrayType;
   game?: IGame;
   user: IUser;
 };
 
-export default function Timer({
-  discussionTime,
-  gamePlayers: initialGamePlayers,
-  game,
-  user,
-}: Props) {
-  const [time, setTime] = useState(discussionTime);
-  const [isRunning, setIsRunning] = useState(true);
-  const [players, setPlayers] = useState<PlayerArrayType>(
-    initialGamePlayers || []
-  );
+export default function Timer({ gamePlayers, game, user }: Props) {
+  const [players, setPlayers] = useState<PlayerArrayType>(gamePlayers?.sort() || []);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    if (isRunning) {
+    if (game && game.isRunning) {
       interval = setInterval(() => {
-        setTime((prev) => {
-          if (prev > 0) {
-            return prev - 1;
-          } else {
-            // Когда таймер доходит до 0
-            if (players.length > 0) {
-              // Удаляем игрока с индексом 0
-              const updatedPlayers = players.slice(1);
-              setPlayers(updatedPlayers);
-            }
-            return discussionTime; // Сбрасываем таймер
+        if (game.currentTime && game.currentTime > 0) {
+          dispatch(
+            updateGameThunk({
+              id: game.id,
+              updateData: {
+                currentTime: game.currentTime - 2,
+              },
+            })
+          );
+        } else {
+          if (gamePlayers && gamePlayers.length > 0) {
+          const updatedPlayers = players.slice(1);
+          setPlayers(updatedPlayers);
           }
-        });
+          dispatch(
+            updateGameThunk({
+              id: game.id,
+              updateData: {
+                currentTime: game.discussionTime,
+              },
+            })
+          );
+        }
       }, 1000);
     }
-
     return () => clearInterval(interval);
-  }, [discussionTime, isRunning, players]);
+  }, [game, dispatch]);
 
-  const progress = (time / discussionTime) * 100;
 
+  const handleStartStop = async (running: boolean) => {
+    if (game) {
+      try {
+        await dispatch(
+          updateGameThunk({
+            id: game.id,
+            updateData: {
+              isRunning: running,
+            },
+          })
+        );
+      } catch (error) {
+        console.error("Ошибка при обновлении статуса игры:", error);
+      }
+    }
+  };
+
+  const progress =
+    game && game.discussionTime && game.currentTime
+      ? (game.currentTime / game.discussionTime) * 100
+      : 0;
   return (
     <div className={styles.timer}>
       <CircularProgressbar
@@ -71,13 +92,10 @@ export default function Timer({
       </div>
       {user && user.id === game?.owner_id && (
         <div className={styles.controls}>
-          <button
-            onClick={() => setIsRunning(true)}
-            disabled={isRunning}
-          >
+          <button onClick={() => handleStartStop(true)} disabled={game?.isRunning}>
             Продолжить
           </button>
-          <button onClick={() => setIsRunning(false)} disabled={!isRunning}>
+          <button onClick={() => handleStartStop(false)} disabled={!game?.isRunning}>
             Остановить
           </button>
         </div>

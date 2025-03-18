@@ -1,4 +1,4 @@
-const { Game , User} = require("../db/models");
+const { Game, User } = require("../db/models");
 
 class GameService {
   static async getAll() {
@@ -26,8 +26,14 @@ class GameService {
     if (data.phase !== undefined) {
       game.phase = data.phase;
     }
-    if (data.isReady !== undefined) {
-      game.isReady = data.isReady;
+    if(data.key !== undefined){
+      game.key = data.key
+    }
+    if (data.isRunning !== undefined) {
+      game.isRunning = data.isRunning;
+    }
+    if (data.currentTime !== undefined) {
+      game.currentTime = data.currentTime;
     }
     if (data.discussionTime !== undefined) {
       game.discussionTime = data.discussionTime;

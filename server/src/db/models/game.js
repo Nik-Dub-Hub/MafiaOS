@@ -9,12 +9,51 @@ module.exports = (sequelize, DataTypes) => {
   }
   Game.init(
     {
-      owner_id: DataTypes.INTEGER,
-      phase: DataTypes.STRING,
-      key: DataTypes.STRING,
-      discussionTime: DataTypes.INTEGER,
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      owner_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "User",
+          key: "id",
+        },
+      },
+      phase: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      key: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      isRunning: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      currentTime: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      discussionTime: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
       voting: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER), 
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         defaultValue: [],
       },
     },

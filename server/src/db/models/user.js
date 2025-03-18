@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       mafiaCount: DataTypes.INTEGER,
       doctorCount: DataTypes.INTEGER,
       ladyCount: DataTypes.INTEGER,
+      img: DataTypes.STRING,
     },
     {
       sequelize,

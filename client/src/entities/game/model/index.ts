@@ -2,17 +2,18 @@ export interface IGameAddData {
   discussionTime: number;
   key: string;
 }
-
 export interface IGameUpdateData {
   phase?: string;
   discussionTime?: number;
+  isRunning?: boolean;
+  currentTime?: number;
+  key?: string;
 }
 
 export interface IGame extends IGameUpdateData {
   id: number;
-  key: string;
   owner_id: number;
-  voting: number[]; 
+  voting: number[];
   createdAt: Date;
   updatedAt: Date;
   User: {
@@ -20,9 +21,8 @@ export interface IGame extends IGameUpdateData {
     username: string;
   };
 }
-
 export interface IVoteData {
-  vote: number; 
+  vote: number;
 }
 
 export interface IVoteResponse {

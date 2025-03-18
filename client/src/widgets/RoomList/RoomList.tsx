@@ -13,14 +13,15 @@ export default function RoomList() {
   const [input, setInput] = useState({ keys: "" });
   const games = useAppSelector((state) => state.games.games);
 
+  
   useEffect(() => {
     dispatch(setGameThunk());
   }, [dispatch]);
-
+  
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
-
+  
   const handleNavigate = (id: number) => {
     navigate(`/game/${id}`);
   };
