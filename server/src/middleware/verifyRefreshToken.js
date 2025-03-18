@@ -4,6 +4,8 @@ const formatResponse = require("../utils/formatResponse");
 
 function verifyRefreshToken(req, res, next) {
   try {
+    console.log(req.cookies);
+    
     const {refreshToken} = req.cookies
     const {user} = jwt.verify(refreshToken,process.env.SECRET_REFRESH_TOKEN)
     res.locals.user = user

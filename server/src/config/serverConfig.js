@@ -27,10 +27,21 @@ const serverConfig = (app) => {
   app.use(cookieParser());
 
   //* настройка статики, папка public ассоциирована с маршрутом запроса
-  app.use(
-    "/static/images",
-    express.static(path.resolve(__dirname, "..", "public", "images"))
-  );
+app.use(
+  "/static/images",
+  express.static(path.resolve(__dirname, "..", "public", "images")
+  // , {
+  //   setHeaders: (res) => {
+  //     res.set(
+  //       "Cache-Control",
+  //       "no-store, no-cache, must-revalidate, proxy-revalidate"
+  //     );
+  //     res.set("Pragma", "no-cache");
+  //     res.set("Expires", "0");
+  //   },
+  // }
+)
+);
 };
 
 module.exports = serverConfig
