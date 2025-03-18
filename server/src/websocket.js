@@ -18,6 +18,10 @@ const setupWebSocket = (server) => {
       count += 1;
       io.emit("count", count); // Рассылка обновления всем клиентам
     });
+    socket.on("decrement", () => {
+      count -= 1;
+      io.emit("count", count); // Рассылка обновления всем клиентам
+    });
 
     socket.on("disconnect", () => {
       console.log("Client disconnected");

@@ -1,0 +1,31 @@
+.counter {
+  /* background-color: #000000;  */
+  color: #ffcc00; /* Желтый текст */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(255, 171, 14, 0.99)
+}
+
+.counter h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.counter button {
+  background-color: #ffcc00; /* Желтый фон */
+  color: #000000; /* Черный текст */
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.counter button:hover {
+  background-color: #e6b800; /* Темно-желтый при наведении */
+}
