@@ -94,23 +94,27 @@ export const signOutThunk = createAsyncThunk<
 });
 
 export const updateUserThunk = createAsyncThunk<
-    IServerResponse<IUser>,
-    { id: number; updateData: IUserUpdateData },
-    { rejectValue: IServerResponse }
+  IServerResponse<IUser>,
+  { id: number; updateData: IUserUpdateData },
+  { rejectValue: IServerResponse }
 >(
-    USER_THUNK_TYPES.UPDATE,
-    async ({ id, updateData }, { rejectWithValue }) => {
-        try {
-            console.log(`Updating user ${id} with data:`, updateData);
-            const { data } = await axiosInstance.put(
-                `${USER_ENDPOINT_PATH}/${id}`,
-                updateData
-            );
-            return data;
-        } catch (error) {
-            const err = error as AxiosError<IServerResponse>;
-            console.error("Update failed:", err.response?.data || err.message);
-            return rejectWithValue(err.response!.data);
-        }
+  USER_THUNK_TYPES.UPDATE,
+  async (
+    { id, updateData },
+    { rejectWithValue }
+  ) => {
+    try {
+      console.log(`Updating user ${id} with data:`, updateData);
+      const { data } = await axiosInstance.put(
+        `${USER_ENDPOINT_PATH}/${id}`,
+        updateData
+      );
+      console.log("HERE?!")
+      return data;
+    } catch (error) {
+      const err = error as AxiosError<IServerResponse>;
+      console.error("Update failed:", err.response?.data || err.message);
+      return rejectWithValue(err.response!.data);
     }
+  }
 );

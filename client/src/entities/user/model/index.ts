@@ -8,12 +8,9 @@ export interface IUserSignUpData extends IUserSignInData {
 }
 
 export interface IUserUpdateData {
-  username?: string;
-  img?:string;
-  civilianCount?: number;
-  ladyCount?: number;
-  mafiaCount?: number;
-  doctorCount?: number;
+  username: string;
+  email:string;
+  password: string;
 }
 
 export interface IUser {
