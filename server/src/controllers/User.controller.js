@@ -68,7 +68,7 @@ static async updateTask(req, res) {
       return res
         .status(400)
         .json(formatResponse(400, 'Validation error', null, error));
-
+    }
     try {
       //? Проверяем существование задачи в БД
       const existingUser = await UserService.getById(+id);

@@ -10,7 +10,7 @@ const setupWebSocket = (server) => {
 
   let count = 0;
 
-  io.on("connection", (socket) => {
+  io.on("connection", (socket) => {   
     console.log("New client connected");
     socket.emit("count", count); // Отправка текущего значения счетчика
 
