@@ -89,7 +89,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUserThunk.rejected,(state,action)=>{
         state.isLoading = false;
-        state.error = action.payload!.error ?? 'Unknown error'
+        state.error = action.payload?.error ?? 'Unknown error'
       })
   },
 });
