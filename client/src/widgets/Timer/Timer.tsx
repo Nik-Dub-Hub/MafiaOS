@@ -14,9 +14,16 @@ type Props = {
 };
 
 export default function Timer({ gamePlayers, game, user }: Props) {
-  const [players, setPlayers] = useState<PlayerArrayType>(gamePlayers?.sort() || []);
+  const [players, setPlayers] = useState<PlayerArrayType>(
+    gamePlayers?.sort() || []
+  );
   const dispatch = useAppDispatch();
-
+  const [phaseCounter, setPhaseCounter] = useState(0);
+  const permanentPhase = [
+    "Ночное голосование",
+    "Обсуждение",
+    "Дневное голосование",
+  ];
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -32,10 +39,27 @@ export default function Timer({ gamePlayers, game, user }: Props) {
             })
           );
         } else {
-          if (gamePlayers && gamePlayers.length > 0) {
-          const updatedPlayers = players.slice(1);
-          setPlayers(updatedPlayers);
-          }
+          // if (gamePlayers && gamePlayers.length > 0) {
+          //   const updatedPlayers = players.slice(1);
+          //   setPlayers(updatedPlayers);
+          // } else {
+          console.log('elsessssssssssss');
+          
+            dispatch(
+              updateGameThunk({
+                id: game.id,
+                updateData: { phase: permanentPhase[phaseCounter] },
+              })
+            );
+            if (phaseCounter !== 2) {
+              setPhaseCounter((prev) => prev + 1); 
+        
+            } else {
+              setPhaseCounter(0); 
+             
+            }
+          // }
+          
           dispatch(
             updateGameThunk({
               id: game.id,
@@ -49,7 +73,6 @@ export default function Timer({ gamePlayers, game, user }: Props) {
     }
     return () => clearInterval(interval);
   }, [game, dispatch]);
-
 
   const handleStartStop = async (running: boolean) => {
     if (game) {
@@ -88,14 +111,20 @@ export default function Timer({ gamePlayers, game, user }: Props) {
       <div className={styles.timerText}>
         {game?.phase}
         <br />
-        {players.length > 0 && `Время для ${players[0].User.username}`}
+        {/* {players.length > 0 && `Время для ${players[0].User.username}`} */}
       </div>
       {user && user.id === game?.owner_id && (
         <div className={styles.controls}>
-          <button onClick={() => handleStartStop(true)} disabled={game?.isRunning}>
+          <button
+            onClick={() => handleStartStop(true)}
+            disabled={game?.isRunning}
+          >
             Продолжить
           </button>
-          <button onClick={() => handleStartStop(false)} disabled={!game?.isRunning}>
+          <button
+            onClick={() => handleStartStop(false)}
+            disabled={!game?.isRunning}
+          >
             Остановить
           </button>
         </div>

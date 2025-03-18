@@ -105,10 +105,12 @@ export default function GamePage() {
           game_id={game.id}
         />
       )}
-      {game.phase === "Знакомство" && (
-        <StartGameWidget game={game} />
+      {game.phase !== "Ожидание" && (
+        <StartGameWidget
+          game={game}
+        />
       )}
-      {game.phase === "Ночное голосование " && (
+      {/* {game.phase === "Знакомство" && (
         <DailyVotingWidget
           players={currentPlayers}
           currentUser={user!}
@@ -123,7 +125,7 @@ export default function GamePage() {
           game_id={game.id}
         
         />
-      )}
+      )} */}
     </div>
   );
 }
