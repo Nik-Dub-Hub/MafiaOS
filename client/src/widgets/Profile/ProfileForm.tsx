@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
-import { IUserUpdateData, updateUserThunk } from "@/entities/user";
+import { IUserUpdateData } from "@/entities/user";
 import { showAlert } from "@/features/alerts";
 import { CLIENT_ROUTES } from "@/shared/enums/clientRoutes";
 import { useNavigate } from "react-router";
@@ -24,7 +24,7 @@ interface UserProfileUpdateFormProps {
 
 export default function UserProfileUpdateForm({
   onClose,
-  userId,
+
 }: UserProfileUpdateFormProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -38,12 +38,12 @@ export default function UserProfileUpdateForm({
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<IUserUpdateData> = async (updateData) => {
+  const onSubmit: SubmitHandler<IUserUpdateData> = async () => {
     try {
-      const response = await dispatch(
-        updateUserThunk({ id: userId, updateData })
-      );
-      console.log(response)
+      // const response = await dispatch(
+      //   updateUserThunk()
+      // );
+      console.log(Response)
       navigate(CLIENT_ROUTES.MAIN);
       dispatch(
           showAlert({
