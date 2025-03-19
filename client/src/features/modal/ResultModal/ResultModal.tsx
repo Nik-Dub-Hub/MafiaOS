@@ -6,7 +6,7 @@ import { IPlayer } from "@/entities/player";
 interface ResultModalProps {
   isOpen: boolean;
   onClose: () => void;
-  winner: "mafia" | "civilians" | null;
+  winner: "mafia" | "civilians" | "";
   player: IPlayer;
 }
 

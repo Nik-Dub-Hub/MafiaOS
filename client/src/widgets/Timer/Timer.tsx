@@ -8,7 +8,6 @@ import { IUser } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import NightEventsModal from "@/features/modal/NightEventsModal/NightEventsModal";
 
-
 type Props = {
   gamePlayers?: PlayerArrayType;
   game?: IGame;
@@ -22,7 +21,6 @@ export default function Timer({ game, user, gamePlayers }: Props) {
     isOpen: false,
     killedPlayer: "",
   });
-
 
   const permanentPhase = [
     "Ночное голосование",
@@ -138,7 +136,6 @@ export default function Timer({ game, user, gamePlayers }: Props) {
       ? (game.currentTime / game.discussionTime) * 100
       : 0;
 
-
   return (
     <div className={styles.timer}>
       <CircularProgressbar
@@ -172,13 +169,6 @@ export default function Timer({ game, user, gamePlayers }: Props) {
           </button>
         </div>
       )}
-
-      <NightEventsModal
-        isOpen={modalState.isOpen}
-        onClose={() => setModalState({ isOpen: false, killedPlayer: "" })}
-        DidPlayer={modalState.killedPlayer}
-        game={game!}
-      />
 
       <NightEventsModal
         isOpen={modalState.isOpen}

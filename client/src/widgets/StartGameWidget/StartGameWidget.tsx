@@ -14,7 +14,7 @@ type Props = {
 export default function StartGameWidget({ game }: Props) {
   const { id } = useParams();
   const { user } = useAppSelector((state) => state.user);
-  const [winner, setWinner] = useState<"mafia" | "civilians" | null>(null);
+  const [winner, setWinner] = useState<"mafia" | "civilians" | "">("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const player = useAppSelector((state) =>
