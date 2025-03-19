@@ -1,17 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ResultModal.module.css";
+import { IPlayer } from "@/entities/player";
 
 interface ResultModalProps {
   isOpen: boolean;
   onClose: () => void;
-  winner: "mafia" | "civilians";
+  winner: "mafia" | "civilians" | null;
+  player: IPlayer;
 }
 
 const ResultModal: React.FC<ResultModalProps> = ({
   isOpen,
   onClose,
   winner,
+  player,
 }) => {
   const navigate = useNavigate();
 
@@ -19,10 +22,18 @@ const ResultModal: React.FC<ResultModalProps> = ({
     return null;
   }
 
-  const modalClass =
-    winner === "mafia" ? styles.mafiaWinModal : styles.civilianWinModal;
-  const message =
-    winner === "mafia" ? "Мафия победила!" : "Мирные жители победили!";
+  let modalClass = styles.defaultModal;
+  let message = "Игра завершена";
+
+  if (winner) {
+    modalClass =
+      winner === "mafia" ? styles.mafiaWinModal : styles.civilianWinModal;
+    message =
+      winner === "mafia" ? "Мафия победила!" : "Мирные жители победили!";
+  } else if (!player.isAlive) {
+    modalClass = styles.playerDeadModal;
+    message = "Тебя прикончили";
+  }
 
   const handleGoHome = () => {
     navigate("/");
@@ -35,7 +46,7 @@ const ResultModal: React.FC<ResultModalProps> = ({
         <span className={styles.closeButton} onClick={onClose}>
           &times;
         </span>
-        <h2 className={styles.modalTitle}>Результаты игры</h2>
+        <h2 className={styles.modalTitle}>Статус игры</h2>
         <p className={styles.modalMessage}>{message}</p>
         <button className={styles.homeButton} onClick={handleGoHome}>
           На главную
