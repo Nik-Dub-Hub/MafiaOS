@@ -5,12 +5,11 @@ import { useParams } from "react-router";
 import { IGame } from "@/entities/game";
 import DailyVotingWidget from "../DailyVotingWidget/DailyVotingWidget";
 
-
 type Props = {
-  game: IGame;  
+  game: IGame;
 };
 
-export default function StartGameWidget({game}: Props) {
+export default function StartGameWidget({ game }: Props) {
   const { id } = useParams();
   const { user } = useAppSelector((state) => state.user);
   const player = useAppSelector((state) =>
@@ -25,31 +24,43 @@ export default function StartGameWidget({game}: Props) {
     state.players.players.filter((el) => el.game_id === Number(id))
   );
   // const mafiaPlayers = gamePlayers.filter((player) => player.role_id === 3);
+
   if (!user) {
     return <div>Пользователь не авторизован</div>;
   }
- return (
-   <div>
-     <Timer gamePlayers={gamePlayers} game={game} user={user} />
-     {(game.phase === "Знакомство" || game.phase === "Обсуждение") && (
-       <RoleCard role={role} />
-     )}
-     {game.phase === "Ночное голосование" && (
-       <>
-         {player?.role_id === 3 ? (
-           <DailyVotingWidget
-             gamePlayers={gamePlayers}
-             game={game}
-             user={user}
-           />
-         ) : (
-           <RoleCard role={role} />
-         )}
-       </>
-     )}
-     {game.phase === "Дневное голосование" && (
-       <DailyVotingWidget gamePlayers={gamePlayers} game={game} user={user} />
-     )}
-   </div>
- );
+
+  return (
+    <div>
+      {player?.isAlive === false ? (
+        <div>Тебя прикончили</div>
+      ) : (
+        <>
+          <Timer gamePlayers={gamePlayers} game={game} user={user} />
+          {(game.phase === "Знакомство" || game.phase === "Обсуждение") && (
+            <RoleCard role={role} />
+          )}
+          {game.phase === "Ночное голосование" && (
+            <>
+              {player?.role_id === 3 ? (
+                <DailyVotingWidget
+                  gamePlayers={gamePlayers}
+                  game={game}
+                  user={user}
+                />
+              ) : (
+                <RoleCard role={role} />
+              )}
+            </>
+          )}
+          {game.phase === "Дневное голосование" && (
+            <DailyVotingWidget
+              gamePlayers={gamePlayers}
+              game={game}
+              user={user}
+            />
+          )}
+        </>
+      )}
+    </div>
+  );
 }
