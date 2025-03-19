@@ -16,7 +16,7 @@ interface StatisticsModalProps {
 export default function Statistics({ open, onClose }: StatisticsModalProps) {
   const [isEditing, setIsEditing] = useState(false);
   const user = useAppSelector((state) => state.user.user);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null); // Явно указываем тип File | null
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const dispatch = useAppDispatch();
 
   const handleEditClick = () => {
@@ -39,29 +39,15 @@ export default function Statistics({ open, onClose }: StatisticsModalProps) {
 
     const formData = new FormData();
     formData.append("avatar", selectedFile);
+    formData.append("username", user.username);
+    formData.append("email", user.email);
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/user/${user.id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-          body: formData,
-        }
-      );
+      await dispatch(
+        updateUserThunk({ id: user.id, updateData: formData })
+      ).unwrap();
 
-      if (response.ok) {
-        const updatedUserResponse = await response.json();
-        const updatedUser = updatedUserResponse.data;
-
-        dispatch(updateUserThunk({ id: user.id, updateData: updatedUser }));
-
-        onClose();
-      } else {
-        console.error("Upload failed:", response.statusText);
-      }
+      onClose();
     } catch (error) {
       console.error("Upload error:", error);
     }

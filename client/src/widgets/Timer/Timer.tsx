@@ -51,75 +51,75 @@ export default function Timer({ game, user, gamePlayers }: Props) {
     return player ? player.User.username : undefined;
   }
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
+ useEffect(() => {
+   let interval: NodeJS.Timeout;
 
-    if (game && game.isRunning) {
-      interval = setInterval(() => {
-        if (game.currentTime && game.currentTime > 0) {
-          dispatch(
-            updateGameThunk({
-              id: game.id,
-              updateData: {
-                currentTime: game.currentTime - 2,
-              },
-            })
-          );
-        } else {
-          // if (gamePlayers && gamePlayers.length > 0) {
-          //   const updatedPlayers = players.slice(1);
-          //   setPlayers(updatedPlayers);
-          // } else {
-          dispatch(
-            updateGameThunk({
-              id: game.id,
-              updateData: { phase: permanentPhase[phaseCounter] },
-            })
-          );
+   if (game && game.isRunning) {
+     interval = setInterval(() => {
+       if (game.currentTime && game.currentTime > 0) {
+         dispatch(
+           updateGameThunk({
+             id: game.id,
+             updateData: {
+               currentTime: game.currentTime - 2,
+             },
+           })
+         );
+       } else {
+         // if (gamePlayers && gamePlayers.length > 0) {
+         //   const updatedPlayers = players.slice(1);
+         //   setPlayers(updatedPlayers);
+         // } else {
+         dispatch(
+           updateGameThunk({
+             id: game.id,
+             updateData: { phase: permanentPhase[phaseCounter] },
+           })
+         );
 
-          if (phaseCounter !== 2) {
-            if (
-              game.phase === "Ночное голосование" ||
-              game.phase === "Дневное голосование"
-            ) {
-              const idDidPlayer = findMostFrequentNumber(game.voting);
-              if (idDidPlayer !== null && idDidPlayer !== undefined) {
-                const DidPlayer =
-                  getNameById(idDidPlayer) || "Неизвестный игрок";
-                dispatch(
-                  updatePlayerThunk({
-                    id: idDidPlayer,
-                    updateData: { isAlive: false },
-                  })
-                );
+         if (phaseCounter !== 2) {
+           if (
+             game.phase === "Ночное голосование" ||
+             game.phase === "Дневное голосование"
+           ) {
+             const idDidPlayer = findMostFrequentNumber(game.voting);
+             if (idDidPlayer !== null && idDidPlayer !== undefined) {
+               const DidPlayer =
+                 getNameById(idDidPlayer) || "Неизвестный игрок";
+               dispatch(
+                 updatePlayerThunk({
+                   id: idDidPlayer,
+                   updateData: { isAlive: false },
+                 })
+               );
 
-                setModalState({ isOpen: true, killedPlayer: DidPlayer });
+               setModalState({ isOpen: true, killedPlayer: DidPlayer });
 
-                setTimeout(() => {
-                  setModalState({ isOpen: false, killedPlayer: "" });
-                }, 3000);
-              }
-            }
+               setTimeout(() => {
+                 setModalState({ isOpen: false, killedPlayer: "" });
+               }, 3000);
+             }
+           }
 
-            setPhaseCounter((prev) => prev + 1);
-            dispatch(clearVotingThunk(game.id));
-          } else {
-            setPhaseCounter(0);
-          }
-          // }
-          dispatch(
-            updateGameThunk({
-              id: game.id,
-              updateData: {
-                currentTime: game.discussionTime,
-              },
-            })
-          );
-        }
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [game, dispatch, phaseCounter]);
+           setPhaseCounter((prev) => prev + 1);
+           dispatch(clearVotingThunk(game.id));
+         } else {
+           setPhaseCounter(0);
+         }
+         // }
+         dispatch(
+           updateGameThunk({
+             id: game.id,
+             updateData: {
+               currentTime: game.discussionTime,
+             },
+           })
+         );
+       }
+     }, 1000);
+   }
+   return () => clearInterval(interval);
+ }, [game, dispatch, phaseCounter]);
 
   const handleStartStop = async (running: boolean) => {
     if (game) {

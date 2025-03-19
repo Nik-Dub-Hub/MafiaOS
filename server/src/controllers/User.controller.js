@@ -1,6 +1,8 @@
 const formatResponse = require("../utils/formatResponse");
 const UserService = require("../services/User.service");
 const { validateEmail } = require("../utils/Auth.validator");
+const generateTokens = require("../utils/generateTokens");
+const cookiesConfig = require("../config/cookiesConfig");
 
 function isValid(id) {
   return !isNaN(parseFloat(id)) && isFinite(id);
@@ -15,14 +17,13 @@ class UserController {
       return res.status(400).json(formatResponse(400, "Invalid user ID"));
     }
 
-
     const { isValid: isEmailValid, error } = validateEmail({ email });
     if (!isEmailValid) {
       return res
         .status(400)
         .json(formatResponse(400, "Validation error", null, error));
     }
-  
+
     try {
       const existingUser = await UserService.getById(+id);
 
@@ -57,14 +58,25 @@ class UserController {
       if (!existingUser) {
         return res.status(404).json(formatResponse(404, "User not found"));
       }
-  const avatarUrl = `/static/images/avatars/${req.file.filename}`;
-
+      const avatarUrl = `/static/images/avatars/${req.file.filename}`;
 
       const updatedUser = await UserService.updateAvatar(+id, avatarUrl);
+    const plainUser = updatedUser.get({ plain: true });
+    delete plainUser.password;
+
+     const { accessToken, refreshToken } = generateTokens({ user: plainUser });
+ 
 
       res
         .status(200)
-        .json(formatResponse(200, "Avatar uploaded successfully", updatedUser));
+        .cookie("refreshToken", refreshToken, cookiesConfig)
+        .json(
+          formatResponse(200, "Avatar uploaded successfully", {
+            user: updatedUser,
+            accessToken,
+            refreshToken,
+          })
+        );
     } catch (error) {
       console.error(error);
       res

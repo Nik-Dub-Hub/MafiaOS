@@ -57,13 +57,11 @@ class AuthController {
           );
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-console.log(hashedPassword, '=========================')
       const newUser = await UserService.create({
         username,
         email: normalizedEmail,
         password: hashedPassword,
       });
-      console.log(newUser, '==================================')
       if (!newUser) {
         return res
           .status(400)
@@ -82,6 +80,8 @@ console.log(hashedPassword, '=========================')
       const { accessToken, refreshToken } = await generateTokens({
         user: plainUser,
       });
+
+console.log(plainUser,'========================================');
 
       res
         .status(201)
@@ -135,7 +135,7 @@ console.log(hashedPassword, '=========================')
       delete plainUser.password;
 
       const { accessToken, refreshToken } = generateTokens({ user: plainUser });
-
+console.log(plainUser, "========================================");
       res
         .status(200)
         .cookie("refreshToken", refreshToken, cookiesConfig)

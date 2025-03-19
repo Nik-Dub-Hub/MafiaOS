@@ -1,17 +1,14 @@
 .flipCardContainer {
-  position: absolute;
   position: relative;
   box-sizing: border-box;
   display: flex;
-  width: 100%;
+  align-items: center; /* Center vertically */
+  justify-content: center;
+  width: 90%; /* Take up most of the screen width */
+  max-width: 450px; /*  Maximum width */
   height: auto;
-  margin: 100px 30px;
-  margin-bottom: 30px;
+  margin: 50px auto 60px; /* Center horizontally and add margin top and bottom */
   text-align: right;
-}
-
-.infoContent {
-  margin-right: 30px;
 }
 
 .role,
@@ -61,7 +58,8 @@
 
 @media screen and (width <= 480px) {
   .flipCardContainer {
-    margin: 20px 5px;
+    width: 95%; /* Take up more screen width on smaller screens */
+    margin: 20px auto; /* Center horizontally */
   }
 
   .title,

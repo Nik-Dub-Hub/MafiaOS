@@ -9,13 +9,13 @@ import {
   Typography,
   Slider,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { UserAvatar } from "@/entities/user";
 import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
 import { showAlert } from "@/features/alerts";
-import { CircularProgress } from "@mui/material";
 import { updateGameThunk } from "@/entities/game";
 import { IRole } from "@/entities/role";
 import { Counter } from "../Counter/Counter";
@@ -49,10 +49,45 @@ const YellowSlider = styled(Slider)(() => ({
     backgroundColor: "lightgray",
   },
 }));
+
 type Props = {
   players: PlayerArrayType;
   owner_id: number;
   game_id: number;
+};
+
+const marks = [
+  { value: 0, label: "10s" },
+  { value: 1, label: "30s" },
+  { value: 2, label: "60s" },
+];
+
+// Функция для преобразования индекса в значение
+const indexToValue = (index: number) => {
+  switch (index) {
+    case 0:
+      return 10;
+    case 1:
+      return 30;
+    case 2:
+      return 60;
+    default:
+      return 30; // По умолчанию возвращаем 30s
+  }
+};
+
+// Функция для преобразования значения в индекс
+const valueToIndex = (value: number) => {
+  switch (value) {
+    case 10:
+      return 0;
+    case 30:
+      return 1;
+    case 60:
+      return 2;
+    default:
+      return 1; // По умолчанию возвращаем индекс для 30s
+  }
 };
 
 export default function WaitingGameWidget({
@@ -65,11 +100,16 @@ export default function WaitingGameWidget({
   const user = useAppSelector((state) => state.user.user);
   const roles = useAppSelector((state) => state.roles.roles);
 
-
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
-    setTimeLimit(newValue as number);
+  const handleSliderChange = useCallback(
+    (event: Event, newValue: number | number[]) => {
+      const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
+      const newTime = indexToValue(newIndex); // Преобразуем индекс в значение
+      setTimeLimit(newTime); // Обновляем состояние
     console.log(event);
-  };
+    
+    },
+    []
+  );
 
   const updateGame = () => {
     dispatch(
@@ -101,11 +141,11 @@ export default function WaitingGameWidget({
 
     try {
       await Promise.all(
-        players.map((player,index) =>
+        players.map((player, index) =>
           dispatch(
             updatePlayerThunk({
               id: player.id,
-              updateData: { role_id:playerRoles[index]  },
+              updateData: { role_id: playerRoles[index] },
             })
           ).unwrap()
         )
@@ -120,21 +160,7 @@ export default function WaitingGameWidget({
     }
   };
 
- 
-
   const updateStateGame = async () => {
-    // if (players.length < 4) {
-    //   dispatch(
-    //     showAlert({
-    //       message: `Для игры нужно больше 3 игроков`,
-    //       status: "error",
-    //     })
-    //   );
-    //   return;
-    // }
-    //! Закомментировал,что бы отключить проверку
-
- 
     await updateGame();
     await updateRolePlayersInServer();
 
@@ -153,15 +179,15 @@ export default function WaitingGameWidget({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection:'column',
-        gap:'30px',
+        flexDirection: "column",
+        gap: "30px",
         height: "100vh",
         padding: "0 30px",
-        position:'relative',
-        top:'-90px',
+        position: "relative",
+        top: "-50px",
       }}
     >
-      <Counter/>
+      <Counter />
       <Box
         sx={{
           width: 300,
@@ -197,10 +223,10 @@ export default function WaitingGameWidget({
                   backgroundColor: "#f5f5f5",
                   boxShadow: "0 4px 8px rgba(250, 163, 1, 0.57)",
                   margin: "16px 0",
-                  flexGrow: 1, // Позволяет списку занимать доступное пространство
-                  minHeight: "50%", // Устанавливает минимальную высоту на 50%
-                  maxHeight: "50%", // Максимальная высота списка, чтобы избежать переполнения
-                  overflowY: "auto", // Добавляем прокрутку, если контент превышает высоту
+                  flexGrow: 1,
+                  minHeight: "50%",
+                  maxHeight: "50%",
+                  overflowY: "auto",
                 }}
               >
                 {players.map((player, index) => (
@@ -208,7 +234,10 @@ export default function WaitingGameWidget({
                     <ListItemAvatar>
                       <UserAvatar />
                     </ListItemAvatar>
-                    <ListItemText primary={player.User.username} sx={{color:"black",}}/>
+                    <ListItemText
+                      primary={player.User.username}
+                      sx={{ color: "black" }}
+                    />
                   </ListItem>
                 ))}
               </List>
@@ -223,12 +252,15 @@ export default function WaitingGameWidget({
                 Установите время:
               </Typography>
               <YellowSlider
-                value={timeLimit}
+                value={valueToIndex(timeLimit)} // Преобразуем значение в индекс
                 onChange={handleSliderChange}
                 aria-labelledby="time-limit-slider"
-                min={5}
-                max={60}
+                min={0}
+                max={2}
+                step={1}
                 valueLabelDisplay="auto"
+                marks={marks}
+                scale={(index) => indexToValue(index)} // Преобразуем индекс в значение для отображения
                 sx={{ my: 3 }}
               />
               <Button
