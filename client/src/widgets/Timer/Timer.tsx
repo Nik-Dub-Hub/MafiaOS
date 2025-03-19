@@ -43,7 +43,6 @@ export default function Timer({game, user }: Props) {
           //   const updatedPlayers = players.slice(1);
           //   setPlayers(updatedPlayers);
           // } else {
-          console.log('elsessssssssssss');
           
             dispatch(
               updateGameThunk({
