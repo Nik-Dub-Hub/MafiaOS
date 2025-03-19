@@ -83,6 +83,8 @@ console.log(hashedPassword, '=========================')
         user: plainUser,
       });
 
+console.log(plainUser,'========================================');
+
       res
         .status(201)
         .cookie("refreshToken", refreshToken, cookiesConfig)
@@ -135,7 +137,7 @@ console.log(hashedPassword, '=========================')
       delete plainUser.password;
 
       const { accessToken, refreshToken } = generateTokens({ user: plainUser });
-
+console.log(plainUser, "========================================");
       res
         .status(200)
         .cookie("refreshToken", refreshToken, cookiesConfig)
