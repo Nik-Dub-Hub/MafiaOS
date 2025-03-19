@@ -3,7 +3,6 @@ import { IUser } from "../model";
 import { refreshTokensThunk, signInThunk, signOutThunk, signUpThunk, updateUserThunk } from "../api";
 import { RootState } from "../../../app/store/store";
 
-
 type UserState = {
   user: IUser | null;
   error: string | null;
@@ -11,7 +10,9 @@ type UserState = {
 };
 
 const initialState: UserState = {
-  user: null,
+  user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")!)
+    : null,
   error: null,
   isLoading: false,
 };
@@ -44,6 +45,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.user = action.payload.data.user;
+        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(signInThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -58,6 +60,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.user = action.payload.data.user;
+        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(signUpThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -72,6 +75,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.user = null;
+        localStorage.removeItem("user");
       })
       .addCase(signOutThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -79,18 +83,19 @@ const userSlice = createSlice({
         state.user = null;
       })
       //* updateUserThunk
-      .addCase(updateUserThunk.pending,(state)=>{
+      .addCase(updateUserThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateUserThunk.fulfilled,(state,action)=>{
+      .addCase(updateUserThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.error = null
-        state.user = {...state.user,...action.payload.data}
+        state.error = null;
+        state.user = action.payload.data.user;
+        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
-      .addCase(updateUserThunk.rejected,(state,action)=>{
+      .addCase(updateUserThunk.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload?.error ?? 'Unknown error'
-      })
+        state.error = action.payload?.error ?? "Unknown error";
+      });
   },
 });
 
