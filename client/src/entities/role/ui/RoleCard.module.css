@@ -2,8 +2,8 @@
   position: relative;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
   align-items: center; /* Center vertically */
+  justify-content: center;
   width: 90%; /* Take up most of the screen width */
   max-width: 450px; /*  Maximum width */
   height: auto;
@@ -46,7 +46,7 @@
   letter-spacing: 1px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width <= 768px) {
   .role {
     font-size: 1.125rem;
   }
@@ -56,7 +56,7 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (width <= 480px) {
   .flipCardContainer {
     width: 95%; /* Take up more screen width on smaller screens */
     margin: 20px auto; /* Center horizontally */
