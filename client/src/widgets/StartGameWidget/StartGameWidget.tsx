@@ -24,8 +24,7 @@ export default function StartGameWidget({game}: Props) {
   const gamePlayers = useAppSelector((state) =>
     state.players.players.filter((el) => el.game_id === Number(id))
   );
-  const mafiaPlayers = gamePlayers.filter((player) => player.role_id === 3);
-  console.log(mafiaPlayers, 'мафия плэер музыка ');
+  // const mafiaPlayers = gamePlayers.filter((player) => player.role_id === 3);
   if (!user) {
     return <div>Пользователь не авторизован</div>;
   }
