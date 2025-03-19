@@ -4,7 +4,6 @@ import { getAllRolesThunk } from "@/entities/role";
 import { showAlert } from "@/features/alerts";
 import { CLIENT_ROUTES } from "@/shared/enums/clientRoutes";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
-import DailyVotingWidget from "@/widgets/DailyVotingWidget/DailyVotingWidget";
 import WaitingGameWidget from "@/widgets/WaitingGameWidget/WaitingGameWidget";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -105,23 +104,9 @@ export default function GamePage() {
           game_id={game.id}
         />
       )}
-      {game.phase === "Знакомство" && (
-        <StartGameWidget game={game} />
-      )}
-      {game.phase === "Ночное голосование " && (
-        <DailyVotingWidget
-          players={currentPlayers}
-          currentUser={user!}
-          game_id={game.id}
-   
-        />
-      )}
-      {game.phase === "Дневное голосование" && (
-        <DailyVotingWidget
-          players={currentPlayers}
-          currentUser={user!}
-          game_id={game.id}
-        
+      {game.phase !== "Ожидание" && (
+        <StartGameWidget
+          game={game}
         />
       )}
     </div>
