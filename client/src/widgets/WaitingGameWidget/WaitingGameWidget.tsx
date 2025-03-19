@@ -105,6 +105,8 @@ export default function WaitingGameWidget({
       const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
       const newTime = indexToValue(newIndex); // Преобразуем индекс в значение
       setTimeLimit(newTime); // Обновляем состояние
+    console.log(event);
+    
     },
     []
   );
