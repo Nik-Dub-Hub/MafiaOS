@@ -18,6 +18,7 @@ import { showAlert } from "@/features/alerts";
 import { CircularProgress } from "@mui/material";
 import { updateGameThunk } from "@/entities/game";
 import { IRole } from "@/entities/role";
+import { Counter } from "../Counter/Counter";
 
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -152,20 +153,24 @@ export default function WaitingGameWidget({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexDirection:'column',
+        gap:'30px',
         height: "100vh",
         padding: "0 30px",
+        position:'relative',
+        top:'-90px',
       }}
     >
+      <Counter/>
       <Box
         sx={{
           width: 300,
-          maxHeight: "30vh", // Максимальная высота виджета
           backgroundColor: "gray",
           borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+          boxShadow: "0 4px 8px rgba(255, 171, 14, 0.99)",
           padding: 2,
           display: "flex",
-          flexDirection: "column", // Устанавливаем вертикальное направление для содержимого
+          flexDirection: "column",
         }}
       >
         <Typography
@@ -190,7 +195,7 @@ export default function WaitingGameWidget({
               <List
                 sx={{
                   backgroundColor: "#f5f5f5",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                  boxShadow: "0 4px 8px rgba(250, 163, 1, 0.57)",
                   margin: "16px 0",
                   flexGrow: 1, // Позволяет списку занимать доступное пространство
                   minHeight: "50%", // Устанавливает минимальную высоту на 50%
@@ -203,7 +208,7 @@ export default function WaitingGameWidget({
                     <ListItemAvatar>
                       <UserAvatar />
                     </ListItemAvatar>
-                    <ListItemText primary={player.User.username} />
+                    <ListItemText primary={player.User.username} sx={{color:"black",}}/>
                   </ListItem>
                 ))}
               </List>

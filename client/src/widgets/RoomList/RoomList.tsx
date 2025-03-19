@@ -56,7 +56,7 @@ export default function RoomList() {
                       </div>
                     </div>
                     <span className={styles.listItemText}>
-                      Комната номер {game.id}
+                      Комната номер {game.id} <br/> Владелец {game.User.username}
                     </span>
                     <button
                       className={styles.iconButton}

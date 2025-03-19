@@ -6,6 +6,7 @@ interface ServerToClientEvents {
 
 interface ClientToServerEvents {
   increment: () => void;
+  decrement: () => void
 }
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
