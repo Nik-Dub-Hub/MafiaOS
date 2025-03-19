@@ -18,6 +18,7 @@ export default function GamePage() {
     state.games.games.find((g) => g.id === +(id || 0))
   );
   const [isLoading, setIsLoading] = useState(true);
+  const [isPlayersLoaded, setIsPlayersLoaded] = useState(false);
   const currentPlayers = useAppSelector((state) =>
     state.players.players.filter((p) => p.game_id === Number(id))
   );
@@ -38,7 +39,10 @@ export default function GamePage() {
           await dispatch(setGameThunk());
         }
 
-        if (game && user) {
+        await dispatch(getAllPlayerThunk()); // Загрузить игроков
+        setIsPlayersLoaded(true); // Установить флаг загрузки игроков
+
+        if (game && user && isPlayersLoaded) {
           const isPlayerExists = currentPlayers.some(
             (player) => player.user_id === user.id
           );
@@ -72,8 +76,7 @@ export default function GamePage() {
     };
 
     initializeGame();
-  }, [id, game, user, dispatch]);
-// console.log(game?.phase);
+  }, [id, game, user, dispatch, isPlayersLoaded]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -90,7 +93,7 @@ export default function GamePage() {
       interval = setInterval(fetchPlayers, 1000);
     }
     return () => clearInterval(interval);
-  }, []);
+  }, [game]);
 
   if (isLoading) return <div>Загрузка...</div>;
   if (!game) return <div>Игра не найдена</div>;
@@ -104,11 +107,7 @@ export default function GamePage() {
           game_id={game.id}
         />
       )}
-      {game.phase !== "Ожидание" && (
-        <StartGameWidget
-          game={game}
-        />
-      )}
+      {game.phase !== "Ожидание" && <StartGameWidget game={game} />}
     </div>
   );
 }
