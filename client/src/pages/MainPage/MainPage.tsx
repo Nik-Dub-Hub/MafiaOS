@@ -6,6 +6,7 @@ import PlayModal from "@/features/modal/PlayModal/PlayModal";
 import style from "./MainPage.module.css";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { showAlert } from "@/features/alerts";
+import Welcome from "@/widgets/WelcomeMainWidget/WelcomeMainWidget";
 
 export function MainPage() {
   const [isPlayModalOpen, setIsPlayModalOpen] = useState(false);
@@ -29,7 +30,7 @@ export function MainPage() {
 
   return (
     <div className={style.container}>
-      <h4>Инновационное веб-приложение для захватывающей игры с друзьями</h4>
+      <Welcome/>
       <div className={style.buttonContainer}>
         {user && (
           <button className={style.button} onClick={handlePlayClick}>

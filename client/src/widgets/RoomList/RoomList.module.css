@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: center;
   width: auto;
-  height: auto;
-  text-align: center;
   width: 90%;
-  margin: auto;
+  height: auto;
   height: 90vh;
+  margin: auto;
+  text-align: center;
 }
 
 .box {
@@ -16,7 +16,7 @@
   margin-bottom: 24px;
   background-color: gray;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(250, 157, 17, 0.925);
+  box-shadow: 0 4px 8px rgb(250 157 17 / 92.5%);
 }
 
 .textField {
@@ -34,7 +34,7 @@
   text-align: center;
   background-color: gray;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(250, 157, 17, 0.925);
+  box-shadow: 0 4px 8px rgb(250 157 17 / 92.5%);
 }
 
 .grid {
@@ -70,7 +70,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px;
-  border: 2px solid rgb(161, 132, 35);
+  border: 2px solid rgb(161 132 35);
 }
 
 .listItemAvatar .avatar {
