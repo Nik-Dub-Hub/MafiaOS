@@ -9,10 +9,8 @@ import ResultModal from "../../features/modal/ResultModal/ResultModal";
 
 type Props = {
   game: IGame;
-  game: IGame;
 };
 
-export default function StartGameWidget({ game }: Props) {
 export default function StartGameWidget({ game }: Props) {
   const { id } = useParams();
   const { user } = useAppSelector((state) => state.user);
