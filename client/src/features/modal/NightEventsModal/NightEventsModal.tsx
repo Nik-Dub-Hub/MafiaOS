@@ -1,32 +1,54 @@
-import React from 'react';
-import styles from './NightEventsModal.module.css';
+import React, { useEffect } from "react";
+import styles from "./NightEventsModal.module.css";
+import { IGame } from "@/entities/game";
 
 interface NightEventsModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    events: string[];
+  isOpen: boolean;
+  onClose: () => void;
+  DidPlayer: string;
+  game: IGame;
 }
 
-const NightEventsModal: React.FC<NightEventsModalProps> = ({ isOpen, onClose, events }) => {
-    if (!isOpen) {
-        return null;
+const NightEventsModal: React.FC<NightEventsModalProps> = ({
+  isOpen,
+  onClose,
+  DidPlayer,
+  game,
+}) => {
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isOpen) {
+      timer = setTimeout(() => {
+        onClose();
+      }, 3000);
     }
+    return () => clearTimeout(timer);
+  }, [isOpen, onClose]);
 
-    return (
-        <div className={styles.modalOverlay}>
-            <div className={styles.modalContent}>
-                <span className={styles.closeButton} onClick={onClose}>
-                    &times;
-                </span>
-                <h2 className={styles.modalTitle}>События ночи</h2>
-                <ul className={styles.eventList}>
-                    {events.map((event, index) => (
-                        <li key={index}>{event}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
+  if (!isOpen) {
+    return null;
+  }
+
+  const getModalTitle = () => {
+    if (game.phase === "Ночное голосование") {
+      return "События ночи";
+    } else if (game.phase === "Дневное голосование") {
+      return "События дня";
+    }
+    return "События";
+  };
+
+  return (
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
+        <span className={styles.closeButton} onClick={onClose}>
+          &times;
+        </span>
+        <h2 className={styles.modalTitle}>{getModalTitle()}</h2>
+        <ul className={styles.eventList}>Был убит {DidPlayer}</ul>
+      </div>
+    </div>
+  );
 };
 
 export default NightEventsModal;
