@@ -4,8 +4,11 @@ import "react-circular-progressbar/dist/styles.css";
 import styles from "./Timer.module.css";
 import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
 import { clearVotingThunk, IGame, updateGameThunk } from "@/entities/game";
+import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
+import { clearVotingThunk, IGame, updateGameThunk } from "@/entities/game";
 import { IUser } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import NightEventsModal from "@/features/modal/NightEventsModal/NightEventsModal";
 import NightEventsModal from "@/features/modal/NightEventsModal/NightEventsModal";
 
 type Props = {
@@ -17,6 +20,11 @@ type Props = {
 export default function Timer({ game, user, gamePlayers }: Props) {
   const dispatch = useAppDispatch();
   const [phaseCounter, setPhaseCounter] = useState(0);
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    killedPlayer: "",
+  });
+
   const [modalState, setModalState] = useState({
     isOpen: false,
     killedPlayer: "",
@@ -136,6 +144,7 @@ export default function Timer({ game, user, gamePlayers }: Props) {
       ? (game.currentTime / game.discussionTime) * 100
       : 0;
 
+
   return (
     <div className={styles.timer}>
       <CircularProgressbar
@@ -169,6 +178,13 @@ export default function Timer({ game, user, gamePlayers }: Props) {
           </button>
         </div>
       )}
+
+      <NightEventsModal
+        isOpen={modalState.isOpen}
+        onClose={() => setModalState({ isOpen: false, killedPlayer: "" })}
+        DidPlayer={modalState.killedPlayer}
+        game={game!}
+      />
 
       <NightEventsModal
         isOpen={modalState.isOpen}

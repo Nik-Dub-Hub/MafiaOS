@@ -14,9 +14,23 @@ export default function RoomList() {
   const games = useAppSelector((state) => state.games.games);
 
   
-  useEffect(() => {
-    dispatch(setGameThunk());
-  }, [dispatch]);
+   useEffect(() => {
+     const updateGames = async () => {
+       try {
+         await dispatch(setGameThunk());
+       } catch (error) {
+         console.error("Ошибка обновления игр:", error);
+       }
+     };
+
+     updateGames(); 
+
+     const intervalId = setInterval(updateGames, 1000); 
+
+     return () => {
+       clearInterval(intervalId); 
+     };
+   }, [dispatch]);
   
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput((prev) => ({ ...prev, [event.target.name]: event.target.value }));
