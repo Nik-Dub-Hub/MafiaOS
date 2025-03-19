@@ -13,10 +13,10 @@ type Props = {
   user: IUser;
 };
 
-export default function Timer({ gamePlayers, game, user }: Props) {
-  const [players, setPlayers] = useState<PlayerArrayType>(
-    gamePlayers?.sort() || []
-  );
+export default function Timer({game, user }: Props) {
+  // const [players, setPlayers] = useState<PlayerArrayType>(
+  //   gamePlayers?.sort() || []
+  // );
   const dispatch = useAppDispatch();
   const [phaseCounter, setPhaseCounter] = useState(0);
   const permanentPhase = [
