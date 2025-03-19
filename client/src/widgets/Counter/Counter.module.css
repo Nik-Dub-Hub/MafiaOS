@@ -1,9 +1,8 @@
 .counter {
   max-width: 300px;
   padding: 20px;
-  margin: 0 auto;
+  width: 110%;
 
-  /* background-color: #000000;  */
   color: #fc0; /* Желтый текст */
   text-align: center;
   border-radius: 10px;

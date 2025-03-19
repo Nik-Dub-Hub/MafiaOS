@@ -57,13 +57,11 @@ class AuthController {
           );
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-console.log(hashedPassword, '=========================')
       const newUser = await UserService.create({
         username,
         email: normalizedEmail,
         password: hashedPassword,
       });
-      console.log(newUser, '==================================')
       if (!newUser) {
         return res
           .status(400)

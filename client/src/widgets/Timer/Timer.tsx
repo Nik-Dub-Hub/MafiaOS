@@ -26,9 +26,10 @@ export default function Timer({game, user }: Props) {
   ];
   useEffect(() => {
     let interval: NodeJS.Timeout;
+if(user.id === game?.owner_id){
 
-    if (game && game.isRunning) {
-      interval = setInterval(() => {
+  if (game && game.isRunning) {
+    interval = setInterval(() => {
         if (game.currentTime && game.currentTime > 0) {
           dispatch(
             updateGameThunk({
@@ -55,22 +56,23 @@ export default function Timer({game, user }: Props) {
         
             } else {
               setPhaseCounter(0); 
-             
+              
             }
-          // }
-          
-          dispatch(
-            updateGameThunk({
-              id: game.id,
-              updateData: {
-                currentTime: game.discussionTime,
-              },
-            })
-          );
-        }
-      }, 1000);
+            // }
+            
+            dispatch(
+              updateGameThunk({
+                id: game.id,
+                updateData: {
+                  currentTime: game.discussionTime,
+                },
+              })
+            );
+          }
+        }, 1000);
+      }
+      return () => clearInterval(interval);
     }
-    return () => clearInterval(interval);
   }, [game, dispatch]);
 
   const handleStartStop = async (running: boolean) => {
