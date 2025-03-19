@@ -28,6 +28,7 @@ export default function Timer({ game, user, gamePlayers }: Props) {
     "Дневное голосование",
   ];
 
+  // Функция для поиска наиболее часто встречающегося числа в массиве
   function findMostFrequentNumber(arr: number[]): number | null {
     if (arr.length === 0) return null;
 
@@ -43,6 +44,7 @@ export default function Timer({ game, user, gamePlayers }: Props) {
     return Number(mostFrequent);
   }
 
+  // Функция для получения имени игрока по его ID
   function getNameById(id: number): string | undefined {
     const player = gamePlayers?.find((player) => player.id === id);
     return player ? player.User.username : undefined;
@@ -51,26 +53,30 @@ export default function Timer({ game, user, gamePlayers }: Props) {
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    if (game && game.isRunning) {
-      interval = setInterval(() => {
+    const updateGamePhase = async () => {
+      if (game && game.isRunning) {
+        // Если время еще не истекло, уменьшаем текущее время на 1 секунду
         if (game.currentTime && game.currentTime > 0) {
-          dispatch(
+          await dispatch(
             updateGameThunk({
               id: game.id,
               updateData: {
-                currentTime: game.currentTime - 2,
+                currentTime: game.currentTime - 1,
               },
             })
           );
         } else {
-          dispatch(
+          // Если время истекло, переходим к следующей фазе
+          await dispatch(
             updateGameThunk({
               id: game.id,
               updateData: { phase: permanentPhase[phaseCounter] },
             })
           );
 
+          // Если это не последняя фаза, увеличиваем счетчик фаз
           if (phaseCounter !== 2) {
+            // Если фаза "Ночное голосование" или "Дневное голосование", обрабатываем голосование
             if (
               game.phase === "Ночное голосование" ||
               game.phase === "Дневное голосование"
@@ -79,28 +85,35 @@ export default function Timer({ game, user, gamePlayers }: Props) {
               if (idDidPlayer !== null && idDidPlayer !== undefined) {
                 const DidPlayer =
                   getNameById(idDidPlayer) || "Неизвестный игрок";
-                dispatch(
+
+                // Обновляем состояние игрока (убиваем его)
+                await dispatch(
                   updatePlayerThunk({
                     id: idDidPlayer,
                     updateData: { isAlive: false },
                   })
                 );
 
+                // Показываем модальное окно с результатами голосования
                 setModalState({ isOpen: true, killedPlayer: DidPlayer });
 
+                // Скрываем модальное окно через 3 секунды
                 setTimeout(() => {
                   setModalState({ isOpen: false, killedPlayer: "" });
                 }, 3000);
               }
             }
 
+            // Увеличиваем счетчик фаз и очищаем голосование
             setPhaseCounter((prev) => prev + 1);
-            dispatch(clearVotingThunk(game.id));
+            await dispatch(clearVotingThunk(game.id));
           } else {
+            // Если это последняя фаза, сбрасываем счетчик фаз
             setPhaseCounter(0);
           }
 
-          dispatch(
+          // Сбрасываем текущее время для следующей фазы
+          await dispatch(
             updateGameThunk({
               id: game.id,
               updateData: {
@@ -109,11 +122,23 @@ export default function Timer({ game, user, gamePlayers }: Props) {
             })
           );
         }
-      }, 1000);
+      }
+    };
+
+    // Запускаем интервал только если игра запущена
+    if (game && game.isRunning) {
+      interval = setInterval(updateGamePhase, 1000);
     }
-    return () => clearInterval(interval);
+
+    // Очищаем интервал при размонтировании компонента
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [game, dispatch, phaseCounter]);
 
+  // Функция для запуска или остановки игры
   const handleStartStop = async (running: boolean) => {
     if (game) {
       try {
@@ -131,6 +156,7 @@ export default function Timer({ game, user, gamePlayers }: Props) {
     }
   };
 
+  // Вычисляем прогресс для отображения в CircularProgressbar
   const progress =
     game && game.discussionTime && game.currentTime
       ? (game.currentTime / game.discussionTime) * 100

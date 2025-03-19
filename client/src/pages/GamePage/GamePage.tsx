@@ -76,7 +76,7 @@ export default function GamePage() {
     };
 
     initializeGame();
-  }, [id, game, user, dispatch, isPlayersLoaded]);
+  }, [id, game, user, dispatch]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
