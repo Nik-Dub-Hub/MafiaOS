@@ -18,6 +18,7 @@ export default function GamePage() {
     state.games.games.find((g) => g.id === +(id || 0))
   );
   const [isLoading, setIsLoading] = useState(true);
+  const [isPlayersLoaded, setIsPlayersLoaded] = useState(false);
   const currentPlayers = useAppSelector((state) =>
     state.players.players.filter((p) => p.game_id === Number(id))
   );
@@ -38,7 +39,10 @@ export default function GamePage() {
           await dispatch(setGameThunk());
         }
 
-        if (game && user) {
+        await dispatch(getAllPlayerThunk());
+        setIsPlayersLoaded(true);
+
+        if (game && user && isPlayersLoaded) {
           const isPlayerExists = currentPlayers.some(
             (player) => player.user_id === user.id
           );
@@ -72,8 +76,7 @@ export default function GamePage() {
     };
 
     initializeGame();
-  }, [id, game, user, dispatch]);
-  // console.log(game?.phase);
+  }, [id, game, user, dispatch, isPlayersLoaded]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;

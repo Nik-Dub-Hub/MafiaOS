@@ -205,7 +205,7 @@ export default function WaitingGameWidget({
           textAlign="center"
           sx={{ mb: 2 }}
         >
-          Комната для игры
+          Комната для игры №{game_id}
         </Typography>
 
         <Grid container spacing={2}>

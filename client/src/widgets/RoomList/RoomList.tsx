@@ -40,8 +40,8 @@ export default function RoomList() {
     navigate(`/game/${id}`);
   };
 
-  const waitingGames = games.filter((game) => game.phase === "Ожидание");
-
+  const waitingGames = games.filter((game) => game.phase === "Ожидание")
+  waitingGames.sort((a,b)=> a.id - b.id)
   return (
     <div className={styles.wrapper}>
       <div className={styles.box}>
