@@ -127,7 +127,7 @@ export default function Timer({ game, user, gamePlayers }: Props) {
 
     // Запускаем интервал только если игра запущена
     if (game && game.isRunning) {
-      interval = setInterval(updateGamePhase, 1000);
+      interval = setInterval(updateGamePhase, 700);
     }
 
     // Очищаем интервал при размонтировании компонента

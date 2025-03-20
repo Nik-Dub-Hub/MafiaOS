@@ -278,7 +278,7 @@ const handleSliderChange = useCallback(
                   "&:hover": { backgroundColor: "#7a732e" },
                 }}
                 onClick={updateStateGame}
-                disabled={players.length < 4}
+                // disabled={players.length < 4}
               >
                 Начать играть
               </Button>
