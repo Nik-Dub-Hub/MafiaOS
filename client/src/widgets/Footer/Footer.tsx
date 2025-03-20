@@ -100,7 +100,7 @@ export default function Footer() {
       <LoginModal
         open={isLoginModalOpen}
         onClose={toggleLoginModal}
-        onOpenRegisterModal={toggleLoginModal}
+        onOpenRegisterModal={toggleRegisterModal}
       />
       <RegisterModal
         open={isRegisterModalOpen}
