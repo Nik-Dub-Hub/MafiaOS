@@ -3,19 +3,18 @@ const { Player, User, Game, Role } = require("../db/models");
 class PlayerService {
   static async getAll() {
     return await Player.findAll({
-      include: [{ model: User,attributes:['id','username'] }, { model: Game }, { model: Role,attributes:['id','name'] }],
+      include: [{ model: User,attributes:['id','username','img'] }, { model: Game }, { model: Role,attributes:['id','name'] }],
     });
   }
 
   static async findPlayerByGameAndUserId({game_id,user_id}){
-    
     return await Player.findOne({where:{user_id,game_id}})
   }
 
   static async getById(id) {
     return await Player.findByPk(id, {
       include: [
-        { model: User, attributes: ["id", "username"] },
+        { model: User, attributes: ["id", "username",'img'] },
         { model: Game },
         { model: Role, attributes: ["id", "name"] },
       ],

@@ -52,7 +52,7 @@ export default function DailyVotingWidget({ gamePlayers, game, user }: Props) {
           }}
         >
           <ListItemAvatar>
-            <UserAvatar />
+            <UserAvatar user={player.User}/>
           </ListItemAvatar>
           <ListItemText
             primary={player.User.username}

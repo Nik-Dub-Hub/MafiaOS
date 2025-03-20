@@ -10,9 +10,7 @@ type UserState = {
 };
 
 const initialState: UserState = {
-  user: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user")!)
-    : null,
+  user: null,
   error: null,
   isLoading: false,
 };
@@ -60,7 +58,6 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.user = action.payload.data.user;
-        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(signUpThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -90,7 +87,6 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.user = action.payload.data.user;
-        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(updateUserThunk.rejected, (state, action) => {
         state.isLoading = false;

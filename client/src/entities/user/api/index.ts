@@ -3,10 +3,9 @@ import { IServerResponse } from "@/shared/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   IAuthResponseData,
-  //IUser,
   IUserSignInData,
   IUserSignUpData,
-  //IUserUpdateData,
+  IUserUpdateData,
 } from "../model";
 import { AxiosError } from "axios";
 
@@ -95,11 +94,10 @@ export const signOutThunk = createAsyncThunk<
 
 export const updateUserThunk = createAsyncThunk<
   IServerResponse<IAuthResponseData>,
-  { id: number; updateData: FormData },
+  { id: number; updateData:FormData | IUserUpdateData },
   { rejectValue: IServerResponse }
 >(USER_THUNK_TYPES.UPDATE, async ({ id, updateData }, { rejectWithValue }) => {
   try {
-    console.log(`Updating user ${id} with data:`, updateData);
     const { data } = await axiosInstance.put<
       IServerResponse<IAuthResponseData>
     >( 

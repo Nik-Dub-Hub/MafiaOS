@@ -59,7 +59,7 @@ export default function Footer() {
             className={styles.iconContainer}
             onClick={() => setIsStatsModalOpen(true)}
           >
-            <UserAvatar />
+            <UserAvatar user={user}/>
             <span className={styles.iconText}>{user.username}</span>
           </div>
           {id === undefined && (

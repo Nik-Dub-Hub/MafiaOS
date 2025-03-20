@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import Timer from "../Timer/Timer";
 import RoleCard from "@/entities/role/ui/RoleCard";
@@ -16,7 +16,6 @@ export default function StartGameWidget({ game }: Props) {
   const { user } = useAppSelector((state) => state.user);
   const [winner, setWinner] = useState<"mafia" | "civilians" | "">("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const player = useAppSelector((state) =>
     state.players.players.find(
       (p) => p.user_id === user?.id && p.game_id === Number(id)
@@ -34,6 +33,7 @@ export default function StartGameWidget({ game }: Props) {
   const civiliansPlayers = gamePlayers.filter(
     (player) => player.role_id !== 3 && player.isAlive
   );
+
 
   useEffect(() => {
     if (game.phase !== "Ожидание" && game.phase !== "Знакомство") {

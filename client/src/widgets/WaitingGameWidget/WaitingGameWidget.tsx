@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useCallback, useState } from "react";
-import { UserAvatar } from "@/entities/user";
+import {  UserAvatar } from "@/entities/user";
 import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
 import { showAlert } from "@/features/alerts";
 import { updateGameThunk } from "@/entities/game";
@@ -71,7 +71,7 @@ const indexToValue = (index: number) => {
     case 2:
       return 60;
     default:
-      return 30;
+      return 30; 
   }
 };
 
@@ -84,7 +84,7 @@ const valueToIndex = (value: number) => {
     case 60:
       return 2;
     default:
-      return 1;
+      return 1; 
   }
 };
 
@@ -143,7 +143,8 @@ const handleSliderChange = useCallback(
               id: player.id,
               updateData: { role_id: playerRoles[index] },
             })
-          ).unwrap()
+          ).unwrap(),
+          
         )
       );
     } catch {
@@ -237,7 +238,7 @@ const handleSliderChange = useCallback(
                     }}
                   >
                     <ListItemAvatar>
-                      <UserAvatar />
+                      <UserAvatar user={player.User}/>
                     </ListItemAvatar>
                     <ListItemText
                       primary={player.User.username}

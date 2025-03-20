@@ -16,7 +16,7 @@ function verifyAccessToken(req,res,next){
               403,
               "Invalid access token",
               null,
-              "Invalid access token"
+              message
             )
           );
     }

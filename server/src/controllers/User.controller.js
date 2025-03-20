@@ -9,19 +9,31 @@ function isValid(id) {
 }
 
 class UserController {
-  static async updatedUser(req, res) {
+  static async updateUser(req, res) {
     const { id } = req.params;
-    const { email, username } = req.body;
+    const {
+      email,
+      username,
+      civilianCount,
+      mafiaCount,
+      doctorCount,
+      ladyCount,
+    } = req.body;
 
+    
     if (!isValid(id)) {
       return res.status(400).json(formatResponse(400, "Invalid user ID"));
     }
-
-    const { isValid: isEmailValid, error } = validateEmail({ email });
-    if (!isEmailValid) {
-      return res
-        .status(400)
-        .json(formatResponse(400, "Validation error", null, error));
+    if (email !== undefined) {
+      const isEmailValid = validateEmail(email);
+      
+      if (!isEmailValid) {
+        return res
+          .status(400)
+          .json(
+            formatResponse(400, "Validation email error", null, "Validation email error")
+          );
+      }
     }
 
     try {
@@ -31,59 +43,41 @@ class UserController {
         return res.status(404).json(formatResponse(404, "User not found"));
       }
 
-      const updatedUser = await UserService.update(+id, { email, username });
-      res.status(200).json(formatResponse(200, "success", updatedUser));
-    } catch ({ message }) {
-      console.error(message);
-      res
-        .status(500)
-        .json(formatResponse(500, "Internal server error", null, message));
-    }
-  }
-
-  static async uploadAvatar(req, res) {
-    const { id } = req.params;
-
-    if (!isValid(id)) {
-      return res.status(400).json(formatResponse(400, "Invalid user ID"));
-    }
-
-    if (!req.file) {
-      return res.status(400).json(formatResponse(400, "No image uploaded"));
-    }
-
-    try {
-      const existingUser = await UserService.getById(+id);
-
-      if (!existingUser) {
-        return res.status(404).json(formatResponse(404, "User not found"));
+      let avatarUrl = existingUser.img;
+      if (req.file) {
+        avatarUrl = `/static/images/avatars/${req.file.filename}`;
       }
-      const avatarUrl = `/static/images/avatars/${req.file.filename}`;
 
-      const updatedUser = await UserService.updateAvatar(+id, avatarUrl);
-    const plainUser = updatedUser.get({ plain: true });
-    delete plainUser.password;
+      const updatedUser = await UserService.update(+id, {
+        email,
+        username,
+        img: avatarUrl,
+        civilianCount,
+        mafiaCount,
+        doctorCount,
+        ladyCount,
+      });
 
-     const { accessToken, refreshToken } = generateTokens({ user: plainUser });
- 
+      const plainUser = updatedUser.get({ plain: true });
+      delete plainUser.password;
+
+      const { accessToken, refreshToken } = generateTokens({ user: plainUser });
 
       res
         .status(200)
         .cookie("refreshToken", refreshToken, cookiesConfig)
         .json(
-          formatResponse(200, "Avatar uploaded successfully", {
-            user: updatedUser,
+          formatResponse(200, "User updated successfully", {
+            user: plainUser,
             accessToken,
             refreshToken,
           })
         );
-    } catch (error) {
-      console.error(error);
+    } catch ({ message }) {
+      console.error(message);
       res
         .status(500)
-        .json(
-          formatResponse(500, "Internal server error", null, error.message)
-        );
+        .json(formatResponse(500, "Internal server error", null, message));
     }
   }
 }

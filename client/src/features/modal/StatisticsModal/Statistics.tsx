@@ -134,7 +134,7 @@ export default function Statistics({ open, onClose }: StatisticsModalProps) {
             </Box>
           </>
         ) : (
-          <Profile onClose={handleProfileClose} userId={0} />
+          <Profile onClose={handleProfileClose} user={user!} />
         )}
       </Box>
     </Modal>
