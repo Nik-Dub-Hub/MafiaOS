@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import styles from "./NightEventsModal.module.css";
+import styles from "./EventsModal.module.css";
 import { IGame } from "@/entities/game";
 
-interface NightEventsModalProps {
+interface EventsModalProps {
   isOpen: boolean;
   onClose: () => void;
   DidPlayer: string;
   game: IGame;
 }
 
-const NightEventsModal: React.FC<NightEventsModalProps> = ({
+const EventsModal: React.FC<EventsModalProps> = ({
   isOpen,
   onClose,
   DidPlayer,
@@ -51,4 +51,4 @@ const NightEventsModal: React.FC<NightEventsModalProps> = ({
   );
 };
 
-export default NightEventsModal;
+export default EventsModal;

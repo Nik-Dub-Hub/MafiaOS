@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ResultModal.module.css";
 import { IPlayer } from "@/entities/player";
@@ -18,6 +18,21 @@ const ResultModal: React.FC<ResultModalProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isOpen) {
+      timer = setTimeout(() => {
+        handleGoHome();
+      }, 20000); // 20 секунд
+    }
+    return () => clearTimeout(timer);
+  }, [isOpen]);
+
+  const handleGoHome = () => {
+    navigate("/");
+    onClose();
+  };
+
   if (!isOpen) {
     return null;
   }
@@ -35,18 +50,13 @@ const ResultModal: React.FC<ResultModalProps> = ({
     message = "Тебя прикончили";
   }
 
-  const handleGoHome = () => {
-    navigate("/");
-    onClose();
-  };
-
   return (
     <div className={styles.modalOverlay}>
       <div className={`${styles.modalContent} ${modalClass}`}>
-        <span className={styles.closeButton} onClick={onClose}>
+        <span className={styles.closeButton} onClick={handleGoHome}>
           &times;
         </span>
-        <h2 className={styles.modalTitle}>Статус игры</h2>
+        <h2 className={styles.modalTitle}>Конец игры</h2>
         <p className={styles.modalMessage}>{message}</p>
         <button className={styles.homeButton} onClick={handleGoHome}>
           На главную
