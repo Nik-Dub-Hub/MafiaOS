@@ -6,7 +6,7 @@ import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
 import { clearVotingThunk, IGame, updateGameThunk } from "@/entities/game";
 import { IUser } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
-import NightEventsModal from "@/features/modal/NightEventsModal/NightEventsModal";
+import EventsModal from "@/features/modal/EventsModal/EventsModal";
 
 type Props = {
   gamePlayers?: PlayerArrayType;
@@ -196,7 +196,7 @@ export default function Timer({ game, user, gamePlayers }: Props) {
         </div>
       )}
 
-      <NightEventsModal
+      <EventsModal
         isOpen={modalState.isOpen}
         onClose={() => setModalState({ isOpen: false, killedPlayer: "" })}
         DidPlayer={modalState.killedPlayer}
