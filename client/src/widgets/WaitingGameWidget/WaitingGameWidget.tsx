@@ -71,7 +71,7 @@ const indexToValue = (index: number) => {
     case 2:
       return 60;
     default:
-      return 30; 
+      return 30;
   }
 };
 
@@ -84,7 +84,7 @@ const valueToIndex = (value: number) => {
     case 60:
       return 2;
     default:
-      return 1; 
+      return 1;
   }
 };
 
@@ -278,7 +278,7 @@ const handleSliderChange = useCallback(
                   "&:hover": { backgroundColor: "#7a732e" },
                 }}
                 onClick={updateStateGame}
-                disabled={players.length < 4}
+                // disabled={players.length < 4}
               >
                 Начать играть
               </Button>
