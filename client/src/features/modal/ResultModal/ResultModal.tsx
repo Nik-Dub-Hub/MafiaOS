@@ -2,12 +2,15 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ResultModal.module.css";
 import { IPlayer } from "@/entities/player";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import { deleteGameThunk } from "@/entities/game"; // Импортируйте deleteGameThunk
 
 interface ResultModalProps {
   isOpen: boolean;
   onClose: () => void;
   winner: "mafia" | "civilians" | "";
   player: IPlayer;
+  gameId: number; // Добавьте prop для ID игры
 }
 
 const ResultModal: React.FC<ResultModalProps> = ({
@@ -15,18 +18,21 @@ const ResultModal: React.FC<ResultModalProps> = ({
   onClose,
   winner,
   player,
+  gameId,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (isOpen) {
+    if (isOpen && winner) {
       timer = setTimeout(() => {
         handleGoHome();
-      }, 20000); // 20 секунд
+        dispatch(deleteGameThunk(gameId));
+      }, 23000); 
     }
     return () => clearTimeout(timer);
-  }, [isOpen]);
+  }, [isOpen, winner]);
 
   const handleGoHome = () => {
     navigate("/");

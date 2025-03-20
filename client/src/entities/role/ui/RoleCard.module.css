@@ -2,14 +2,15 @@
   position: relative;
   box-sizing: border-box;
   display: flex;
-  align-items: center; /* Center vertically */
+  align-items: center;
   justify-content: center;
-  width: 90%; /* Take up most of the screen width */
-  max-width: 450px; /*  Maximum width */
-  height: auto;
-  margin: 50px auto 60px; /* Center horizontally and add margin top and bottom */
+  width: 90%;
+  max-width: 450px;
+  height: 500px;
+  margin: 20px auto 60px; 
   text-align: right;
 }
+
 
 .role,
 .title,
