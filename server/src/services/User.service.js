@@ -22,23 +22,23 @@ class UserService {
       if (newUserData.email !== undefined) {
         user.email = newUserData.email;
       }
+      if (newUserData.civilianCount !== undefined) {
+        user.civilianCount = newUserData.civilianCount;
+      }
+      if (newUserData.mafiaCount !== undefined) {
+        user.mafiaCount = newUserData.mafiaCount;
+      }
+      if (newUserData.doctorCount !== undefined) {
+        user.doctorCount = newUserData.doctorCount;
+      }
+      if (newUserData.ladyCount !== undefined) {
+        user.ladyCount = newUserData.ladyCount;
+      }
+      if (newUserData.img !== undefined) {
+        user.img = newUserData.img;
+      }
       await user.save();
     }
-    return user;
-  }
-
-  static async updateAvatar(id, avatarUrl) {
-    const user = await User.findByPk(id);
-
-    
-    if (!user) {
-      return null;
-    }
-    user.img = avatarUrl;
-    await user.save();
-    console.log(avatarUrl);
-    
-        console.log(user);
     return user;
   }
 }

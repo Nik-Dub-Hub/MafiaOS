@@ -62,7 +62,6 @@ const marks = [
   { value: 2, label: "60s" },
 ];
 
-// Функция для преобразования индекса в значение
 const indexToValue = (index: number) => {
   switch (index) {
     case 0:
@@ -72,11 +71,10 @@ const indexToValue = (index: number) => {
     case 2:
       return 60;
     default:
-      return 30; // По умолчанию возвращаем 30s
+      return 30; 
   }
 };
 
-// Функция для преобразования значения в индекс
 const valueToIndex = (value: number) => {
   switch (value) {
     case 10:
@@ -232,7 +230,7 @@ export default function WaitingGameWidget({
                 {players.map((player, index) => (
                   <ListItem key={index}>
                     <ListItemAvatar>
-                      <UserAvatar />
+                      <UserAvatar user={player.User}/>
                     </ListItemAvatar>
                     <ListItemText
                       primary={player.User.username}

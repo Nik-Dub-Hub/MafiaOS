@@ -8,9 +8,13 @@ export interface IUserSignUpData extends IUserSignInData {
 }
 
 export interface IUserUpdateData {
-  username: string;
-  email:string;
-  password: string;
+  username?: string;
+  email?: string;
+  img?: string;
+  civilianCount?: number;
+  ladyCount?: number;
+  mafiaCount?: number;
+  doctorCount?: number;
 }
 
 export interface IUser {
@@ -29,4 +33,10 @@ export interface IUser {
 export interface IAuthResponseData {
   user: IUser;
   accessToken: string;
+}
+
+export interface IUserForProps {
+  id:number
+  username:string
+  img:string
 }

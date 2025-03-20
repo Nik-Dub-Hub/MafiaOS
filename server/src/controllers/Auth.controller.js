@@ -42,7 +42,6 @@ class AuthController {
     const normalizedEmail = email.toLowerCase();
     try {
       const userFound = await UserService.getByEmail(normalizedEmail);
-      console.log(userFound);
       
       if (userFound) {
         return res
@@ -81,7 +80,6 @@ class AuthController {
         user: plainUser,
       });
 
-console.log(plainUser,'========================================');
 
       res
         .status(201)
@@ -135,7 +133,6 @@ console.log(plainUser,'========================================');
       delete plainUser.password;
 
       const { accessToken, refreshToken } = generateTokens({ user: plainUser });
-console.log(plainUser, "========================================");
       res
         .status(200)
         .cookie("refreshToken", refreshToken, cookiesConfig)

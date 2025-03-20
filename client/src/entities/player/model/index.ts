@@ -10,6 +10,7 @@ export interface IPlayer {
   User:{
     id:number
     username:string
+    img:string
   },
   Game:{
     id:number;
