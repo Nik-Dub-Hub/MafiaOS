@@ -97,7 +97,7 @@ export default function WaitingGameWidget({
   const [timeLimit, setTimeLimit] = useState<number>(30);
   const user = useAppSelector((state) => state.user.user);
   const roles = useAppSelector((state) => state.roles.roles);
-
+  
 const handleSliderChange = useCallback(
   (_event: Event, newValue: number | number[]) => {
     const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
@@ -216,8 +216,7 @@ const handleSliderChange = useCallback(
             <Demo>
               <List
                 sx={{
-                  backgroundColor: "#f5f5f5",
-                  boxShadow: "0 4px 8px rgba(250, 163, 1, 0.57)",
+                  backgroundColor: "gray",
                   margin: "16px 0",
                   flexGrow: 1,
                   minHeight: "50%",
@@ -226,7 +225,17 @@ const handleSliderChange = useCallback(
                 }}
               >
                 {players.map((player, index) => (
-                  <ListItem key={index}>
+                  <ListItem
+                    key={index}
+                    sx={{
+                      backgroundColor: "#f5f5f5",
+                      color: "black",
+                      border: "1px rgba(250, 163, 1, 0.57) solid",
+                      borderRadius: "8px",
+                      margin: "5px 0px",
+                      boxShadow: "1px 2px 3px rgba(250, 163, 1, 0.57)",
+                    }}
+                  >
                     <ListItemAvatar>
                       <UserAvatar />
                     </ListItemAvatar>
