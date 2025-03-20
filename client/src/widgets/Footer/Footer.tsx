@@ -1,7 +1,7 @@
 import { signOutThunk, UserAvatar } from "@/entities/user";
 import { showAlert } from "@/features/alerts";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
-import { useState } from "react";
+import React, { useCallback } from "react";
 import styles from "./Footer.module.css";
 import LoginModal from "@/features/modal/LoginModal/LoginModal";
 import RegisterModal from "@/features/modal/RegisterModal/RegisterModal";
@@ -9,16 +9,18 @@ import { useNavigate } from "react-router";
 import { CLIENT_ROUTES } from "@/shared/enums/clientRoutes";
 import Statistics from "../../features/modal/StatisticsModal/Statistics";
 import RulesGame from "@/features/modal/RulesModal/Rules";
+import { useParams } from "react-router-dom";
 
 export default function Footer() {
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
+  const [isRulesModalOpen, setIsRulesModalOpen] = React.useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = React.useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = React.useState(false);
+  const [isStatsModalOpen, setIsStatsModalOpen] = React.useState(false);
+  const { id } = useParams();
 
   const toggleRulesModal = () => {
     setIsRulesModalOpen((prev) => !prev);
@@ -27,7 +29,7 @@ export default function Footer() {
   const toggleLoginModal = () => setIsLoginModalOpen((prev) => !prev);
   const toggleRegisterModal = () => setIsRegisterModalOpen((prev) => !prev);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(signOutThunk());
     dispatch(
       showAlert({
@@ -36,18 +38,20 @@ export default function Footer() {
       })
     );
     navigate(CLIENT_ROUTES.MAIN);
-  };
+  }, [dispatch, navigate]);
 
   return (
     <footer className={styles.footer}>
       {user ? (
         <div className={styles.userActions}>
-          <div className={styles.iconContainer}onClick={() => setIsRulesModalOpen(true)}>
+          <div
+            className={styles.iconContainer}
+            onClick={() => setIsRulesModalOpen(true)}
+          >
             <img
               src="/question.svg"
               alt="question"
               className={styles.rulesButton}
-              
             />
             <span className={styles.iconText}>rules</span>
           </div>
@@ -58,15 +62,17 @@ export default function Footer() {
             <UserAvatar user={user}/>
             <span className={styles.iconText}>{user.username}</span>
           </div>
-          <div className={styles.iconContainer}>
-            <img
-              src="/logout.svg"
-              alt="logout"
-              className={styles.logoutButton}
-              onClick={handleLogout}
-            />
-            <span className={styles.iconText}>sign out</span>
-          </div>
+          {id === undefined && (
+            <div className={styles.iconContainer}>
+              <img
+                src="/logout.svg"
+                alt="logout"
+                className={styles.logoutButton}
+                onClick={handleLogout}
+              />
+              <span className={styles.iconText}>sign out</span>
+            </div>
+          )}
         </div>
       ) : (
         <div className={styles.authButtons}>

@@ -80,6 +80,7 @@ export default function StartGameWidget({ game }: Props) {
         onClose={() => setIsModalOpen(false)}
         player={player}
         winner={winner}
+        gameId={game.id} 
       />
     </div>
   );

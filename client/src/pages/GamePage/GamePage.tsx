@@ -8,6 +8,9 @@ import WaitingGameWidget from "@/widgets/WaitingGameWidget/WaitingGameWidget";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import StartGameWidget from "@/widgets/StartGameWidget/StartGameWidget";
+import styles from "./GamePage.module.css";
+
+
 
 export default function GamePage() {
   const { id } = useParams();
@@ -99,7 +102,7 @@ export default function GamePage() {
   if (!game) return <div>Игра не найдена</div>;
 
   return (
-    <div>
+    <div className={styles.container}>
       {game.phase === "Ожидание" && (
         <WaitingGameWidget
           owner_id={game.owner_id}

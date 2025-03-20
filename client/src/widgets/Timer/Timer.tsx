@@ -6,7 +6,7 @@ import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
 import { clearVotingThunk, IGame, updateGameThunk } from "@/entities/game";
 import { IUser } from "@/entities/user";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
-import NightEventsModal from "@/features/modal/NightEventsModal/NightEventsModal";
+import EventsModal from "@/features/modal/EventsModal/EventsModal";
 
 type Props = {
   gamePlayers?: PlayerArrayType;
@@ -138,15 +138,15 @@ export default function Timer({ game, user, gamePlayers }: Props) {
     };
   }, [game, dispatch, phaseCounter]);
 
-  // Функция для запуска или остановки игры
-  const handleStartStop = async (running: boolean) => {
-    if (game) {
+  // Функция для запуска или остановки игры при клике на таймер
+  const handleTimerClick = async () => {
+    if (game && user.id === game.owner_id) {
       try {
         await dispatch(
           updateGameThunk({
             id: game.id,
             updateData: {
-              isRunning: running,
+              isRunning: !game.isRunning,
             },
           })
         );
@@ -163,7 +163,11 @@ export default function Timer({ game, user, gamePlayers }: Props) {
       : 0;
 
   return (
-    <div className={styles.timer}>
+    <div
+      className={styles.timer}
+      onClick={handleTimerClick}
+      style={{ cursor: user.id === game?.owner_id ? "pointer" : "default" }}
+    >
       <CircularProgressbar
         value={progress}
         styles={{
@@ -178,25 +182,16 @@ export default function Timer({ game, user, gamePlayers }: Props) {
       <div className={styles.timerText}>
         {game?.phase}
         <br />
+        {user.id === game?.owner_id && (
+          <small>
+            {game?.isRunning
+              ? "Нажмите, чтобы остановить"
+              : "Нажмите, чтобы продолжить"}
+          </small>
+        )}
       </div>
-      {user && user.id === game?.owner_id && (
-        <div className={styles.controls}>
-          <button
-            onClick={() => handleStartStop(true)}
-            disabled={game?.isRunning}
-          >
-            Продолжить
-          </button>
-          <button
-            onClick={() => handleStartStop(false)}
-            disabled={!game?.isRunning}
-          >
-            Остановить
-          </button>
-        </div>
-      )}
 
-      <NightEventsModal
+      <EventsModal
         isOpen={modalState.isOpen}
         onClose={() => setModalState({ isOpen: false, killedPlayer: "" })}
         DidPlayer={modalState.killedPlayer}
