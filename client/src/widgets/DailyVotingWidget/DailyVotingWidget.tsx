@@ -1,9 +1,10 @@
 import { IPlayer, PlayerArrayType } from "@/entities/player";
 import { IUser, UserAvatar } from "@/entities/user";
-import { useAppDispatch} from "@/shared/hooks/reduxHooks";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import { useState } from "react";
 import { addVoteThunk, IGame } from "@/entities/game";
+import styles from "./DailyVoting.module.css";
 
 type Props = {
   gamePlayers: PlayerArrayType;
@@ -21,7 +22,7 @@ export default function DailyVotingWidget({ gamePlayers, game, user }: Props) {
 
   const handlePlayerClick = (playerId: number) => {
     if (hasVoted) {
-      console.log("Вы уже голосовали.");
+      console.log("Ваш голос уже учтён.");
       return;
     }
 
@@ -37,22 +38,38 @@ export default function DailyVotingWidget({ gamePlayers, game, user }: Props) {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {alivePlayers.map((player: IPlayer, index: number) => (
-        <ListItem key={index} onClick={() => handlePlayerClick(player.id)}>
+        <ListItem
+          key={index}
+          onClick={() => handlePlayerClick(player.id)}
+          sx={{
+            backgroundColor: "white",
+            margin: "5px",
+            borderRadius: "8px",
+            boxShadow: "1px 2px 3px rgba(250, 163, 1, 0.57)",
+            border: "1px rgba(250, 163, 1, 0.57) solid",
+          }}
+        >
           <ListItemAvatar>
             <UserAvatar user={player.User}/>
           </ListItemAvatar>
           <ListItemText
             primary={player.User.username}
             secondary={
-              hasVoted ? "Вы уже голосовали" : "Нажмите, чтобы проголосовать"
+              hasVoted ? "Ваш голос уже учтён" : "Нажмите, чтобы проголосовать"
             }
+            sx={{
+              color: "black",
+              "& .MuiTypography-body2": {
+                color: "grey",
+              },
+            }}
           />
         </ListItem>
       ))}
       {game && (
-        <div>
+        <div className={styles.voted}>
           Текущие голоса:{" "}
           {(game.voting || [])
             .map((votedId) => {

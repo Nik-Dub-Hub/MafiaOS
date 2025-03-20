@@ -97,16 +97,15 @@ export default function WaitingGameWidget({
   const [timeLimit, setTimeLimit] = useState<number>(30);
   const user = useAppSelector((state) => state.user.user);
   const roles = useAppSelector((state) => state.roles.roles);
-
-  const handleSliderChange = useCallback(
-    (event: Event, newValue: number | number[]) => {
-      const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
-      const newTime = indexToValue(newIndex); 
-      setTimeLimit(newTime); 
-    console.log(event); 
-    },
-    []
-  );
+  
+const handleSliderChange = useCallback(
+  (_event: Event, newValue: number | number[]) => {
+    const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
+    const newTime = indexToValue(newIndex);
+    setTimeLimit(newTime);
+  },
+  []
+);
 
   const updateGame = () => {
     dispatch(
@@ -151,7 +150,7 @@ export default function WaitingGameWidget({
     } catch {
       dispatch(
         showAlert({
-          message: `Ошибка при старте игры: `,
+          message: `Ошибка при старте игры`,
           status: "error",
         })
       );
@@ -218,8 +217,7 @@ export default function WaitingGameWidget({
             <Demo>
               <List
                 sx={{
-                  backgroundColor: "#f5f5f5",
-                  boxShadow: "0 4px 8px rgba(250, 163, 1, 0.57)",
+                  backgroundColor: "gray",
                   margin: "16px 0",
                   flexGrow: 1,
                   minHeight: "50%",
@@ -228,7 +226,17 @@ export default function WaitingGameWidget({
                 }}
               >
                 {players.map((player, index) => (
-                  <ListItem key={index}>
+                  <ListItem
+                    key={index}
+                    sx={{
+                      backgroundColor: "#f5f5f5",
+                      color: "black",
+                      border: "1px rgba(250, 163, 1, 0.57) solid",
+                      borderRadius: "8px",
+                      margin: "5px 0px",
+                      boxShadow: "1px 2px 3px rgba(250, 163, 1, 0.57)",
+                    }}
+                  >
                     <ListItemAvatar>
                       <UserAvatar user={player.User}/>
                     </ListItemAvatar>
@@ -249,26 +257,28 @@ export default function WaitingGameWidget({
               <Typography variant="subtitle1" textAlign="center">
                 Установите время:
               </Typography>
-              <YellowSlider
-                value={valueToIndex(timeLimit)} 
-                onChange={handleSliderChange}
-                aria-labelledby="time-limit-slider"
-                min={0}
-                max={2}
-                step={1}
-                valueLabelDisplay="auto"
-                marks={marks}
-                scale={(index) => indexToValue(index)} 
-                sx={{ my: 3 }}
-              />
+              <Box sx={{ mt: 0, mb: '0px', pt: 0, pb: '0px' }}>
+                <YellowSlider
+                  value={valueToIndex(timeLimit)}
+                  onChange={handleSliderChange}
+                  aria-labelledby="time-limit-slider"
+                  min={0}
+                  max={2}
+                  step={1}
+                  valueLabelDisplay="auto"
+                  marks={marks}
+                  scale={(index) => indexToValue(index)}
+                />
+              </Box>
               <Button
                 variant="contained"
                 sx={{
-                  backgroundColor: "#bdb141",
-                  color: "black",
+                  backgroundColor: players.length >= 4 ? "#bdb141" : "#d3d3d3",
+                  color: players.length >= 4 ? "black" : "#a9a9a9",
                   "&:hover": { backgroundColor: "#7a732e" },
                 }}
                 onClick={updateStateGame}
+                disabled={players.length < 4}
               >
                 Начать играть
               </Button>
