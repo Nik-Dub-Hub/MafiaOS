@@ -28,7 +28,7 @@ const schema = yup.object().shape({
 
 interface UserProfileUpdateFormProps {
   onClose: () => void;
-  user: IUser;
+  user: IUser 
 }
 
 export default function UserProfileUpdateForm({

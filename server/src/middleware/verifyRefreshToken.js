@@ -4,12 +4,9 @@ const formatResponse = require("../utils/formatResponse");
 
 function verifyRefreshToken(req, res, next) {
   try {
-    console.log(req.cookies);
-
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
-      console.log("No refreshToken found in cookies");
       return res
         .status(401)
         .json(
@@ -34,7 +31,7 @@ function verifyRefreshToken(req, res, next) {
           401,
           "Invalid refresh token",
           null,
-          "Invalid refresh token"
+          message
         )
       );
   }

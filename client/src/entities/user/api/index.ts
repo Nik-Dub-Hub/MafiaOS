@@ -94,7 +94,7 @@ export const signOutThunk = createAsyncThunk<
 
 export const updateUserThunk = createAsyncThunk<
   IServerResponse<IAuthResponseData>,
-  { id: number; updateData: IUserUpdateData },
+  { id: number; updateData:FormData | IUserUpdateData },
   { rejectValue: IServerResponse }
 >(USER_THUNK_TYPES.UPDATE, async ({ id, updateData }, { rejectWithValue }) => {
   try {

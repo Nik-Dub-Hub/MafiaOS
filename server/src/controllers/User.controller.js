@@ -20,7 +20,6 @@ class UserController {
       ladyCount,
     } = req.body;
 
-    console.log(req.body,'LLLLLLLLLLLLLLLLL');
     
     if (!isValid(id)) {
       return res.status(400).json(formatResponse(400, "Invalid user ID"));

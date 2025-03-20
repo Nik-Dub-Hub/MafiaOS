@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { useCallback, useState } from "react";
-import { UserAvatar } from "@/entities/user";
+import {  UserAvatar } from "@/entities/user";
 import { PlayerArrayType, updatePlayerThunk } from "@/entities/player";
 import { showAlert } from "@/features/alerts";
 import { updateGameThunk } from "@/entities/game";
@@ -84,7 +84,7 @@ const valueToIndex = (value: number) => {
     case 60:
       return 2;
     default:
-      return 1; // По умолчанию возвращаем индекс для 30s
+      return 1; 
   }
 };
 
@@ -101,10 +101,9 @@ export default function WaitingGameWidget({
   const handleSliderChange = useCallback(
     (event: Event, newValue: number | number[]) => {
       const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
-      const newTime = indexToValue(newIndex); // Преобразуем индекс в значение
-      setTimeLimit(newTime); // Обновляем состояние
-    console.log(event);
-    
+      const newTime = indexToValue(newIndex); 
+      setTimeLimit(newTime); 
+    // console.log(event); 
     },
     []
   );
@@ -145,7 +144,8 @@ export default function WaitingGameWidget({
               id: player.id,
               updateData: { role_id: playerRoles[index] },
             })
-          ).unwrap()
+          ).unwrap(),
+          
         )
       );
     } catch {
@@ -250,7 +250,7 @@ export default function WaitingGameWidget({
                 Установите время:
               </Typography>
               <YellowSlider
-                value={valueToIndex(timeLimit)} // Преобразуем значение в индекс
+                value={valueToIndex(timeLimit)} 
                 onChange={handleSliderChange}
                 aria-labelledby="time-limit-slider"
                 min={0}
@@ -258,7 +258,7 @@ export default function WaitingGameWidget({
                 step={1}
                 valueLabelDisplay="auto"
                 marks={marks}
-                scale={(index) => indexToValue(index)} // Преобразуем индекс в значение для отображения
+                scale={(index) => indexToValue(index)} 
                 sx={{ my: 3 }}
               />
               <Button
