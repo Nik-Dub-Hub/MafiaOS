@@ -7,6 +7,7 @@ import ChoicePage from "@/pages/ChoicePage/ChoicePage";
 import WidthChecker from "@/widgets/WidthTracker/WidthChecker";
 import TooWidePage from "@/pages/TooWidePage/TooWidePage";
 import GamePage from "@/pages/GamePage/GamePage";
+
 export default function router() {
   return (
     <BrowserRouter>

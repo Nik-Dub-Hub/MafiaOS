@@ -62,7 +62,6 @@ const marks = [
   { value: 2, label: "60s" },
 ];
 
-// Функция для преобразования индекса в значение
 const indexToValue = (index: number) => {
   switch (index) {
     case 0:
@@ -72,11 +71,10 @@ const indexToValue = (index: number) => {
     case 2:
       return 60;
     default:
-      return 30; // По умолчанию возвращаем 30s
+      return 30;
   }
 };
 
-// Функция для преобразования значения в индекс
 const valueToIndex = (value: number) => {
   switch (value) {
     case 10:
@@ -86,7 +84,7 @@ const valueToIndex = (value: number) => {
     case 60:
       return 2;
     default:
-      return 1; // По умолчанию возвращаем индекс для 30s
+      return 1;
   }
 };
 
@@ -100,16 +98,14 @@ export default function WaitingGameWidget({
   const user = useAppSelector((state) => state.user.user);
   const roles = useAppSelector((state) => state.roles.roles);
 
-  const handleSliderChange = useCallback(
-    (event: Event, newValue: number | number[]) => {
-      const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
-      const newTime = indexToValue(newIndex); // Преобразуем индекс в значение
-      setTimeLimit(newTime); // Обновляем состояние
-    console.log(event);
-    
-    },
-    []
-  );
+const handleSliderChange = useCallback(
+  (_event: Event, newValue: number | number[]) => {
+    const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
+    const newTime = indexToValue(newIndex);
+    setTimeLimit(newTime);
+  },
+  []
+);
 
   const updateGame = () => {
     dispatch(
@@ -153,7 +149,7 @@ export default function WaitingGameWidget({
     } catch {
       dispatch(
         showAlert({
-          message: `Ошибка при старте игры: `,
+          message: `Ошибка при старте игры`,
           status: "error",
         })
       );
@@ -251,26 +247,28 @@ export default function WaitingGameWidget({
               <Typography variant="subtitle1" textAlign="center">
                 Установите время:
               </Typography>
-              <YellowSlider
-                value={valueToIndex(timeLimit)} // Преобразуем значение в индекс
-                onChange={handleSliderChange}
-                aria-labelledby="time-limit-slider"
-                min={0}
-                max={2}
-                step={1}
-                valueLabelDisplay="auto"
-                marks={marks}
-                scale={(index) => indexToValue(index)} // Преобразуем индекс в значение для отображения
-                sx={{ my: 3 }}
-              />
+              <Box sx={{ mt: 0, mb: '0px', pt: 0, pb: '0px' }}>
+                <YellowSlider
+                  value={valueToIndex(timeLimit)}
+                  onChange={handleSliderChange}
+                  aria-labelledby="time-limit-slider"
+                  min={0}
+                  max={2}
+                  step={1}
+                  valueLabelDisplay="auto"
+                  marks={marks}
+                  scale={(index) => indexToValue(index)}
+                />
+              </Box>
               <Button
                 variant="contained"
                 sx={{
-                  backgroundColor: "#bdb141",
-                  color: "black",
+                  backgroundColor: players.length >= 4 ? "#bdb141" : "#d3d3d3",
+                  color: players.length >= 4 ? "black" : "#a9a9a9",
                   "&:hover": { backgroundColor: "#7a732e" },
                 }}
                 onClick={updateStateGame}
+                disabled={players.length < 4}
               >
                 Начать играть
               </Button>
