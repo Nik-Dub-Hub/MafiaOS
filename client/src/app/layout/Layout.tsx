@@ -1,6 +1,6 @@
 import { refreshTokensThunk } from "@/entities/user";
 import { AlertContainer } from "@/features/alerts";
-import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import { useAppDispatch} from "@/shared/hooks/reduxHooks";
 import Footer from "@/widgets/Footer/Footer";
 import Header from "@/widgets/Header/Header";
 import { useEffect } from "react";
@@ -12,12 +12,13 @@ export default function Layout() {
   useEffect(() => {
     dispatch(refreshTokensThunk());
   }, [dispatch]);
+
   return (
     <>
-      <Header/>
-      <AlertContainer/>
-      <Outlet/>
-      <Footer/>
+      <Header />
+      <AlertContainer />
+      <Outlet />
+      <Footer />
     </>
-  )
+  );
 }
