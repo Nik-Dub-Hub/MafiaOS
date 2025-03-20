@@ -85,7 +85,6 @@ class GameController {
   static async updateGame(req, res) {
     const { id } = req.params;
     const { phase, discussionTime,isRunning,currentTime,key } = req.body;
-    // const { user } = res.locals;
 
     if (!isValidId(id)) {
       return res.status(400).json(formatResponse(400, "Invalid game ID"));
@@ -97,14 +96,6 @@ class GameController {
       if (!existingGame) {
         return res.status(404).json(formatResponse(404, "Game not found"));
       }
-
-      // if (existingGame.owner_id !== user.id) {
-      //   return res
-      //     .status(400)
-      //     .json(
-      //       formatResponse(400, "You don't have permission to update this game")
-      //     );
-      // }
 
       const updatedGame = await GameService.update(+id, {
         phase,
