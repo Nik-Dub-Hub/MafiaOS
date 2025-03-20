@@ -103,7 +103,7 @@ export default function WaitingGameWidget({
       const newIndex = Array.isArray(newValue) ? newValue[0] : newValue;
       const newTime = indexToValue(newIndex); 
       setTimeLimit(newTime); 
-    // console.log(event); 
+    console.log(event); 
     },
     []
   );
